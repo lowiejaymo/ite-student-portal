@@ -69,6 +69,15 @@
           </a>
         </li>
 
+        <li class="nav-item ">
+          <a href="admin-events.php" class="nav-link">
+            <i class="nav-icon fas fa-solid fa-calendar-week"></i>
+            <p>
+              Events
+            </p>
+          </a>
+        </li>
+
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

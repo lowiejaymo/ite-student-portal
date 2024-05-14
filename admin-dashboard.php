@@ -146,7 +146,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                           $BSITProgramrow = mysqli_fetch_assoc($BSITProgramresult);
                           $BSITProgramcount = $BSITProgramrow['count'];
 
-                          $BSITpercentage = ($BSITProgramcount / $studentcount) * 100;
+                          $BSITpercentage = ($studentcount != 0) ? ($BSITProgramcount / $studentcount) * 100 : 0;
                           ?>
                           <span
                             class="float-right"><b><?php echo $BSITProgramcount; ?></b> student/s</span>
@@ -165,7 +165,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                           $BSCSProgramrow = mysqli_fetch_assoc($BSCSProgramresult);
                           $BSCSProgramcount = $BSCSProgramrow['count'];
 
-                          $BSCSpercentage = ($BSCSProgramcount / $studentcount) * 100;
+                          $BSCSpercentage = ($studentcount != 0) ? ($BSCSProgramcount / $studentcount) * 100 : 0;
                           ?>
                           <span
                             class="float-right"><b><?php echo $BSCSProgramcount; ?></b> student/s</span>
@@ -184,7 +184,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                           $BLISProgramrow = mysqli_fetch_assoc($BLISProgramresult);
                           $BLISProgramcount = $BLISProgramrow['count'];
 
-                          $BLISpercentage = ($BLISProgramcount / $studentcount) * 100;
+                          $BLISpercentage = ($studentcount != 0) ? ($BLISProgramcount / $studentcount) * 100 : 0;
                           ?>
                           <span
                             class="float-right"><b><?php echo $BLISProgramcount; ?></b> student/s</span>
@@ -203,7 +203,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                           $ACTProgramrow = mysqli_fetch_assoc($ACTProgramresult);
                           $ACTProgramcount = $ACTProgramrow['count'];
 
-                          $ACTpercentage = ($ACTProgramcount / $studentcount) * 100;
+                          $ACTpercentage = ($studentcount != 0) ? ($ACTProgramcount / $studentcount) * 100 : 0;
                           ?>
                           <span
                             class="float-right"><b><?php echo $ACTProgramcount; ?></b> student/s</span>
@@ -236,7 +236,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                           $firstYearrow = mysqli_fetch_assoc($firstYearresult);
                           $firstYearcount = $firstYearrow['count'];
 
-                          $firstYearpercentage = ($firstYearcount / $studentcount) * 100;
+                          $firstYearpercentage = ($studentcount != 0) ? ($firstYearcount / $studentcount) * 100 : 0;
+
                           $formattedfirstYearpercentage = number_format($firstYearpercentage, 2);
                           ?>
                           <span class="description-percentage"><?php echo $formattedfirstYearpercentage; ?>%</span>
@@ -255,7 +256,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                           $secondYearrow = mysqli_fetch_assoc($secondYearresult);
                           $secondYearcount = $secondYearrow['count'];
 
-                          $secondYearpercentage = ($secondYearcount / $studentcount) * 100;
+                          $secondYearpercentage = ($studentcount != 0) ? ($secondYearcount / $studentcount) * 100 : 0;
                           $formattedsecondYearpercentage = number_format($secondYearpercentage, 2);
                           ?>
                           <span class="description-percentage"><?php echo $formattedsecondYearpercentage; ?>%</span>
@@ -274,7 +275,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                           $thirdYearrow = mysqli_fetch_assoc($thirdYearresult);
                           $thirdYearcount = $thirdYearrow['count'];
 
-                          $thirdYearpercentage = ($thirdYearcount / $studentcount) * 100;
+                          $thirdYearpercentage = ($studentcount != 0) ? ($thirdYearcount / $studentcount) * 100 : 0;
+
                           $formattedthirdYearpercentage = number_format($thirdYearpercentage, 2);
                           ?>
                           <span class="description-percentage"><?php echo $formattedthirdYearpercentage; ?>%</span>
@@ -293,7 +295,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                           $fourthYearrow = mysqli_fetch_assoc($fourthYearresult);
                           $fourthYearcount = $fourthYearrow['count'];
 
-                          $fourthYearpercentage = ($fourthYearcount / $studentcount) * 100;
+                          $fourthYearpercentage = ($studentcount != 0) ? ($fourthYearcount / $studentcount) * 100 : 0;
                           $formattedfourthYearpercentage = number_format($fourthYearpercentage, 2);
                           ?>
                           <span class="description-percentage"><?php echo $formattedfourthYearpercentage; ?>%</span>

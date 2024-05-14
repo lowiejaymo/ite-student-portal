@@ -1,7 +1,7 @@
 <?php
 session_start();
 include "indexes/db_conn.php";
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Admin'
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the role is set and it's 'Admin'
   ?>
 
   <!DOCTYPE html>
@@ -40,9 +40,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
     <div class="wrapper">
 
       <!-- Navbar -->
-      <?php include 'layout/officer-fixed-topnav.php'; ?>
+      <?php include 'layout/admin-fixed-topnav.php'; ?>
 
-      <?php include 'layout/officer-sidebar.php'; ?>
+      <?php include 'layout/admin-sidebar.php'; ?>
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
@@ -52,10 +52,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
             <div class="row mb-2 align-items-center">
               <div class="col-sm-6">
                 <h1>Add New Student</h1>
-              </div>
-              <div class="col-sm-6 text-right">
-                <a id="addNewOfficerBtn" class="btn btn-success" href="officer-student-addbulk.php"><i
-                    class="nav-icon fas fa-solid fa-plus"></i> Add Bulk Students</a>
               </div>
             </div>
           </div><!-- /.container-fluid -->
@@ -74,17 +70,24 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                     <!-- add New Subject -->
                     <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
                       New Student</h3><br>
-                    <p class="text-muted">Note: The default password is <strong>"surname + studentnumber"</strong>.</p>
-                    <hr>
 
                     <?php if (isset($_GET['newStudentError'])) { ?>
                       <div class="alert alert-danger">
                         <?php echo $_GET['newStudentError']; ?>
                       </div>
                     <?php } ?>
+                    <p class="text-muted">Note: The default password is <strong>"Lastname + studentnumber"</strong>.</p>
+                    <p>Example:</p>
+                    <ul>
+                      <li>Surname: Dela Cruz</li>
+                      <li>Student number: 1234567890</li>
+                      <li>Default Password: DelaCruz1234567890</li>
+                    </ul>
+                    <hr>
 
 
-                    <form action="indexes/officer-add-student-be.php" method="post">
+
+                    <form action="indexes/admin-add-student-be.php" method="post">
 
                       <!-- Account Number input -->
                       <label for="accountnumber" class="col-sm-4 col-form-label">Account Number</label>
@@ -200,7 +203,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                         </div>
                       </div>
 
-                      
+
                       <label for="position" class="col-sm-4 col-form-label">Gender</label>
                       <div class="form-group row">
                         <div class="col-sm-12">
@@ -254,7 +257,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
 
                       <div class="offset-sm-2 col-sm-10">
                         <button type="submit" value="Submit" name="addStudent" class="btn btn-success">Add</button>
-                        <a type="button" name="cancel" class="btn btn-secondary" href="officer-students.php">Cancel</a>
+                        <a type="button" name="cancel" class="btn btn-secondary" href="admin-students.php">Cancel</a>
                       </div>
 
                     </form>

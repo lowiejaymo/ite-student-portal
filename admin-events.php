@@ -49,13 +49,13 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
         <!-- Content Header (Page header) -->
         <div class="content-header">
           <div class="container-fluid">
-          <div class="row mb-2 align-items-center">
+            <div class="row mb-2 align-items-center">
               <div class="col-sm-6">
-                <h1>Students</h1>
+                <h1>Events</h1>
               </div>
               <div class="col-sm-6 text-right">
-                <a id="addNewOfficerBtn" class="btn btn-success" href="admin-student-addnew.php"><i
-                    class="nav-icon fas fa-solid fa-plus"></i> Add Student</a>
+                <a id="addNewOfficerBtn" class="btn btn-success" href="admin-event-addnew.php"><i
+                    class="nav-icon fas fa-solid fa-plus"></i> Add Event</a>
               </div>
             </div>
           </div><!-- /.container-fluid -->
@@ -69,120 +69,110 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
             <!-- Search Form -->
             <form method="GET">
               <div class="input-group mb-3">
-                <input type="text" name="search_input" class="form-control col-5" placeholder="Search...">
+                <input type="text" name="search_input" class="form-control col-5" placeholder="Search event name">
 
                 <div class="input-group-prepend col-2">
-                  <select name="column" class="form-control">
-                    <option value="account_number">Student Number</option>
-                    <option value="username">User Name</option>
-                    <option value="last_name">Last Name</option>
-                    <option value="first_name">First Name</option>
-                    <option value="middle_name">Middle Name</option>
-                    <option value="year_level">Year Level</option>
-                    <option value="program">Program</option>
-                  </select>
+                  <input type="date" class="form-control" name="date" id="date">
                 </div>
 
                 <div class="input-group-prepend col-2">
-                  <select name="year_level" class="form-control">
-                    <option value="">Year Level</option>
+                  <select name="school_year" class="form-control">
+                    <option value="">School Year</option>
                     <option value="">All</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
+                    <option value="2023-2024">2023-2024</option>
+                    <option value="2024-2025">2024-2025</option>
                   </select>
                 </div>
                 <div class="input-group-prepend col-2">
-                  <select name="program" class="form-control">
-                    <option value="">Program</option>
+                  <select name="semester" class="form-control">
+                    <option value="">Semester</option>
                     <option value="">All</option>
-                    <option value="BSIT">BSIT</option>
-                    <option value="BSCS">BSCS</option>
-                    <option value="BLIS">BLIS</option>
-                    <option value="ACT">ACT</option>
+                    <option value="first">First Semester</option>
+                    <option value="second">Second Semester</option>
+                    <option value="summer">Third Semester</option>
                   </select>
                 </div>
                 <div class="input-group-append col-1">
-                  <!-- Adjusted the column class to col-2 for spacing -->
                   <button class="btn btn-outline-secondary" type="submit" name="search">Search</button>
                 </div>
               </div>
             </form>
 
-            <!-- subjects table -->
+            <?php if (isset($_GET['newEventSuccess'])) { ?>
+              <div class="alert alert-success">
+                <?php echo $_GET['newEventSuccess']; ?>
+              </div>
+            <?php } ?>
+
+            <!-- Events table -->
             <table class="table">
               <thead>
                 <tr>
-                  <th class="col-2">Student Number</th>
-                  <th class="col-2">User Name</th>
-                  <th class="col-2 text-center">Last Name</th>
-                  <th class="col-2 text-center">First Name</th>
-                  <th class="col-2 text-center">Middle Name</th>
-                  <th class="col-1 text-center">Program</th>
-                  <th class="col-1 text-center">Year Level</th>
+                  <th class="col-4">Event Name</th>
+                  <th class="col-2">Date</th>
+                  <th class="col-2 text-center">School Year</th>
+                  <th class="col-2 text-center">Semester</th>
+                  <th class="col-2 text-center">Action</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
                 if (isset($_GET['search'])) {
                   $search_input = $_GET['search_input'];
-                  $column = $_GET['column'];
-                  $year_level = $_GET['year_level'];
-                  $program = $_GET['program'];
+                  $date = $_GET['date'];
+                  $school_year = $_GET['school_year'];
+                  $semester = $_GET['semester'];
 
                   $conditions = array();
 
-                  if (!empty($year_level)) {
-                    $conditions[] = "year_level = '$year_level'";
+                  if (!empty($date)) {
+                    $conditions[] = "date = '$date'";
                   }
 
-                  if (!empty($program)) {
-                    $conditions[] = "program = '$program'";
+                  if (!empty($school_year)) {
+                    $conditions[] = "school_year = '$school_year'";
                   }
 
-                  $condition_string = implode(" AND ", $conditions);
+                  if (!empty($semester)) {
+                    $conditions[] = "semester = '$semester'";
+                  }
 
-                  if (!empty($condition_string)) {
-                    $studentssql = "SELECT * FROM user WHERE $condition_string AND $column LIKE '%$search_input%' AND role = 'Student'";
+                  if (!empty($conditions)) {
+                    $condition_string = implode(" AND ", $conditions);
+                    $eventssql = "SELECT * FROM events WHERE $condition_string AND event_name LIKE '%$search_input%'";
                   } else {
-                    $studentssql = "SELECT * FROM user WHERE $column LIKE '%$search_input%' AND role = 'Student'";
+                    $eventssql = "SELECT * FROM events WHERE event_name LIKE '%$search_input%'";
                   }
                 } else {
-                  $studentssql = "SELECT * FROM user WHERE role = 'Student'";
+                  $eventssql = "SELECT * FROM events";
                 }
-                $result = $conn->query($studentssql);
+                $result = $conn->query($eventssql);
                 if ($result->num_rows > 0) {
                   while ($row = $result->fetch_assoc()) {
                     ?>
                     <tr>
                       <td class="align-middle">
-                        <?php echo $row['account_number']; ?>
+                        <?php echo $row['event_name']; ?>
                       </td>
                       <td class="align-middle">
-                        <?php echo $row['username']; ?>
+                        <?php echo $row['date']; ?>
                       </td>
                       <td class="align-middle text-center">
-                        <?php echo $row['last_name']; ?>
+                        <?php echo $row['school_year']; ?>
                       </td>
                       <td class="align-middle text-center">
-                        <?php echo $row['first_name']; ?>
+                        <?php echo $row['semester']; ?>
                       </td>
                       <td class="align-middle text-center">
-                        <?php echo $row['middle_name']; ?>
+                      <a href='admin-event-view.php?eventindex=<?php echo $row['event_indx']; ?>'
+                        class='btn btn-success btn-sm'><i class="nav-icon fas fa-solid fa-hand-pointer"></i> Select</a>
+                        <a href='#' class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
                       </td>
-                      <td class="align-middle text-center">
-                        <?php echo $row['program']; ?>
-                      </td>
-                      <td class="align-middle text-center">
-                        <?php echo $row['year_level']; ?>
-                      </td>
-
                     </tr>
                     <?php
                   }
                 } else {
-                  echo "<tr><td colspan='7'>No students found.</td></tr>";
+                  echo "<tr><td colspan='4'>No event found.</td></tr>";
                 }
                 ?>
               </tbody>
