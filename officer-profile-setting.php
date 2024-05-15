@@ -117,6 +117,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                 </a>
                                             </li>
                                             <li class="list-group-item">
+                                                <!-- Displaying Middle name -->
+                                                <b>Position</b> <a class="float-right">
+                                                    <?php echo $_SESSION['position']; ?>
+                                                </a>
+                                            </li>
+                                            <li class="list-group-item">
                                                 <!-- Displaying gender -->
                                                 <b>Gender</b> <a class="float-right">
                                                     <?php echo $_SESSION['gender']; ?>
