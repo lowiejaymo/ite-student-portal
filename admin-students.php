@@ -66,6 +66,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
         <section class="content">
           <div class="container-fluid">
 
+          <?php if (isset($_GET['newStudentSuccess'])) { ?>
+                      <div class="alert alert-success">
+                        <?php echo $_GET['newStudentSuccess']; ?>
+                      </div>
+                    <?php } ?>
+
             <!-- Search Form -->
             <form method="GET">
               <div class="input-group mb-3">

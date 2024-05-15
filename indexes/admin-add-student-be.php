@@ -96,7 +96,7 @@ if (isset($_POST['addStudent'])) {
             $result_newstudent_query = mysqli_stmt_execute($stmt_newstudent_query);
 
             if ($result_newstudent_query) {
-                header("Location: ../admin-students.php?newStudentSuccess=New Officer account created successfully");
+                header("Location: ../admin-students.php?newStudentSuccess=New Student account created successfully");
                 exit();
             } else {
                 header("Location: ../admin-student-addnew.php?newStudentError=Failed to add new student account&$user_data");

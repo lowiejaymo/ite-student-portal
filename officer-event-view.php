@@ -51,59 +51,84 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
           <div class="container-fluid">
             <div class="row mb-2 align-items-center">
               <div class="col-sm-6">
-                <h1>Add Bulk Student</h1>
+                <h1>Events</h1>
               </div>
               <div class="col-sm-6 text-right">
-                <a id="addNewOfficerBtn" class="btn btn-success" href="officer-student-addnew.php"><i
-                    class="nav-icon fas fa-solid fa-plus"></i> Add New Students</a>
+              <a id="addNewSubjectBtn" class="btn btn-secondary" href="#"><i class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Events</a>
               </div>
             </div>
           </div><!-- /.container-fluid -->
-        </div><!-- /.container-fluid -->
-
+        </div>
         <!-- /.content-header -->
 
         <!-- Main content -->
-        <!-- Main content -->
         <section class="content">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-md-8">
-                <div class="card card-primary card-outline bg-white" for="new-subject">
-                  <div class="card-header">
-                    <!-- add New Subject -->
-                    <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
-                      New Bulk Student</h3><br>
-                    <p class="text-muted">Instructions:</strong>.</p>
-                    <hr>
+          <div class="container-fluid">
 
-                    <?php if (isset($_GET['newStudentError'])) { ?>
-                      <div class="alert alert-danger">
-                        <?php echo $_GET['newStudentError']; ?>
-                      </div>
-                    <?php } ?>
-
-
-                    <form action="indexes/officer-add-student-bulk.php" method="post" enctype="multipart/form-data">
-
-                      <div class="mb-3">
-                        <!-- uploading file -->
-                        <input class="form-control" type="file" id="import_file" name='import_file'>
-                      </div>
-
-                      <div class="offset-sm-2 col-sm-10">
-                        <button type="submit" value="Submit" name="save_excel_data" class="btn btn-success">Add</button>
-                        <a type="button" name="cancel" class="btn btn-secondary" href="officer-students.php">Cancel</a>
-                      </div>
-
-                    </form>
-                  </div>
-                  <!-- /.card-body -->
+          <div class="card card-primary card-outline bg-white" for="update-profilepicture">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <!-- Image column -->
+                <div class="col-md-auto">
+                  <img src="images/calendar_avatar.webp" alt="View event avatar" style="width: 150px; height: auto;">
                 </div>
-                <!-- /.card -->
+
+                <!-- Subject information column -->
+                <div class="col-md">
+                  <div class="table-responsive">
+                    <table class="subject-info">
+                      <?php
+                      // Add the code here
+                      if (isset($_GET['eventindex'])) {
+                        $eventIndex = $_GET['eventindex'];
+                        $eventsql = "SELECT * FROM events WHERE event_indx = '$eventIndex'";
+                        $result = $conn->query($eventsql);
+
+                        if ($result && $result->num_rows > 0) {
+                          $row = $result->fetch_assoc(); // Fetching row as associative array
+                          ?>
+                          <table class="subject-info">
+                            <tr>
+                              <td class="col-md-3"><strong>Event Name:</strong></td>
+                              <td class="col-md-9">
+                                <?php echo $row['event_name']; ?>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-3"><strong>Date:</strong></td>
+                              <td class="col-md-9">
+                                <?php echo $row['date']; ?>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-3"><strong>School Year:</strong></td>
+                              <td class="col-md-9">
+                                <?php echo $row['school_year']; ?>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-3"><strong>Semester:</strong></td>
+                              <td class="col-md-9">
+                              <?php echo $row['semester']; ?>
+                              </td>
+                            </tr>
+                            
+                          </table>
+
+                          <?php
+                        } else {
+                          echo "Event may not be existing.";
+                        }
+                      }
+                      ?>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+
+          </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
       </div>

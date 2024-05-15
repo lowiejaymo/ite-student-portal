@@ -51,59 +51,92 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
           <div class="container-fluid">
             <div class="row mb-2 align-items-center">
               <div class="col-sm-6">
-                <h1>Add Bulk Student</h1>
+                <h1>Events</h1>
               </div>
               <div class="col-sm-6 text-right">
-                <a id="addNewOfficerBtn" class="btn btn-success" href="officer-student-addnew.php"><i
-                    class="nav-icon fas fa-solid fa-plus"></i> Add New Students</a>
+                <a id="addNewSubjectBtn" class="btn btn-secondary" href="officer-students.php"><i
+                    class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Student</a>
               </div>
             </div>
           </div><!-- /.container-fluid -->
-        </div><!-- /.container-fluid -->
-
+        </div>
         <!-- /.content-header -->
 
         <!-- Main content -->
-        <!-- Main content -->
         <section class="content">
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-md-8">
-                <div class="card card-primary card-outline bg-white" for="new-subject">
-                  <div class="card-header">
-                    <!-- add New Subject -->
-                    <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
-                      New Bulk Student</h3><br>
-                    <p class="text-muted">Instructions:</strong>.</p>
-                    <hr>
+          <div class="container-fluid">
 
-                    <?php if (isset($_GET['newStudentError'])) { ?>
-                      <div class="alert alert-danger">
-                        <?php echo $_GET['newStudentError']; ?>
-                      </div>
-                    <?php } ?>
+          <div class="card card-primary card-outline bg-white" for="update-profilepicture">
+              <div class="card-header">
+                <div class="row align-items-center">
+                  <?php
+                  if (isset($_GET['accountindx'])) {
+                    $accountindx = $_GET['accountindx'];
+                    $studentsql = "SELECT * FROM user WHERE account_indx = '$accountindx'";
+                    $result = $conn->query($studentsql);
 
-
-                    <form action="indexes/officer-add-student-bulk.php" method="post" enctype="multipart/form-data">
-
-                      <div class="mb-3">
-                        <!-- uploading file -->
-                        <input class="form-control" type="file" id="import_file" name='import_file'>
+                    if ($result && $result->num_rows > 0) {
+                      $row = $result->fetch_assoc(); // Fetching row as associative array
+                      ?>
+                      <!-- Image column -->
+                      <div class="col-md-auto">
+                        <img src="profile-pictures/<?php echo $row['profile_picture']; ?>" alt="Student Profile Picture" style="height: 10rem; width: 10rem; border-radius: 50%; object-fit: cover;">
                       </div>
 
-                      <div class="offset-sm-2 col-sm-10">
-                        <button type="submit" value="Submit" name="save_excel_data" class="btn btn-success">Add</button>
-                        <a type="button" name="cancel" class="btn btn-secondary" href="officer-students.php">Cancel</a>
+                      <!-- Subject information column -->
+                      <div class="col-md">
+                        <div class="table-responsive">
+                          <table class="subject-info">
+                            <tr>
+                              <td class="col-md-2"><strong>Student Number:</strong></td>
+                              <td class="col-md-3"><?php echo $row['account_number']; ?></td>
+                              <td class="col-md-2"><strong>Program:</strong></td>
+                              <td class="col-md-3"><?php echo $row['program']; ?></td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-2"><strong>Username:</strong></td>
+                              <td class="col-md-3"><?php echo $row['username']; ?></td>
+                              <td class="col-md-2"><strong>Year Level:</strong></td>
+                              <td class="col-md-3"><?php echo $row['year_level']; ?></td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-2"><strong>Last Name:</strong></td>
+                              <td class="col-md-3"><?php echo $row['last_name']; ?></td>
+                              <td class="col-md-2"><strong>QR Code:</strong></td>
+                              <td class="col-md-3"><?php echo $row['code']; ?></td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-2"><strong>First Name:</strong></td>
+                              <td class="col-md-3"><?php echo $row['first_name']; ?></td>
+                              <td class="col-md-2"><strong>Email:</strong></td>
+                              <td class="col-md-3"><?php echo $row['email']; ?></td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-2"><strong>Middle Name:</strong></td>
+                              <td class="col-md-3"><?php echo $row['middle_name']; ?></td>
+                              <td class="col-md-2"><strong>Phone Number:</strong></td>
+                              <td class="col-md-3"><?php echo $row['phone_number']; ?></td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-2"><strong>Gender:</strong></td>
+                              <td class="col-md-3"><?php echo $row['gender']; ?></td>
+                              <td class="col-md-2"><strong>Enrolled By:</strong></td>
+                              <td class="col-md-3"><?php echo $row['enrolled_by']; ?></td>
+                            </tr>
+                          </table>
+                        </div>
                       </div>
-
-                    </form>
-                  </div>
-                  <!-- /.card-body -->
+                      <?php
+                    } else {
+                      echo "<div class='col-md-12'>Event may not be existing.</div>";
+                    }
+                  }
+                  ?>
                 </div>
-                <!-- /.card -->
               </div>
             </div>
-          </div>
+
+          </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
       </div>

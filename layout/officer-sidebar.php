@@ -20,9 +20,12 @@
             alt="User profile picture" style="height: 2.3rem; width: 2.3rem; border-radius: 50%; object-fit: cover;">
         </a>
       </div>
+      <?php
+      $last_name_initial = substr($_SESSION['last_name'], 0, 1);
+      ?>
       <div class="info ml-2">
-        <a href="officer-profile.php" class="d-block">
-          Hello, <?php echo $_SESSION['username']; ?>!
+        <a href="admin-profile.php" class="d-block">
+          Hello, <?php echo $_SESSION['first_name']; ?> <?php echo $last_name_initial; ?>.!
         </a>
       </div>
     </div>
