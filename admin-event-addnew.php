@@ -82,7 +82,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                       </div>
                     <?php } ?>
 
-                      <!-- Account Number input -->
                       <label for="eventname" class="col-sm-4 col-form-label">Event Name</label>
                       <div class="form-group row">
                         <div class="col-sm-12">

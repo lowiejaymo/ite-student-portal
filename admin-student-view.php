@@ -39,6 +39,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
+      <!-- Navbar -->
       <?php include 'layout/admin-fixed-topnav.php'; ?>
 
       <?php include 'layout/admin-sidebar.php'; ?>
@@ -46,94 +47,97 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
+        <div class="content-header">
           <div class="container-fluid">
             <div class="row mb-2 align-items-center">
               <div class="col-sm-6">
-                <h1>Officer</h1>
+                <h1>Events</h1>
               </div>
               <div class="col-sm-6 text-right">
-                <a id="addNewOfficerBtn" class="btn btn-success" href="admin-officer-addnew.php"><i
-                    class="nav-icon fas fa-solid fa-plus"></i> Add New Officer</a>
+                <a id="addNewSubjectBtn" class="btn btn-secondary" href="admin-students.php"><i
+                    class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Student</a>
               </div>
-            </div>
-
-            <?php if (isset($_GET['newOfficerSuccess'])) { ?>
-              <div class="alert alert-success">
-                <?php echo $_GET['newOfficerSuccess']; ?>
-              </div>
-            <?php } ?>
-
-            <?php if (isset($_GET['deleteOfficerSuccess'])) { ?>
-              <div class="alert alert-success">
-                <?php echo $_GET['deleteOfficerSuccess']; ?>
-              </div>
-            <?php } ?>
-
-            <div class="row">
-
-              <?php
-              $sql = "SELECT * FROM user WHERE role = 'Officer'";
-              $result = mysqli_query($conn, $sql);
-
-              if (!$result) {
-                // Error handling for SQL query execution
-                echo "Error: " . mysqli_error($conn);
-                exit();
-              }
-              ?>
-
-              <?php
-              if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                  $account_indx = $row['account_indx'];
-                  $username = $row['username'];
-                  $account_number = $row['account_number'];
-                  $position = $row['position'];
-                  $last_name = $row['last_name'];
-                  $first_name = $row['first_name'];
-                  $profile_picture = $row['profile_picture'];
-                  ?>
-                  <div class="col-md-2">
-                    <div class="card">
-                      <br>
-                      <div class="text-center"> <!-- Center the column content -->
-                        <!-- displaying the profile picture -->
-                        <img class="profile-picture img-fluid"
-                          style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover;"
-                          src="profile-pictures/<?php echo $profile_picture; ?>?<?php echo time(); ?>"
-                          alt="User profile picture">
-                      </div>
-                      <div class="card-body">
-                        <h1 class="text-center" style="font-size: 24px;"><strong><?php echo $username; ?></strong></h1>
-                        <hr>
-                        Account Number: <?php echo $account_number; ?><br>
-                        Position: <?php echo $position; ?><br>
-                        Last Name: <?php echo $last_name; ?><br>
-                        First Name: <?php echo $first_name; ?><br>
-                        <br>
-                        <div class="card-footer d-flex justify-content-center">
-                          <a href='admin-officer-delete.php?account_indx=<?php echo $row['account_indx']; ?>'
-                            class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <?php
-                }
-              } else {
-                // Handle the case when no officers are found
-                echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No officers found</strong></h2></div>";
-              }
-              ?>
             </div>
           </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="container-fluid">
+
+          <div class="card card-primary card-outline bg-white" for="update-profilepicture">
+              <div class="card-header">
+                <div class="row align-items-center">
+                  <?php
+                  if (isset($_GET['accountindx'])) {
+                    $accountindx = $_GET['accountindx'];
+                    $studentsql = "SELECT * FROM user WHERE account_indx = '$accountindx'";
+                    $result = $conn->query($studentsql);
+
+                    if ($result && $result->num_rows > 0) {
+                      $row = $result->fetch_assoc(); // Fetching row as associative array
+                      ?>
+                      <!-- Image column -->
+                      <div class="col-md-auto">
+                        <img src="profile-pictures/<?php echo $row['profile_picture']; ?>" alt="Student Profile Picture" style="height: 10rem; width: 10rem; border-radius: 50%; object-fit: cover;">
+                      </div>
+
+                      <!-- Subject information column -->
+                      <div class="col-md">
+                        <div class="table-responsive">
+                          <table class="subject-info">
+                            <tr>
+                              <td class="col-md-2"><strong>Student Number:</strong></td>
+                              <td class="col-md-3"><?php echo $row['account_number']; ?></td>
+                              <td class="col-md-2"><strong>Program:</strong></td>
+                              <td class="col-md-3"><?php echo $row['program']; ?></td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-2"><strong>Username:</strong></td>
+                              <td class="col-md-3"><?php echo $row['username']; ?></td>
+                              <td class="col-md-2"><strong>Year Level:</strong></td>
+                              <td class="col-md-3"><?php echo $row['year_level']; ?></td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-2"><strong>Last Name:</strong></td>
+                              <td class="col-md-3"><?php echo $row['last_name']; ?></td>
+                              <td class="col-md-2"><strong>QR Code:</strong></td>
+                              <td class="col-md-3"><?php echo $row['code']; ?></td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-2"><strong>First Name:</strong></td>
+                              <td class="col-md-3"><?php echo $row['first_name']; ?></td>
+                              <td class="col-md-2"><strong>Email:</strong></td>
+                              <td class="col-md-3"><?php echo $row['email']; ?></td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-2"><strong>Middle Name:</strong></td>
+                              <td class="col-md-3"><?php echo $row['middle_name']; ?></td>
+                              <td class="col-md-2"><strong>Phone Number:</strong></td>
+                              <td class="col-md-3"><?php echo $row['phone_number']; ?></td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-2"><strong>Gender:</strong></td>
+                              <td class="col-md-3"><?php echo $row['gender']; ?></td>
+                              <td class="col-md-2"><strong>Enrolled By:</strong></td>
+                              <td class="col-md-3"><?php echo $row['enrolled_by']; ?></td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                      <?php
+                    } else {
+                      echo "<div class='col-md-12'>Event may not be existing.</div>";
+                    }
+                  }
+                  ?>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /.container-fluid -->
         </section>
-
-
-
-
-
         <!-- /.content -->
       </div>
       <!-- /.content-wrapper -->

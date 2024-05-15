@@ -79,7 +79,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                     <?php } ?>
 
 
-                    <form action="indexes/add-officer-be.php" method="post">
+                    <form action="indexes/admin-add-officer-be.php" method="post">
 
                       <!-- Account Number input -->
                       <label for="accountnumber" class="col-sm-4 col-form-label">Account Number</label>

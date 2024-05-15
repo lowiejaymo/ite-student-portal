@@ -115,12 +115,13 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
               <thead>
                 <tr>
                   <th class="col-2">Student Number</th>
-                  <th class="col-2">User Name</th>
+                  <th class="col-1">User Name</th>
                   <th class="col-2 text-center">Last Name</th>
                   <th class="col-2 text-center">First Name</th>
-                  <th class="col-2 text-center">Middle Name</th>
+                  <th class="col-1 text-center">Middle Name</th>
                   <th class="col-1 text-center">Program</th>
                   <th class="col-1 text-center">Year Level</th>
+                  <th class="col-2 text-center">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -177,7 +178,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                       <td class="align-middle text-center">
                         <?php echo $row['year_level']; ?>
                       </td>
-
+                      <td class="align-middle text-center">
+                        <a href='admin-student-view.php?accountindx=<?php echo $row['account_indx']; ?>'
+                          class='btn btn-success btn-sm'><i class="nav-icon fas fa-solid fa-hand-pointer"></i> Select</a>
+                        <a href='admin-event-delete.php?eventindex=<?php echo $row['event_indx']; ?>'
+                          class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
+                      </td>
                     </tr>
                     <?php
                   }

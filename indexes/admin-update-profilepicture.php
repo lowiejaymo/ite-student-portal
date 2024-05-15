@@ -6,9 +6,9 @@ include "db_conn.php";
 if (isset($_POST['upload'])) {
 
     $account_indx = $_SESSION['account_indx']; 
-    $username = $_SESSION['username']; 
+    $account_number = $_SESSION['account_number']; 
 
-    $file = $user_id . '-' . $username; 
+    $file = $account_number; 
     $file_name = $_FILES['file']['name'];   
     $file_ext = pathinfo($file_name, PATHINFO_EXTENSION); 
     $file_loc = $_FILES['file']['tmp_name']; 

@@ -14,36 +14,43 @@ if (isset($_POST['addStudent'])) {
     }
 
     $accountnumber = validate($_POST['accountnumber']);
-    $lastname = validate($_POST['lastname']);
-    $firstname = validate($_POST['firstname']);
-    $middlename = validate($_POST['middlename']);
+    $lastnameNotProper = validate($_POST['lastname']);
+    $firstnameNotProper = validate($_POST['firstname']);
+    $middlenameNotProper = validate($_POST['middlename']);
     $email = validate($_POST['email']);
     $phonenumber = validate($_POST['phonenumber']);
     $gender = validate($_POST['gender']);
     $yearlevel = validate($_POST['yearlevel']);
     $program = validate($_POST['program']);
 
+    $lastname = ucwords(strtolower($lastnameNotProper));
+    $firstname = ucwords(strtolower($firstnameNotProper));
+    $middlename = ucwords(strtolower($middlenameNotProper));
+
     $lastnameremovespace = str_replace(' ', '', $lastname);
     $defaultpassword = $lastnameremovespace . $accountnumber;
-    
+
     $defaulthashed_pass = password_hash($defaultpassword, PASSWORD_BCRYPT);
 
     $first_letter = substr($firstname, 0, 1);
 
-    $username = strtolower($first_letter) . strtolower($lastname);
+    $first_letter_middlename = substr($middlename, 0, 1);
+    $code = strtoupper($lastname . " , " . $firstname . " " . $first_letter_middlename . ". - " . $accountnumber . " - " . $program);
+
+    $username = strtolower($first_letter) . strtolower($lastnameremovespace);
 
     $role = "Student";
 
     $enrolled_by = $_SESSION['username'];
     $user_data = 'accountnumber=' . $accountnumber .
-    '&lastname=' . $lastname .
-    '&firstname=' . $firstname .
-    '&middlename=' . $middlename .
-    '&program=' . $program .
-    '&yearlevel=' . $yearlevel .
-    '&email=' . $email .
-    '&gender=' . $gender .
-    '&phonenumber=' . $phonenumber;
+        '&lastname=' . $lastname .
+        '&firstname=' . $firstname .
+        '&middlename=' . $middlename .
+        '&program=' . $program .
+        '&yearlevel=' . $yearlevel .
+        '&email=' . $email .
+        '&gender=' . $gender .
+        '&phonenumber=' . $phonenumber;
 
 
     // Validate account number length
@@ -73,7 +80,7 @@ if (isset($_POST['addStudent'])) {
         // Check if account number or username already exists
         $sql_check_existing = "SELECT * FROM user WHERE account_number=?";
         $stmt_check_existing = mysqli_prepare($conn, $sql_check_existing);
-        mysqli_stmt_bind_param($stmt_check_existing, "s", $accountnumber,);
+        mysqli_stmt_bind_param($stmt_check_existing, "s", $accountnumber, );
         mysqli_stmt_execute($stmt_check_existing);
         $result_check_existing = mysqli_stmt_get_result($stmt_check_existing);
 
@@ -82,10 +89,10 @@ if (isset($_POST['addStudent'])) {
             exit();
         } else {
             // Insert new student
-            $sql_newstudent_query = "INSERT INTO user(account_number, password, username, role, last_name, first_name, middle_name, gender, email, phone_number, enrolled_by, year_level, program)
-                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql_newstudent_query = "INSERT INTO user(account_number, code, password, username, role, last_name, first_name, middle_name, gender, email, phone_number, enrolled_by, year_level, program)
+                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt_newstudent_query = mysqli_prepare($conn, $sql_newstudent_query);
-            mysqli_stmt_bind_param($stmt_newstudent_query, "sssssssssssss", $accountnumber, $defaulthashed_pass, $username, $role, $lastname, $firstname, $middlename, $gender,  $email, $phonenumber, $enrolled_by, $yearlevel, $program);
+            mysqli_stmt_bind_param($stmt_newstudent_query, "ssssssssssssss", $accountnumber, $code, $defaulthashed_pass, $username, $role, $lastname, $firstname, $middlename, $gender, $email, $phonenumber, $enrolled_by, $yearlevel, $program);
             $result_newstudent_query = mysqli_stmt_execute($stmt_newstudent_query);
 
             if ($result_newstudent_query) {

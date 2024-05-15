@@ -15,15 +15,17 @@
     <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center">
       <div class="image">
         <a href="admin-profile.php">
-          
-          <img 
-            src="profile-pictures/<?php echo $_SESSION['profile_picture']; ?>?<?php echo time(); ?>"
+
+          <img src="profile-pictures/<?php echo $_SESSION['profile_picture']; ?>?<?php echo time(); ?>"
             alt="User profile picture" style="height: 2.3rem; width: 2.3rem; border-radius: 50%; object-fit: cover;">
         </a>
       </div>
+      <?php
+      $last_name_initial = substr($_SESSION['last_name'], 0, 1);
+      ?>
       <div class="info ml-2">
         <a href="admin-profile.php" class="d-block">
-          Hello, <?php echo $_SESSION['username']; ?>!
+          Hello, <?php echo $_SESSION['first_name']; ?> <?php echo $last_name_initial; ?>.!
         </a>
       </div>
     </div>
@@ -32,7 +34,7 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        
+
         <li class="nav-item ">
           <a href="admin-dashboard.php" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>

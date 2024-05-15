@@ -192,7 +192,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                 echo 'selected'; ?>>Fourth Year</option>
                             </select>
                           <?php } else { ?>
-                            <select class="form-control" id="program" name="program">
+                            <select class="form-control" id="yearlevel" name="yearlevel">
                               <option value="" selected disabled>(Required)</option>
                               <option value="1">First Year</option>
                               <option value="2">Second Year</option>

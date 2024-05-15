@@ -14,13 +14,18 @@ if (isset($_POST['addOfficer'])) {
     }
 
     $accountnumber = validate($_POST['accountnumber']);
+    $code = validate($_POST['code']);
     $position = validate($_POST['position']);
-    $lastname = validate($_POST['lastname']);
-    $firstname = validate($_POST['firstname']);
-    $middlename = validate($_POST['middlename']);
+    $lastnameNotProper = validate($_POST['lastname']);
+    $firstnameNotProper = validate($_POST['firstname']);
+    $middlenameNotProper = validate($_POST['middlename']);
     $email = validate($_POST['email']);
     $phonenumber = validate($_POST['phonenumber']);
     $gender = validate($_POST['gender']);
+
+    $lastname = ucwords(strtolower($lastnameNotProper));
+    $firstname = ucwords(strtolower($firstnameNotProper));
+    $middlename = ucwords(strtolower($middlenameNotProper));
 
     $defaultpassword = "officer123";
     $defaulthashed_pass = password_hash($defaultpassword, PASSWORD_BCRYPT);
@@ -30,16 +35,18 @@ if (isset($_POST['addOfficer'])) {
     $username = strtolower($first_letter) . strtolower($lastname);
 
     $role = "Officer";
+    $code = mt_rand(10000, 99999);
+
 
     $enrolled_by = $_SESSION['username'];
     $user_data = 'accountnumber=' . $accountnumber .
-    '&position=' . $position .
-    '&lastname=' . $lastname .
-    '&firstname=' . $firstname .
-    '&middlename=' . $middlename .
-    '&email=' . $email .
-    '&phonenumber=' . $phonenumber . 
-    '&gender=' . $gender;
+        '&position=' . $position .
+        '&lastname=' . $lastname .
+        '&firstname=' . $firstname .
+        '&middlename=' . $middlename .
+        '&email=' . $email .
+        '&phonenumber=' . $phonenumber .
+        '&gender=' . $gender;
 
 
     // Validate account number length
@@ -66,7 +73,7 @@ if (isset($_POST['addOfficer'])) {
         // Check if account number or username already exists
         $sql_check_existing = "SELECT * FROM user WHERE account_number=?";
         $stmt_check_existing = mysqli_prepare($conn, $sql_check_existing);
-        mysqli_stmt_bind_param($stmt_check_existing, "s", $accountnumber,);
+        mysqli_stmt_bind_param($stmt_check_existing, "s", $accountnumber, );
         mysqli_stmt_execute($stmt_check_existing);
         $result_check_existing = mysqli_stmt_get_result($stmt_check_existing);
 
@@ -75,17 +82,20 @@ if (isset($_POST['addOfficer'])) {
             exit();
         } else {
             // Insert new officer
-            $sql_newofficer_query = "INSERT INTO user(account_number, password, username, role, position, last_name, first_name, middle_name, gender, email, phone_number, enrolled_by)
-        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql_newofficer_query = "INSERT INTO user(account_number, code, password, username, role, position, last_name, first_name, middle_name, gender, email, phone_number, enrolled_by)
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt_newofficer_query = mysqli_prepare($conn, $sql_newofficer_query);
-            mysqli_stmt_bind_param($stmt_newofficer_query, "ssssssssssss", $accountnumber, $defaulthashed_pass, $username, $role, $position, $lastname, $firstname, $middlename, $gender,  $email, $phonenumber, $enrolled_by);
+            mysqli_stmt_bind_param($stmt_newofficer_query, "sssssssssssss", $accountnumber, $code, $defaulthashed_pass, $username, $role, $position, $lastname, $firstname, $middlename, $gender, $email, $phonenumber, $enrolled_by);
             $result_newofficer_query = mysqli_stmt_execute($stmt_newofficer_query);
 
             if ($result_newofficer_query) {
                 header("Location: ../admin-officer.php?newOfficerSuccess=New Officer account created successfully");
                 exit();
             } else {
-                header("Location: ../admin-officer-addnew.php?newOfficerError=Failed to add new officer account&$user_data");
+                // Log detailed error information
+                $error_message = "Failed to add new officer account: " . mysqli_error($conn);
+                error_log($error_message);
+                header("Location: ../admin-officer-addnew.php?newOfficerError=" . urlencode($error_message) . "&$user_data");
                 exit();
             }
         }

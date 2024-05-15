@@ -104,6 +104,18 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
               </div>
             <?php } ?>
 
+            <?php if (isset($_GET['deleteEventSuccess'])) { ?>
+              <div class="alert alert-success">
+                <?php echo $_GET['deleteEventSuccess']; ?>
+              </div>
+            <?php } ?>
+
+            <?php if (isset($_GET['deleteEventError'])) { ?>
+              <div class="alert alert-danger">
+                <?php echo $_GET['deleteEventError']; ?>
+              </div>
+            <?php } ?>
+
             <!-- Events table -->
             <table class="table">
               <thead>
@@ -164,9 +176,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                         <?php echo $row['semester']; ?>
                       </td>
                       <td class="align-middle text-center">
-                      <a href='admin-event-view.php?eventindex=<?php echo $row['event_indx']; ?>'
-                        class='btn btn-success btn-sm'><i class="nav-icon fas fa-solid fa-hand-pointer"></i> Select</a>
-                        <a href='#' class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
+                        <a href='admin-event-view.php?eventindex=<?php echo $row['event_indx']; ?>'
+                          class='btn btn-success btn-sm'><i class="nav-icon fas fa-solid fa-hand-pointer"></i> Select</a>
+                        <a href='admin-event-delete.php?eventindex=<?php echo $row['event_indx']; ?>'
+                          class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
                       </td>
                     </tr>
                     <?php
