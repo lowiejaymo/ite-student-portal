@@ -1,7 +1,7 @@
 <?php
 session_start();
 include "indexes/db_conn.php";
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Admin'
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Officer'
   ?>
 
   <!DOCTYPE html>
@@ -55,7 +55,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
               </div>
               <div class="col-sm-6 text-right">
                 <a id="addNewOfficerBtn" class="btn btn-success" href="officer-student-addnew.php"><i
-                    class="nav-icon fas fa-solid fa-plus"></i> Add Bulk Students</a>
+                    class="nav-icon fas fa-solid fa-plus"></i> Add New Students</a>
               </div>
             </div>
           </div><!-- /.container-fluid -->
@@ -77,22 +77,22 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                     <p class="text-muted">Instructions:</strong>.</p>
                     <hr>
 
-                    <?php if (isset($_GET['newOfficerError'])) { ?>
+                    <?php if (isset($_GET['newStudentError'])) { ?>
                       <div class="alert alert-danger">
-                        <?php echo $_GET['newOfficerError']; ?>
+                        <?php echo $_GET['newStudentError']; ?>
                       </div>
                     <?php } ?>
 
 
-                    <form action="indexes/add-officer-be.php" method="post">
+                    <form action="indexes/officer-add-student-bulk.php" method="post" enctype="multipart/form-data">
 
                       <div class="mb-3">
                         <!-- uploading file -->
-                        <input class="form-control" type="file" id="formFile" name='file'>
+                        <input class="form-control" type="file" id="import_file" name='import_file'>
                       </div>
 
                       <div class="offset-sm-2 col-sm-10">
-                        <button type="submit" value="Submit" name="addOfficer" class="btn btn-success">Add</button>
+                        <button type="submit" value="Submit" name="save_excel_data" class="btn btn-success">Add</button>
                         <a type="button" name="cancel" class="btn btn-secondary" href="officer-students.php">Cancel</a>
                       </div>
 
