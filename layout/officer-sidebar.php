@@ -1,3 +1,11 @@
+ <!-- officer-sidebar.php and sidebar of officer form.
+Author:
+  Lowie Jay Orillo lowie.jaymier@gmail.com, 
+  Caryl Mae Subaldo subaldomae29@gmail.com, 
+  Brian Angelo Bognot c09651052069@gmail.com.
+Last Modified: May 15, 2024
+Brief overview of the file's contents. -->
+
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-2"
   style="background-image: url('images/sidebar-background.png'); background-size: cover; background-position: center;">
@@ -20,9 +28,12 @@
             alt="User profile picture" style="height: 2.3rem; width: 2.3rem; border-radius: 50%; object-fit: cover;">
         </a>
       </div>
+      <?php
+      $last_name_initial = substr($_SESSION['last_name'], 0, 1);
+      ?>
       <div class="info ml-2">
         <a href="officer-profile.php" class="d-block">
-          Hello, <?php echo $_SESSION['username']; ?>!
+          Hello, <?php echo $_SESSION['first_name']; ?> <?php echo $last_name_initial; ?>.!
         </a>
       </div>
     </div>

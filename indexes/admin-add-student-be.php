@@ -1,4 +1,14 @@
 <?php
+/*
+admin-add-student-be.php and student addition process in admin
+Authors:
+  - Lowie Jay Orillo (lowie.jaymier@gmail.com)
+  - Caryl Mae Subaldo (subaldomae29@gmail.com)
+  - Brian Angelo Bognot (c09651052069@gmail.com)
+Last Modified: May 15, 2024
+Overview: This file handles the addition of new students, validating admin input and inserting the student into the database.
+*/
+
 session_start();
 require ('db_conn.php');
 
@@ -96,7 +106,7 @@ if (isset($_POST['addStudent'])) {
             $result_newstudent_query = mysqli_stmt_execute($stmt_newstudent_query);
 
             if ($result_newstudent_query) {
-                header("Location: ../admin-students.php?newStudentSuccess=New Officer account created successfully");
+                header("Location: ../admin-students.php?newStudentSuccess=New Student account created successfully");
                 exit();
             } else {
                 header("Location: ../admin-student-addnew.php?newStudentError=Failed to add new student account&$user_data");

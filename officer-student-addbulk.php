@@ -1,3 +1,12 @@
+<!-- officer-student-addnew.php and to add bulk new student in officer form.
+Authors:
+  - Lowie Jay Orillo (lowie.jaymier@gmail.com)
+  - Caryl Mae Subaldo (subaldomae29@gmail.com)
+  - Brian Angelo Bognot (c09651052069@gmail.com)
+Last Modified: May 15, 2024
+Brief overview of the file's contents. -->
+
+
 <?php
 session_start();
 include "indexes/db_conn.php";
@@ -10,7 +19,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Admin Home Page</title>
+    <title>ITE Student Portal | Officer Home Page</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->

@@ -1,3 +1,11 @@
+<!-- admin-student.php and to show the list of students enrolled in admin form.
+Authors:
+  - Lowie Jay Orillo (lowie.jaymier@gmail.com)
+  - Caryl Mae Subaldo (subaldomae29@gmail.com)
+  - Brian Angelo Bognot (c09651052069@gmail.com)
+Last Modified: May 15, 2024
+Brief overview of the file's contents. -->
+
 <?php
 session_start();
 include "indexes/db_conn.php";
@@ -65,6 +73,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
         <!-- Main content -->
         <section class="content">
           <div class="container-fluid">
+
+          <?php if (isset($_GET['newStudentSuccess'])) { ?>
+                      <div class="alert alert-success">
+                        <?php echo $_GET['newStudentSuccess']; ?>
+                      </div>
+                    <?php } ?>
 
             <!-- Search Form -->
             <form method="GET">

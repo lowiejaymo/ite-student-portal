@@ -1,4 +1,4 @@
-<!-- admin-student-view.php and to show the information of the student in admin form.
+ <!-- officer-event-view.php and ---- in officer form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
@@ -9,7 +9,7 @@ Brief overview of the file's contents. -->
 <?php
 session_start();
 include "indexes/db_conn.php";
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the role is set and it's 'Admin'
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Officer'
   ?>
 
   <!DOCTYPE html>
@@ -18,7 +18,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Admin Home Page</title>
+    <title>ITE Student Portal | Officer Home Page</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -48,9 +48,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
     <div class="wrapper">
 
       <!-- Navbar -->
-      <?php include 'layout/admin-fixed-topnav.php'; ?>
+      <?php include 'layout/officer-fixed-topnav.php'; ?>
 
-      <?php include 'layout/admin-sidebar.php'; ?>
+      <?php include 'layout/officer-sidebar.php'; ?>
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
@@ -62,8 +62,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                 <h1>Events</h1>
               </div>
               <div class="col-sm-6 text-right">
-                <a id="addNewSubjectBtn" class="btn btn-secondary" href="admin-students.php"><i
-                    class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Student</a>
+              <a id="addNewSubjectBtn" class="btn btn-secondary" href="#"><i class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Events</a>
               </div>
             </div>
           </div><!-- /.container-fluid -->
@@ -75,74 +74,67 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
           <div class="container-fluid">
 
           <div class="card card-primary card-outline bg-white" for="update-profilepicture">
-              <div class="card-header">
-                <div class="row align-items-center">
-                  <?php
-                  if (isset($_GET['accountindx'])) {
-                    $accountindx = $_GET['accountindx'];
-                    $studentsql = "SELECT * FROM user WHERE account_indx = '$accountindx'";
-                    $result = $conn->query($studentsql);
+            <div class="card-header">
+              <div class="row align-items-center">
+                <!-- Image column -->
+                <div class="col-md-auto">
+                  <img src="images/calendar_avatar.webp" alt="View event avatar" style="width: 150px; height: auto;">
+                </div>
 
-                    if ($result && $result->num_rows > 0) {
-                      $row = $result->fetch_assoc(); // Fetching row as associative array
-                      ?>
-                      <!-- Image column -->
-                      <div class="col-md-auto">
-                        <img src="profile-pictures/<?php echo $row['profile_picture']; ?>" alt="Student Profile Picture" style="height: 10rem; width: 10rem; border-radius: 50%; object-fit: cover;">
-                      </div>
+                <!-- Subject information column -->
+                <div class="col-md">
+                  <div class="table-responsive">
+                    <table class="subject-info">
+                      <?php
+                      // Add the code here
+                      if (isset($_GET['eventindex'])) {
+                        $eventIndex = $_GET['eventindex'];
+                        $eventsql = "SELECT * FROM events WHERE event_indx = '$eventIndex'";
+                        $result = $conn->query($eventsql);
 
-                      <!-- Subject information column -->
-                      <div class="col-md">
-                        <div class="table-responsive">
+                        if ($result && $result->num_rows > 0) {
+                          $row = $result->fetch_assoc(); // Fetching row as associative array
+                          ?>
                           <table class="subject-info">
                             <tr>
-                              <td class="col-md-2"><strong>Student Number:</strong></td>
-                              <td class="col-md-3"><?php echo $row['account_number']; ?></td>
-                              <td class="col-md-2"><strong>Program:</strong></td>
-                              <td class="col-md-3"><?php echo $row['program']; ?></td>
+                              <td class="col-md-3"><strong>Event Name:</strong></td>
+                              <td class="col-md-9">
+                                <?php echo $row['event_name']; ?>
+                              </td>
                             </tr>
                             <tr>
-                              <td class="col-md-2"><strong>Username:</strong></td>
-                              <td class="col-md-3"><?php echo $row['username']; ?></td>
-                              <td class="col-md-2"><strong>Year Level:</strong></td>
-                              <td class="col-md-3"><?php echo $row['year_level']; ?></td>
+                              <td class="col-md-3"><strong>Date:</strong></td>
+                              <td class="col-md-9">
+                                <?php echo $row['date']; ?>
+                              </td>
                             </tr>
                             <tr>
-                              <td class="col-md-2"><strong>Last Name:</strong></td>
-                              <td class="col-md-3"><?php echo $row['last_name']; ?></td>
-                              <td class="col-md-2"><strong>QR Code:</strong></td>
-                              <td class="col-md-3"><?php echo $row['code']; ?></td>
+                              <td class="col-md-3"><strong>School Year:</strong></td>
+                              <td class="col-md-9">
+                                <?php echo $row['school_year']; ?>
+                              </td>
                             </tr>
                             <tr>
-                              <td class="col-md-2"><strong>First Name:</strong></td>
-                              <td class="col-md-3"><?php echo $row['first_name']; ?></td>
-                              <td class="col-md-2"><strong>Email:</strong></td>
-                              <td class="col-md-3"><?php echo $row['email']; ?></td>
+                              <td class="col-md-3"><strong>Semester:</strong></td>
+                              <td class="col-md-9">
+                              <?php echo $row['semester']; ?>
+                              </td>
                             </tr>
-                            <tr>
-                              <td class="col-md-2"><strong>Middle Name:</strong></td>
-                              <td class="col-md-3"><?php echo $row['middle_name']; ?></td>
-                              <td class="col-md-2"><strong>Phone Number:</strong></td>
-                              <td class="col-md-3"><?php echo $row['phone_number']; ?></td>
-                            </tr>
-                            <tr>
-                              <td class="col-md-2"><strong>Gender:</strong></td>
-                              <td class="col-md-3"><?php echo $row['gender']; ?></td>
-                              <td class="col-md-2"><strong>Enrolled By:</strong></td>
-                              <td class="col-md-3"><?php echo $row['enrolled_by']; ?></td>
-                            </tr>
+                            
                           </table>
-                        </div>
-                      </div>
-                      <?php
-                    } else {
-                      echo "<div class='col-md-12'>Event may not be existing.</div>";
-                    }
-                  }
-                  ?>
+
+                          <?php
+                        } else {
+                          echo "Event may not be existing.";
+                        }
+                      }
+                      ?>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
 
           </div><!-- /.container-fluid -->
         </section>

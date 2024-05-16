@@ -1,3 +1,11 @@
+ <!-- officer-dashboard.php and ---- in officer form.
+Authors:
+  - Lowie Jay Orillo (lowie.jaymier@gmail.com)
+  - Caryl Mae Subaldo (subaldomae29@gmail.com)
+  - Brian Angelo Bognot (c09651052069@gmail.com)
+Last Modified: May 15, 2024
+Brief overview of the file's contents. -->
+
 <?php
 session_start();
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
@@ -9,7 +17,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Admin Home Page</title>
+    <title>ITE Student Portal | Officer Home Page</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -37,7 +45,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
 
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-
+      <!-- Preloader -->
+      <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" src="images/ite.png" alt="AdminLTELogo" height="60" width="60">
+      </div>
 
       <!-- Navbar -->
       <?php include 'layout/officer-fixed-topnav.php'; ?>

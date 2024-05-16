@@ -1,4 +1,4 @@
-<!-- admin-student-view.php and to show the information of the student in admin form.
+<!-- officer-student-view.php and to show the information of the student in officer form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
@@ -9,7 +9,7 @@ Brief overview of the file's contents. -->
 <?php
 session_start();
 include "indexes/db_conn.php";
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the role is set and it's 'Admin'
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Officer'
   ?>
 
   <!DOCTYPE html>
@@ -18,7 +18,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Admin Home Page</title>
+    <title>ITE Student Portal | Officer Home Page</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -48,9 +48,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
     <div class="wrapper">
 
       <!-- Navbar -->
-      <?php include 'layout/admin-fixed-topnav.php'; ?>
+      <?php include 'layout/officer-fixed-topnav.php'; ?>
 
-      <?php include 'layout/admin-sidebar.php'; ?>
+      <?php include 'layout/officer-sidebar.php'; ?>
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
@@ -62,7 +62,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                 <h1>Events</h1>
               </div>
               <div class="col-sm-6 text-right">
-                <a id="addNewSubjectBtn" class="btn btn-secondary" href="admin-students.php"><i
+                <a id="addNewSubjectBtn" class="btn btn-secondary" href="officer-students.php"><i
                     class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Student</a>
               </div>
             </div>

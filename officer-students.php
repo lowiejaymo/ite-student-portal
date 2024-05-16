@@ -1,7 +1,16 @@
+<!-- officer-student.php and to show the list of students enrolled in officer form.
+Authors:
+  - Lowie Jay Orillo (lowie.jaymier@gmail.com)
+  - Caryl Mae Subaldo (subaldomae29@gmail.com)
+  - Brian Angelo Bognot (c09651052069@gmail.com)
+Last Modified: May 15, 2024
+Brief overview of the file's contents. -->
+
+
 <?php
 session_start();
 include "indexes/db_conn.php";
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Admin'
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Officer'
   ?>
 
   <!DOCTYPE html>
@@ -10,7 +19,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Admin Home Page</title>
+    <title>ITE Student Portal | Officer Home Page</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -121,12 +130,13 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
               <thead>
                 <tr>
                   <th class="col-2">Student Number</th>
-                  <th class="col-2">User Name</th>
+                  <th class="col-1">User Name</th>
                   <th class="col-2 text-center">Last Name</th>
                   <th class="col-2 text-center">First Name</th>
-                  <th class="col-2 text-center">Middle Name</th>
+                  <th class="col-1 text-center">Middle Name</th>
                   <th class="col-1 text-center">Program</th>
                   <th class="col-1 text-center">Year Level</th>
+                  <th class="col-2 text-center">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -183,7 +193,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                       <td class="align-middle text-center">
                         <?php echo $row['year_level']; ?>
                       </td>
-
+                      <td class="align-middle text-center">
+                        <a href='officer-student-view.php?accountindx=<?php echo $row['account_indx']; ?>'
+                          class='btn btn-success btn-sm'><i class="nav-icon fas fa-solid fa-hand-pointer"></i> Select</a>
+                        <a href='officer-event-delete.php?eventindex=<?php echo $row['event_indx']; ?>'
+                          class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
+                      </td>
                     </tr>
                     <?php
                   }
