@@ -1,4 +1,13 @@
 <?php
+/*
+admin-officer-delete-be.php and officer deletion process in admin
+Authors:
+  - Lowie Jay Orillo (lowie.jaymier@gmail.com)
+  - Caryl Mae Subaldo (subaldomae29@gmail.com)
+  - Brian Angelo Bognot (c09651052069@gmail.com)
+Last Modified: May 15, 2024
+Overview: This file handles the deletion of officers.
+*/
 session_start();
 require ('db_conn.php');
 

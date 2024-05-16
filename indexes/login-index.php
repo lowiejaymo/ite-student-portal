@@ -1,4 +1,13 @@
 <?php
+/*
+login_process.php and User Login Process
+Authors:
+  - Lowie Jay Orillo (lowie.jaymier@gmail.com)
+  - Caryl Mae Subaldo (subaldomae29@gmail.com)
+  - Brian Angelo Bognot (c09651052069@gmail.com)
+Last Modified: May 15, 2024
+Overview: This file contains the PHP script for processing user login credentials and redirecting based on user role.
+*/
 session_start();
 
 include "db_conn.php"; // include the database script to establish a connection with the database
