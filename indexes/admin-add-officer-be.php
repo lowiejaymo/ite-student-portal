@@ -6,7 +6,8 @@ Authors:
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
 Last Modified: May 15, 2024
-Overview: This file handles the addition of new officers, validating admin input and inserting the officer into the database.
+Overview: This file handles the addition of new officers, 
+    validating admin input and inserting the officer into the database.
 */
 
 session_start();
@@ -23,6 +24,7 @@ if (isset($_POST['addOfficer'])) {
         return $data;
     }
 
+    // Sanitize and validate 
     $accountnumber = validate($_POST['accountnumber']);
     $code = validate($_POST['code']);
     $position = validate($_POST['position']);
@@ -33,22 +35,29 @@ if (isset($_POST['addOfficer'])) {
     $phonenumber = validate($_POST['phonenumber']);
     $gender = validate($_POST['gender']);
 
+    // Convert the names to proper case
     $lastname = ucwords(strtolower($lastnameNotProper));
     $firstname = ucwords(strtolower($firstnameNotProper));
     $middlename = ucwords(strtolower($middlenameNotProper));
 
+    // Set the password and hashed it
     $defaultpassword = "officer123";
     $defaulthashed_pass = password_hash($defaultpassword, PASSWORD_BCRYPT);
 
+    // Get the first letter of the first name
     $first_letter = substr($firstname, 0, 1);
 
+    // Generate the username
     $username = strtolower($first_letter) . strtolower($lastname);
 
+    // Set the role to "Officer" and the code to random 5 digits
     $role = "Officer";
     $code = mt_rand(10000, 99999);
 
-
+    // Get the username of the admin who enrolled the officer
     $enrolled_by = $_SESSION['username'];
+
+    // Construct user data string
     $user_data = 'accountnumber=' . $accountnumber .
         '&position=' . $position .
         '&lastname=' . $lastname .
@@ -64,29 +73,35 @@ if (isset($_POST['addOfficer'])) {
         $error_message = urlencode("Account Number must be 11 characters or less");
         header("Location: ../admin-officer-addnew.php?newOfficerError=$error_message");
         exit();
-    } else if (empty($accountnumber)) {
+    } // Validate account number if empty
+    else if (empty($accountnumber)) {
         header("Location: ../admin-officer-addnew.php?newOfficerError=Account Number is required$user_data");
         exit();
-    } elseif (empty($position)) {
+    } // Validate position if empty
+    elseif (empty($position)) {
         header("Location: ../admin-officer-addnew.php?newOfficerError=Position is required&$user_data");
         exit();
-    } elseif (empty($lastname)) {
+    } // Validate last name if empty
+    elseif (empty($lastname)) {
         header("Location: ../admin-officer-addnew.php?newOfficerError=Last Name is required&$user_data");
         exit();
-    } elseif (empty($firstname)) {
+    } // Validate first name if empty
+    elseif (empty($firstname)) {
         header("Location: ../admin-officer-addnew.php?newOfficerError=First Name is required&$user_data");
         exit();
-    } elseif (empty($gender)) {
+    } // Validate gender if empty
+    elseif (empty($gender)) {
         header("Location: ../admin-officer-addnew.php?newOfficerError=Gender is required&$user_data");
         exit();
     } else {
-        // Check if account number or username already exists
+        // Check if account number already exists
         $sql_check_existing = "SELECT * FROM user WHERE account_number=?";
         $stmt_check_existing = mysqli_prepare($conn, $sql_check_existing);
         mysqli_stmt_bind_param($stmt_check_existing, "s", $accountnumber, );
         mysqli_stmt_execute($stmt_check_existing);
         $result_check_existing = mysqli_stmt_get_result($stmt_check_existing);
 
+        // Validate account number if already exists
         if (mysqli_num_rows($result_check_existing) > 0) {
             header("Location: ../admin-officer-addnew.php?newOfficerError=Account Number already exists&$user_data");
             exit();
@@ -98,6 +113,7 @@ if (isset($_POST['addOfficer'])) {
             mysqli_stmt_bind_param($stmt_newofficer_query, "sssssssssssss", $accountnumber, $code, $defaulthashed_pass, $username, $role, $position, $lastname, $firstname, $middlename, $gender, $email, $phonenumber, $enrolled_by);
             $result_newofficer_query = mysqli_stmt_execute($stmt_newofficer_query);
 
+            // Redirect based on the result of the SQL query
             if ($result_newofficer_query) {
                 header("Location: ../admin-officer.php?newOfficerSuccess=New Officer account created successfully");
                 exit();

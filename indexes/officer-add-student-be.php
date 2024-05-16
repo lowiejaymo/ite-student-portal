@@ -22,6 +22,7 @@ if (isset($_POST['addStudent'])) {
         return $data;
     }
 
+    // Sanitize and validate 
     $accountnumber = validate($_POST['accountnumber']);
     $lastname = validate($_POST['lastname']);
     $firstname = validate($_POST['firstname']);
@@ -32,61 +33,85 @@ if (isset($_POST['addStudent'])) {
     $yearlevel = validate($_POST['yearlevel']);
     $program = validate($_POST['program']);
 
-    $defaultpassword = $lastname.$accountnumber;
+    // Convert the names to proper case
+    $lastname = ucwords(strtolower($lastnameNotProper));
+    $firstname = ucwords(strtolower($firstnameNotProper));
+    $middlename = ucwords(strtolower($middlenameNotProper));
+
+    // Remove the spaces of the last name
+    $lastnameremovespace = str_replace(' ', '', $lastname);
+
+    // Set the password and hashed it
+    $defaultpassword = $lastnameremovespace . $accountnumber;
     $defaulthashed_pass = password_hash($defaultpassword, PASSWORD_BCRYPT);
 
+    // Get the first letter of the first name
     $first_letter = substr($firstname, 0, 1);
 
+    // Get the first letter of the middle name
     $first_letter_middlename = substr($middlename, 0, 1);
+
+    // Generate the code
     $code = strtoupper($lastname . " , " . $firstname . " " . $first_letter_middlename . ". - " . $accountnumber . " - " . $program);
 
-    $username = strtolower($first_letter) . strtolower($lastname);
+    // Generate the username
+    $username = strtolower($first_letter) . strtolower($lastnameremovespace);
 
+    // Set the role to "Student"
     $role = "Student";
 
+    // Get the username of the admin who enrolled the student
     $enrolled_by = $_SESSION['username'];
-    $user_data = 'accountnumber=' . $accountnumber .
-    '&lastname=' . $lastname .
-    '&firstname=' . $firstname .
-    '&middlename=' . $middlename .
-    '&program=' . $program .
-    '&yearlevel=' . $yearlevel .
-    '&email=' . $email .
-    '&gender=' . $gender .
-    '&phonenumber=' . $phonenumber;
 
+    // Construct user data string
+    $user_data = 'accountnumber=' . $accountnumber .
+        '&lastname=' . $lastname .
+        '&firstname=' . $firstname .
+        '&middlename=' . $middlename .
+        '&program=' . $program .
+        '&yearlevel=' . $yearlevel .
+        '&email=' . $email .
+        '&gender=' . $gender .
+        '&phonenumber=' . $phonenumber;
 
     // Validate account number length
     if (strlen($accountnumber) > 10) {
         $error_message = urlencode("Account Number must be 10 characters or less");
         header("Location: ../officer-student-addnew.php?newStudentError=$error_message");
         exit();
-    } else if (empty($accountnumber)) {
+    } // Validate account number if empty
+    else if (empty($accountnumber)) {
         header("Location: ../officer-student-addnew.php?newStudentError=Account Number is required&$user_data");
         exit();
-    } elseif (empty($lastname)) {
+    } // Validate last name if empty
+    elseif (empty($lastname)) {
         header("Location: ../officer-student-addnew.php?newStudentError=Last Name is required&$user_data");
         exit();
-    } elseif (empty($firstname)) {
+    } // Validate first name if empty
+    elseif (empty($firstname)) {
         header("Location: ../officer-student-addnew.php?newStudentError=First Name is required&$user_data");
         exit();
-    } elseif (empty($program)) {
+    } // Validate program if empty
+    elseif (empty($program)) {
         header("Location: ../officer-student-addnew.php?newStudentError=Program is required&$user_data");
         exit();
-    } elseif (empty($yearlevel)) {
+    } // Validate year level if empty
+    elseif (empty($yearlevel)) {
         header("Location: ../officer-student-addnew.php?newStudentError=Year level is required&$user_data");
         exit();
-    } elseif (empty($gender)) {
+    } // Validate gender if empty
+    elseif (empty($gender)) {
         header("Location: ../officer-student-addnew.php?newStudentError=Gender is required&$user_data");
         exit();
     } else {
-        // Check if account number or username already exists
+        // Check if account number already exists
         $sql_check_existing = "SELECT * FROM user WHERE account_number=?";
         $stmt_check_existing = mysqli_prepare($conn, $sql_check_existing);
         mysqli_stmt_bind_param($stmt_check_existing, "s", $accountnumber,);
         mysqli_stmt_execute($stmt_check_existing);
         $result_check_existing = mysqli_stmt_get_result($stmt_check_existing);
 
+        // Validate account number if already exists
         if (mysqli_num_rows($result_check_existing) > 0) {
             header("Location: ../officer-student-addnew.php?newStudentError=Account Number already exists&$user_data");
             exit();
@@ -98,6 +123,7 @@ if (isset($_POST['addStudent'])) {
             mysqli_stmt_bind_param($stmt_newstudent_query, "ssssssssssssss", $accountnumber, $code, $defaulthashed_pass, $username, $role, $lastname, $firstname, $middlename, $gender,  $email, $phonenumber, $enrolled_by, $yearlevel, $program);
             $result_newstudent_query = mysqli_stmt_execute($stmt_newstudent_query);
 
+            // Redirect based on the result of the SQL query
             if ($result_newstudent_query) {
                 header("Location: ../officer-students.php?newStudentSuccess=New Officer account created successfully");
                 exit();

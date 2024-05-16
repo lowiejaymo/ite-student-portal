@@ -14,34 +14,46 @@ include "db_conn.php"; // include the database script to establish a connection 
 
 // check if the fields in the form are set
 if (isset($_POST['login'])) {
+
+    // Function to validate and sanitize user input
     function validate($data)
     {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
+        $data = trim($data); // Remove whitespace from the beginning and end of string
+        $data = stripslashes($data); // Remove backslashes
+        $data = htmlspecialchars($data); // Convert special characters to HTML entities
         return $data;
     }
 
+    // Sanitize and validate 
     $role = validate($_POST['role']);
     $accountnumber = validate($_POST['accountnumber']);
     $password = validate($_POST['password']);
 
+    // Construct user data string
     $user_data = 'role=' . $role . '&accountnumber=' . $accountnumber;
 
+    // Validate account number if empty
     if (empty($accountnumber)) {
         header("Location: ../login.php?login-error=Account is required&$user_data");
         exit();
-    } elseif (empty($password)) {
+    } // Validate password if empty
+    elseif (empty($password)) {
         header("Location: ../login.php?login-error=Password is required&$user_data");
         exit();
     } else {
+
+        // Select account based on account number and role
         $sql = "SELECT * FROM user WHERE account_number=? AND role=?";
         $stmt = mysqli_prepare($conn, $sql);
         mysqli_stmt_bind_param($stmt, "ss", $accountnumber, $role);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
+
+        // Validate account if exists
         if (mysqli_num_rows($result) === 1) {
             $row = mysqli_fetch_assoc($result);
+
+            // Validate if input password and stored password is equal
             if (password_verify($password, $row['password'])) {
                 $_SESSION['account_indx'] = $row['account_indx'];
                 $_SESSION['account_number'] = $row['account_number'];

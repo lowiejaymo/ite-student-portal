@@ -9,13 +9,16 @@ Last Modified: May 15, 2024
 Overview: This file contains the PHP script for establishing a connection to a MySQL database.
 */
 
+// Database connection parameters
 $sname= "localhost:3307"; 
 $uname= "root"; 
 $password= ""; 
 $db_name= "ite-student-portal"; 
 
+// Establish a connection to the database
 $conn = mysqli_connect($sname, $uname, $password, $db_name);
 
+// Validate if the connection is successful
 if (!$conn){ 
     echo 'Connection Failed';
 }

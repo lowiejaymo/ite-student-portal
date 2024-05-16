@@ -23,16 +23,21 @@ if (isset($_POST['addAnnouncement'])) {
         return $data;
     }
 
+    // Sanitize and validate 
     $heading = validate($_POST['heading']);
     $content = validate($_POST['content']);
 
+    // Get the user role from the session
     $postedBy = $_SESSION['role'] ;
 
+    // Set the default timezone and the current date and time
     date_default_timezone_set('Asia/Manila');
     $time = date("Y-m-d H:i:s");
 
+    // Get the account index from the session
     $account_indx = $_SESSION['account_indx'] ;
 
+    // Construct user data string
     $user_data = '&heading=' . $heading .
         '&content=' . $content;
 
@@ -41,10 +46,12 @@ if (isset($_POST['addAnnouncement'])) {
     if (strlen($heading) > 255) {
         header("Location: ../admin-announcement-addnew.php?newaAnnouncementError=Heading is too long, heading must not more than 255 characters$user_data");
         exit();
-    } else if (empty($heading)) {
+    } // Validate heading if empty
+     else if (empty($heading)) {
         header("Location: ../admin-announcement-addnew.php?newaAnnouncementError=Heading is required$user_data");
         exit();
-    } elseif (empty($content)) {
+    } // Validate content if empty
+    else if (empty($content)) {
         header("Location: ../admin-announcement-addnew.php?newaAnnouncementError=Content is required&$user_data");
         exit();
     } else {
@@ -55,6 +62,7 @@ if (isset($_POST['addAnnouncement'])) {
         mysqli_stmt_bind_param($stmt_newoAnnouncement_query, "ssssi", $heading, $content, $postedBy, $time, $account_indx);
         $result_newoAnnouncement_query = mysqli_stmt_execute($stmt_newoAnnouncement_query);
 
+        // Redirect based on the result of the SQL query
         if ($result_newoAnnouncement_query) {
             header("Location: ../admin-announcement.php?newAnnouncementSuccess=New announcement has been posted");
             exit();

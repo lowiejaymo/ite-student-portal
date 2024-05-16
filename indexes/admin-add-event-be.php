@@ -23,37 +23,44 @@ if (isset($_POST['addEvent'])) {
         return $data;
     }
 
+    // Sanitize and validate 
     $eventname = validate($_POST['eventname']);
     $date = validate($_POST['date']);
     $schoolyear = validate($_POST['schoolyear']);
     $semester = validate($_POST['semester']);
 
+    // Construct user data string
     $user_data = 'eventname=' . $eventname .
     '&date=' . $date .
     '&schoolyear=' . $schoolyear .
     '&semester=' . $semester;
 
 
+    // Validate event name if empty
     if (empty($eventname)) {
         header("Location: ../admin-event-addnew.php?newEventError=Event name is required&$user_data");
         exit();
-    } elseif (empty($date)) {
+    } // Validate date if empty
+    elseif (empty($date)) {
         header("Location: ../admin-event-addnew.php?newEventError=Date is required&$user_data");
         exit();
-    } elseif (empty($schoolyear)) {
+    } // Validate school year if empty
+    elseif (empty($schoolyear)) {
         header("Location: ../admin-event-addnew.php?newEventError=School year is required&$user_data");
         exit();
-    } elseif (empty($semester)) {
+    } // Validate semester if empty
+    elseif (empty($semester)) {
         header("Location: ../admin-event-addnew.php?newEventError=Semester is required&$user_data");
         exit();
     } else {
-        // Check if account number or username already exists
+        // Check if event name already exists
         $sql_check_existing = "SELECT * FROM events WHERE event_name=?";
         $stmt_check_existing = mysqli_prepare($conn, $sql_check_existing);
         mysqli_stmt_bind_param($stmt_check_existing, "s", $eventname,);
         mysqli_stmt_execute($stmt_check_existing);
         $result_check_existing = mysqli_stmt_get_result($stmt_check_existing);
 
+        // Validate event name if already exists
         if (mysqli_num_rows($result_check_existing) > 0) {
             header("Location: ../admin-event-addnew.php?newEventError=Event name already exists&$user_data");
             exit();
@@ -65,6 +72,7 @@ if (isset($_POST['addEvent'])) {
             mysqli_stmt_bind_param($stmt_newevent_query, "ssss", $eventname, $date, $schoolyear, $semester);
             $result_newevent_query = mysqli_stmt_execute($stmt_newevent_query);
 
+            // Redirect based on the result of the SQL query
             if ($result_newevent_query) {
                 header("Location: ../admin-events.php?newEventSuccess=New event addedd successfully");
                 exit();
