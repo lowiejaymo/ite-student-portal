@@ -37,8 +37,12 @@ if (isset($_POST['save_excel_data'])) {
             $spreadsheet = IOFactory::load($inputFileNamePath);
             $data = $spreadsheet->getActiveSheet()->toArray();
 
-            // Iterate through each row of data
-            foreach ($data as $row) {
+            // Iterate through each row of data, skipping the first 3 rows
+            foreach (array_slice($data, 4) as $row) {
+
+                if (empty($row[0])) {
+                    break;
+                }
 
                 // Sanitize and extract data from each row
                 $accountnumber = htmlspecialchars($row[0]);

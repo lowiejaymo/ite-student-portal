@@ -82,8 +82,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                   <div class="card-header">
                     <!-- add New Subject -->
                     <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
-                      New Bulk Student</h3><br>
-                    <p class="text-muted">Instructions:</strong>.</p>
+                      New Bulk Student</h3><br><br>
+                    <p class="text-muted">Please download this <a download="ite-student-portal-guide" href="excel/ite-student-portal-guide.xlsx">ite-portal-excel</a> for the guide:</strong></p>
                     <hr>
 
                     <?php if (isset($_GET['newStudentError'])) { ?>
