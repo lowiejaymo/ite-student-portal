@@ -1,4 +1,4 @@
-<!-- admin-students-delete.php and to delete student in admin form.
+<!-- officer-students-delete.php and to delete student in officer form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
@@ -9,7 +9,7 @@ Brief overview of the file's contents. -->
 <?php
 session_start();
 include "indexes/db_conn.php";
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the role is set and it's 'Admin'
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Admin'
     ?>
 
     <!DOCTYPE html>
@@ -18,7 +18,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>ITE Student Portal | Admin Home Page</title>
+        <title>ITE Student Portal | Officer Home Page</title>
         <link rel="icon" type="image/png" href="favicon.ico" />
 
         <!-- Google Font: Source Sans Pro -->
@@ -82,14 +82,14 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                         </p>
                                         <hr>
 
-                                        <?php if (isset($_GET['deleteOfficerError'])) { ?>
+                                        <?php if (isset($_GET['deleteStudentError'])) { ?>
                                             <div class="alert alert-danger">
-                                                <?php echo $_GET['deleteOfficerError']; ?>
+                                                <?php echo $_GET['deleteStudentError']; ?>
                                             </div>
                                         <?php } ?>
 
 
-                                        <form action="indexes/admin-student-delete-be.php" method="post">
+                                        <form action="indexes/officer-student-delete-be.php" method="post">
 
                                             <?php
                                             $accountindx = $_GET['accountindx'];
@@ -213,7 +213,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                 <button type="submit" value="Submit" name="deleteStudent"
                                                     class="btn btn-danger">Delete</button>
                                                 <a type="button" name="cancel" class="btn btn-secondary"
-                                                    href="admin-students.php">Cancel</a>
+                                                    href="officer-students.php">Cancel</a>
                                             </div>
 
                                         </form>

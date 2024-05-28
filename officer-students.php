@@ -3,7 +3,7 @@ Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
+Last Modified: May 28, 2024
 Brief overview of the file's contents. -->
 
 
@@ -75,9 +75,21 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
         <section class="content">
           <div class="container-fluid">
 
-          <?php if (isset($_GET['newStudentSuccess'])) { ?>
+                    <?php if (isset($_GET['newStudentSuccess'])) { ?>
                       <div class="alert alert-success">
                         <?php echo $_GET['newStudentSuccess']; ?>
+                      </div>
+                    <?php } ?>
+
+                    <?php if (isset($_GET['deleteStudentSuccess'])) { ?>
+                      <div class="alert alert-success">
+                        <?php echo $_GET['deleteStudentSuccess']; ?>
+                      </div>
+                    <?php } ?>
+
+                    <?php if (isset($_GET['deleteStudentError'])) { ?>
+                      <div class="alert alert-danger">
+                        <?php echo $_GET['deleteStudentError']; ?>
                       </div>
                     <?php } ?>
 
@@ -196,7 +208,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                       <td class="align-middle text-center">
                         <a href='officer-student-view.php?accountindx=<?php echo $row['account_indx']; ?>'
                           class='btn btn-success btn-sm'><i class="nav-icon fas fa-solid fa-hand-pointer"></i> Select</a>
-                        <a href='officer-event-delete.php?eventindex=<?php echo $row['event_indx']; ?>'
+                        <a href='officer-student-delete.php?accountindx=<?php echo $row['account_indx']; ?>'
                           class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
                       </td>
                     </tr>
