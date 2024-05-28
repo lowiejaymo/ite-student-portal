@@ -5,7 +5,7 @@ Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
+Last Modified: May 28, 2024
 Overview: This file handles the import of student data from an Excel file, validates the data, and inserts it into the database.
 */
 
@@ -42,9 +42,9 @@ if (isset($_POST['save_excel_data'])) {
 
                 // Sanitize and extract data from each row
                 $accountnumber = htmlspecialchars($row[0]);
-                $lastname = htmlspecialchars($row[1]);
-                $firstname = htmlspecialchars($row[2]);
-                $middlename = htmlspecialchars($row[3]);
+                $lastnameNotProper = htmlspecialchars($row[1]);
+                $firstnameNotProper = htmlspecialchars($row[2]);
+                $middlenameNotProper = htmlspecialchars($row[3]);
                 $program = htmlspecialchars($row[4]);
                 $yearlevel = htmlspecialchars($row[5]);
                 $gender = htmlspecialchars($row[6]);
@@ -60,7 +60,7 @@ if (isset($_POST['save_excel_data'])) {
                 $lastnameremovespace = str_replace(' ', '', $lastname);
 
                 // Set the password and hashed it
-                $defaultpassword = $lastname . $accountnumber;
+                $defaultpassword = $lastnameremovespace . $accountnumber;
                 $defaulthashed_pass = password_hash($defaultpassword, PASSWORD_BCRYPT);
 
                 // Get the first letter of the first name
@@ -73,7 +73,7 @@ if (isset($_POST['save_excel_data'])) {
                 $code = strtoupper($lastname . " , " . $firstname . " " . $first_letter_middlename . ". - " . $accountnumber . " - " . $program);
 
                 // Generate username
-                $username = strtolower($first_letter) . strtolower($lastname);
+                $username = strtolower($first_letter) . strtolower($lastnameremovespace);
                 
                 // Set role to Student
                 $role = "Student";
@@ -102,7 +102,7 @@ if (isset($_POST['save_excel_data'])) {
                 }
             }
 
-            header("Location: ../officer-students.php?newStudentSuccess=New student accounts created successfully");
+            header("Location: ../officer-students.php?newStudentSuccess=New student accounts enrolled successfully");
             exit();
 
         } catch (Exception $e) {

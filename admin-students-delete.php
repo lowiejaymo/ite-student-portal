@@ -1,4 +1,4 @@
-<!-- admin-officer-delete.php and to delete officer in admin form.
+<!-- admin-students-delete.php and to delete student in admin form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
@@ -60,7 +60,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0">Deleting Officer</h1>
+                                <h1 class="m-0">Deleting Student</h1>
                             </div><!-- /.col -->
                         </div><!-- /.row -->
                     </div><!-- /.container-fluid -->
@@ -77,7 +77,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                     <div class="card-header">
                                         <!-- add New Subject -->
                                         <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
-                                            Are you sure you want to delete this officer?</h3><br>
+                                            Are you sure you want to delete this student?</h3><br>
                                         <p class="text-muted">Note: You can no longer retreive this account once deleted.
                                         </p>
                                         <hr>
@@ -89,18 +89,19 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                         <?php } ?>
 
 
-                                        <form action="indexes/admin-officer-delete-be.php" method="post">
+                                        <form action="indexes/admin-student-delete-be.php" method="post">
 
                                             <?php
-                                            $account_indx = $_GET['account_indx'];
-                                            $sql = "SELECT * FROM user WHERE account_indx = $account_indx";
-                                            $result = mysqli_query($conn, $sql);
+                                            $accountindx = $_GET['accountindx'];
+                                            $studentsql = "SELECT * FROM user WHERE account_indx = '$accountindx'";
+                                            $result = $conn->query($studentsql);
 
                                             if (mysqli_num_rows($result) > 0) {
                                                 while ($row = mysqli_fetch_assoc($result)) {
                                                     $account_number = $row['account_number'];
                                                     $username = $row['username'];
-                                                    $position = $row['position'];
+                                                    $program = $row['program'];
+                                                    $year_level = $row['year_level'];
                                                     $last_name = $row['last_name'];
                                                     $first_name = $row['first_name'];
                                                     $middle_name = $row['middle_name'];
@@ -109,7 +110,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
 
                                                     $displayedaccount_number = $account_number;
                                                     $displayedusername = $username;
-                                                    $displayedposition = $position;
+                                                    $displayedprogram = $program;
+                                                    $displayedyear_level = $year_level;
                                                     $displayedlast_name = $last_name;
                                                     $displayedfirst_name = $first_name;
                                                     $displayedmiddle_name = $middle_name;
@@ -147,12 +149,22 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="Position" class="col-sm-3 col-form-label">Position</label>
+                                                        <label for="Program" class="col-sm-3 col-form-label">Program</label>
                                                         <div class="col-sm-9">
                                                             <input type="text" class="form-control" id="created_on_original"
-                                                                placeholder="(Required)" value="<?php echo $displayedposition; ?>"
+                                                                placeholder="(Required)" value="<?php echo $displayedprogram; ?>"
                                                                 disabled>
-                                                            <input type="hidden" name="position" value="<?php echo $position; ?>">
+                                                            <input type="hidden" name="program" value="<?php echo $program; ?>">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="Year_Level" class="col-sm-3 col-form-label">Year Level</label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" class="form-control" id="created_on_original"
+                                                                placeholder="(Required)" value="<?php echo $displayedyear_level; ?>"
+                                                                disabled>
+                                                            <input type="hidden" name="year_level" value="<?php echo $year_level; ?>">
                                                         </div>
                                                     </div>
 
@@ -198,10 +210,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
 
 
                                             <div class="offset-sm-2 col-sm-10">
-                                                <button type="submit" value="Submit" name="deleteOfficer"
+                                                <button type="submit" value="Submit" name="deleteStudent"
                                                     class="btn btn-danger">Delete</button>
                                                 <a type="button" name="cancel" class="btn btn-secondary"
-                                                    href="admin-officer.php">Cancel</a>
+                                                    href="admin-student.php">Cancel</a>
                                             </div>
 
                                         </form>

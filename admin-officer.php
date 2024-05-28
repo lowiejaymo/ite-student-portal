@@ -3,7 +3,7 @@ Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
+Last Modified: May 28, 2024
 Brief overview of the file's contents. -->
 
 <?php
@@ -75,6 +75,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
             <?php if (isset($_GET['deleteOfficerSuccess'])) { ?>
               <div class="alert alert-success">
                 <?php echo $_GET['deleteOfficerSuccess']; ?>
+              </div>
+            <?php } ?>
+
+            <?php if (isset($_GET['deleteOfficerError'])) { ?>
+              <div class="alert alert-danger">
+                <?php echo $_GET['deleteOfficerError']; ?>
               </div>
             <?php } ?>
 

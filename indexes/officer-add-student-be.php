@@ -5,7 +5,7 @@ Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
+Last Modified: May 28, 2024
 Overview: This file handles the addition of new students, validating officer input and inserting the student into the database.
 */
 session_start();
@@ -24,9 +24,9 @@ if (isset($_POST['addStudent'])) {
 
     // Sanitize and validate 
     $accountnumber = validate($_POST['accountnumber']);
-    $lastname = validate($_POST['lastname']);
-    $firstname = validate($_POST['firstname']);
-    $middlename = validate($_POST['middlename']);
+    $lastnameNotProper = validate($_POST['lastname']);
+    $firstnameNotProper = validate($_POST['firstname']);
+    $middlenameNotProper = validate($_POST['middlename']);
     $email = validate($_POST['email']);
     $phonenumber = validate($_POST['phonenumber']);
     $gender = validate($_POST['gender']);
@@ -125,7 +125,7 @@ if (isset($_POST['addStudent'])) {
 
             // Redirect based on the result of the SQL query
             if ($result_newstudent_query) {
-                header("Location: ../officer-students.php?newStudentSuccess=New Officer account created successfully");
+                header("Location: ../officer-students.php?newStudentSuccess=New Student enrolled successfully");
                 exit();
             } else {
                 header("Location: ../officer-student-addnew.php?newStudentError=Failed to add new student account&$user_data");

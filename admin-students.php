@@ -3,7 +3,7 @@ Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
+Last Modified: May 28, 2024
 Brief overview of the file's contents. -->
 
 <?php
@@ -62,7 +62,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                 <h1>Students</h1>
               </div>
               <div class="col-sm-6 text-right">
-                <a id="addNewOfficerBtn" class="btn btn-success" href="admin-student-addnew.php"><i
+                <a id="addNewStudentBtn" class="btn btn-success" href="admin-student-addnew.php"><i
                     class="nav-icon fas fa-solid fa-plus"></i> Add Student</a>
               </div>
             </div>
@@ -74,9 +74,21 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
         <section class="content">
           <div class="container-fluid">
 
-          <?php if (isset($_GET['newStudentSuccess'])) { ?>
+                    <?php if (isset($_GET['newStudentSuccess'])) { ?>
                       <div class="alert alert-success">
                         <?php echo $_GET['newStudentSuccess']; ?>
+                      </div>
+                    <?php } ?>
+
+                    <?php if (isset($_GET['deleteStudentSuccess'])) { ?>
+                      <div class="alert alert-success">
+                        <?php echo $_GET['deleteStudentSuccess']; ?>
+                      </div>
+                    <?php } ?>
+
+                    <?php if (isset($_GET['deleteStudentError'])) { ?>
+                      <div class="alert alert-danger">
+                        <?php echo $_GET['deleteStudentError']; ?>
                       </div>
                     <?php } ?>
 
@@ -195,7 +207,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                       <td class="align-middle text-center">
                         <a href='admin-student-view.php?accountindx=<?php echo $row['account_indx']; ?>'
                           class='btn btn-success btn-sm'><i class="nav-icon fas fa-solid fa-hand-pointer"></i> Select</a>
-                        <a href='admin-event-delete.php?eventindex=<?php echo $row['event_indx']; ?>'
+                        <a href='admin-students-delete.php?accountindx=<?php echo $row['account_indx']; ?>'
                           class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
                       </td>
                     </tr>

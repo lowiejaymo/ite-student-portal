@@ -3,7 +3,7 @@ Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
+Last Modified: May 28, 2024
 Brief overview of the file's contents. -->
 
 <?php
@@ -150,7 +150,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                       </div>
 
 
-                      <label for="position" class="col-sm-4 col-form-label">Program</label>
+                      <label for="program" class="col-sm-4 col-form-label">Program</label>
                       <div class="form-group row">
                         <div class="col-sm-12">
                           <?php if (isset($_GET['program'])) { ?>
@@ -179,7 +179,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                         </div>
                       </div>
 
-                      <label for="position" class="col-sm-4 col-form-label">Year Level</label>
+                      <label for="yearlevel" class="col-sm-4 col-form-label">Year Level</label>
                       <div class="form-group row">
                         <div class="col-sm-12">
                           <?php if (isset($_GET['yearlevel'])) { ?>
@@ -209,7 +209,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                       </div>
 
                       
-                      <label for="position" class="col-sm-4 col-form-label">Gender</label>
+                      <label for="gender" class="col-sm-4 col-form-label">Gender</label>
                       <div class="form-group row">
                         <div class="col-sm-12">
                           <?php if (isset($_GET['gender'])) { ?>
