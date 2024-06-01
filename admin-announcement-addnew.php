@@ -1,4 +1,4 @@
- <!-- admin-announcement-addnew.php and to add new announcement in admin form.
+<!-- admin-announcement-addnew.php and to add new announcement in admin form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
@@ -78,8 +78,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                         <!-- add New Subject -->
                                         <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
                                             Announcement Form</h3><br>
-                                        <p class="text-muted">Note: Please be reminded that you are not able to edit the announcement after it has been posted, but you are able to delete it.</p>
-                                        
+                                        <p class="text-muted">Note: Please be reminded that you are not able to edit the
+                                            announcement after it has been posted, but you are able to delete it.</p>
+
                                         <hr>
 
                                         <?php if (isset($_GET['newaAnnouncementError'])) { ?>
@@ -89,19 +90,20 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                         <?php } ?>
 
 
-                                        <form style="width: 100%" action="indexes/admin-add-announcement-be.php" method="post">
+                                        <form style="width: 100%" action="indexes/admin-add-announcement-be.php"
+                                            method="post">
 
                                             <!-- Account Number input -->
-                                            <label for="Announcement Heading" class="col-sm-4 col-form-label">Heading</label>
+                                            <label for="Announcement Heading"
+                                                class="col-sm-4 col-form-label">Heading</label>
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
                                                     <?php if (isset($_GET['heading'])) { ?>
-                                                        <input type="text" class="form-control" id="heading"
-                                                            name="heading" placeholder="(Required)"
-                                                            value="<?php echo $_GET['heading']; ?>">
+                                                        <input type="text" class="form-control" id="heading" name="heading"
+                                                            placeholder="(Required)" value="<?php echo $_GET['heading']; ?>">
                                                     <?php } else { ?>
-                                                        <input type="text" class="form-control" id="heading"
-                                                            name="heading" placeholder="(Required)">
+                                                        <input type="text" class="form-control" id="heading" name="heading"
+                                                            placeholder="(Required)">
                                                     <?php } ?>
                                                 </div>
                                             </div>
@@ -114,7 +116,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                 <div class="col-sm-12">
                                                     <?php if (isset($_GET['content'])) { ?>
                                                         <textarea class="form-control" id="content" name="content"
-                                                            placeholder="(Required)" rows="6"><?php echo $_GET['content']; ?></textarea>
+                                                            placeholder="(Required)"
+                                                            rows="6"><?php echo $_GET['content']; ?></textarea>
                                                     <?php } else { ?>
                                                         <textarea class="form-control" id="content" name="content"
                                                             placeholder="(Required)" rows="6"></textarea>
@@ -122,6 +125,86 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                 </div>
                                             </div>
 
+                                            <label for="school_year" class="col-sm-4 col-form-label">School Year</label>
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                    <?php
+                                                    // Assuming you have a database connection already established
+                                                    $schoolYearQuery = "SELECT * FROM school_year";
+                                                    $result = mysqli_query($conn, $schoolYearQuery);
+
+                                                    // Fetch all school years
+                                                    $schoolYears = [];
+                                                    $defaultYear = '';
+
+                                                    if ($result && mysqli_num_rows($result) > 0) {
+                                                        while ($row = mysqli_fetch_assoc($result)) {
+                                                            $schoolYears[] = $row;
+                                                            if ($row['dfault'] == 1) {
+                                                                $defaultYear = $row['school_year'];
+                                                            }
+                                                        }
+                                                    }
+                                                    ?>
+                                                    
+                                                    <select class="form-control" id="school_year" name="school_year">
+                                                        <option value="" disabled <?php if (!isset($_GET['school_year'])) echo 'selected'; ?>>(Required)</option>
+                                                        <?php foreach ($schoolYears as $year) { ?>
+                                                            <option value="<?php echo $year['school_year']; ?>" 
+                                                                <?php 
+                                                                    if (isset($_GET['school_year']) && $_GET['school_year'] == $year['school_year']) {
+                                                                        echo 'selected';
+                                                                    } elseif (!isset($_GET['school_year']) && $year['dfault'] == 1) {
+                                                                        echo 'selected';
+                                                                    }
+                                                                ?>>
+                                                                <?php echo $year['school_year']; ?>
+                                                            </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <label for="semester" class="col-sm-4 col-form-label">Semester</label>
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                    <?php
+                                                    // Assuming you have a database connection already established
+                                                    $query = "SELECT * FROM semester";
+                                                    $result = mysqli_query($conn, $query);
+
+                                                    // Fetch all semesters
+                                                    $semesters = []; // Renamed to $semesters
+                                                    $defaultsemester = '';
+
+                                                    if ($result && mysqli_num_rows($result) > 0) {
+                                                        while ($row = mysqli_fetch_assoc($result)) {
+                                                            $semesters[] = $row;
+                                                            if ($row['dfault'] == 1) {
+                                                                $defaultsemester = $row['semester'];
+                                                            }
+                                                        }
+                                                    }
+                                                    ?>
+                                                    
+                                                    <select class="form-control" id="semester" name="semester">
+                                                        <option value="" disabled <?php if (!isset($_GET['semester'])) echo 'selected'; ?>>(Required)</option>
+                                                        <?php foreach ($semesters as $semester) { ?> <!-- Changed $semester to $semesters -->
+                                                            <option value="<?php echo $semester['semester']; ?>" 
+                                                                <?php 
+                                                                    if (isset($_GET['semester']) && $_GET['semester'] == $semester['semester']) {
+                                                                        echo 'selected';
+                                                                    } elseif (!isset($_GET['semester']) && $semester['dfault'] == 1) {
+                                                                        echo 'selected';
+                                                                    }
+                                                                ?>>
+                                                                <?php echo $semester['semester']; ?>
+                                                            </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
 
 
 
@@ -144,13 +227,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
-            <footer class="main-footer">
-                <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-                All rights reserved.
-                <div class="float-right d-none d-sm-inline-block">
-                    <b>Version</b> 3.2.0
-                </div>
-            </footer>
+            
+            
+            <?php include 'layout/fixed-footer.php'; ?>
 
             <!-- Control Sidebar -->
             <aside class="control-sidebar control-sidebar-dark">

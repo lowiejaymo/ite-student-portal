@@ -23,6 +23,7 @@ if (isset($_POST['deleteAnnouncement'])) {
         return $data;
     }
 
+<<<<<<< Updated upstream
     // Sanitize and validate
     $heading = validate($_POST['heading']);
     $content = validate($_POST['content']);
@@ -31,8 +32,13 @@ if (isset($_POST['deleteAnnouncement'])) {
 
     // Delete the announcement
      $delete_announcement_query = "DELETE FROM announcement WHERE heading = ? AND content = ? AND posted_by = ? AND created_on = ?";
+=======
+    $announcement_id = validate($_POST['announcement_id']);
+
+     $delete_announcement_query = "DELETE FROM announcement WHERE announcement_id = ? ";
+>>>>>>> Stashed changes
     $delete_announcement_stmt = mysqli_prepare($conn, $delete_announcement_query);
-    mysqli_stmt_bind_param($delete_announcement_stmt, "ssss", $heading, $content, $posted_by, $created_on);
+    mysqli_stmt_bind_param($delete_announcement_stmt, "i", $announcement_id);
     mysqli_stmt_execute($delete_announcement_stmt);
     $affected_rows = mysqli_stmt_affected_rows($delete_announcement_stmt);
 

@@ -27,8 +27,12 @@ if (isset($_POST['addAnnouncement'])) {
     $heading = validate($_POST['heading']);
     $content = validate($_POST['content']);
 
+<<<<<<< Updated upstream
     // Get the user role from the session
     $postedBy = $_SESSION['role'] ;
+=======
+    $postedBy = $_SESSION['position'] ;
+>>>>>>> Stashed changes
 
     // Set the default timezone and the current date and time
     date_default_timezone_set('Asia/Manila');

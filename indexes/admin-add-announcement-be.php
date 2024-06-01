@@ -26,9 +26,15 @@ if (isset($_POST['addAnnouncement'])) {
     // Sanitize and validate 
     $heading = validate($_POST['heading']);
     $content = validate($_POST['content']);
+    $school_year = validate($_POST['school_year']);
+    $semester = validate($_POST['semester']);
 
+<<<<<<< Updated upstream
     // Get the user role from the session
     $postedBy = $_SESSION['role'] ;
+=======
+    $postedBy = $_SESSION['account_number'] ;
+>>>>>>> Stashed changes
 
     // Set the default timezone and the current date and time
     date_default_timezone_set('Asia/Manila');
@@ -39,10 +45,11 @@ if (isset($_POST['addAnnouncement'])) {
 
     // Construct user data string
     $user_data = '&heading=' . $heading .
-        '&content=' . $content;
+        '&content=' . $content.
+        '&school_year=' . $school_year.
+        '&semester=' . $semester;
 
 
-    // Validate account number length
     if (strlen($heading) > 255) {
         header("Location: ../admin-announcement-addnew.php?newaAnnouncementError=Heading is too long, heading must not more than 255 characters$user_data");
         exit();
@@ -54,12 +61,18 @@ if (isset($_POST['addAnnouncement'])) {
     else if (empty($content)) {
         header("Location: ../admin-announcement-addnew.php?newaAnnouncementError=Content is required&$user_data");
         exit();
+    } elseif (empty($semester)) {
+        header("Location: ../admin-announcement-addnew.php?newaAnnouncementError=Semester is required&$user_data");
+        exit();
+    } elseif (empty($school_year)) {
+        header("Location: ../admin-announcement-addnew.php?newaAnnouncementError=School year is required&$user_data");
+        exit();
     } else {
         // Insert new announcement
-        $sql_newAnnouncement_query = "INSERT INTO announcement(heading, content, posted_by, created_on, account_indx)
-        VALUES(?, ?, ?, ?, ?)";
+        $sql_newAnnouncement_query = "INSERT INTO announcement(heading, content, account_number, posted_on, school_year, semester)
+        VALUES(?, ?, ?, ?, ?, ?)";
         $stmt_newoAnnouncement_query = mysqli_prepare($conn, $sql_newAnnouncement_query);
-        mysqli_stmt_bind_param($stmt_newoAnnouncement_query, "ssssi", $heading, $content, $postedBy, $time, $account_indx);
+        mysqli_stmt_bind_param($stmt_newoAnnouncement_query, "ssssss", $heading, $content, $postedBy, $time, $school_year, $semester);
         $result_newoAnnouncement_query = mysqli_stmt_execute($stmt_newoAnnouncement_query);
 
         // Redirect based on the result of the SQL query

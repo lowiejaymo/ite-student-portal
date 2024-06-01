@@ -1,11 +1,3 @@
- <!-- admin-announcement.php and to see the announcements in admin form.
-Authors:
-  - Lowie Jay Orillo (lowie.jaymier@gmail.com)
-  - Caryl Mae Subaldo (subaldomae29@gmail.com)
-  - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
-Brief overview of the file's contents. -->
-
 <?php
 session_start();
 include "indexes/db_conn.php";
@@ -96,12 +88,21 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
               $announcement_id = $row['announcement_id'];
               $heading = $row['heading'];
               $content = $row['content'];
-              $posted_by = $row['posted_by'];
-              $created_on = $row['created_on'];
+              $posted_by = $row['account_number'];
 
-              $created_on = $row['created_on'];
+              // Retrieve position from user table
+              $sqlPostedBy = "SELECT position FROM user WHERE account_number = '$posted_by'";
+              $resultPostedBy = mysqli_query($conn, $sqlPostedBy);
+              $position = '';
+              if ($resultPostedBy && mysqli_num_rows($resultPostedBy) > 0) {
+                $userRow = mysqli_fetch_assoc($resultPostedBy);
+                $position = $userRow['position'];
+              }
+
+              $posted_on = $row['posted_on'];
               $paragraphs = explode("\n", $content);
-              $formatted_date = date("F j, Y \a\\t g:i A", strtotime($created_on));
+              $formatted_date = date("F j, Y", strtotime($posted_on));
+              
               ?>
               <div class="container">
                 <div class="row justify-content-center">
@@ -111,7 +112,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                         <!-- add New Subject -->
                         
                         <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
-                          <?php echo $posted_by; ?>
+                          <?php echo $position; ?>
                         </h3><br>
                         <p class="card-title text-center">
                           <?php echo $formatted_date; ?>
@@ -148,26 +149,16 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                 <?php
             }
           } else {
-            echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No posted announcment</strong></h2></div>";
+            echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No posted announcement</strong></h2></div>";
           }
           ?>
           </div>
         </section>
 
-
-
-
-
         <!-- /.content -->
       </div>
       <!-- /.content-wrapper -->
-      <footer class="main-footer">
-        <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-        All rights reserved.
-        <div class="float-right d-none d-sm-inline-block">
-          <b>Version</b> 3.2.0
-        </div>
-      </footer>
+      <?php include 'layout/fixed-footer.php'; ?>
 
       <!-- Control Sidebar -->
       <aside class="control-sidebar control-sidebar-dark">

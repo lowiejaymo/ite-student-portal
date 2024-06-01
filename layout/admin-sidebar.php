@@ -53,6 +53,15 @@ Brief overview of the file's contents. -->
         </li>
 
         <li class="nav-item ">
+          <a href="admin-academic-settings.php" class="nav-link">
+            <i class="nav-icon fas fa-solid fa-wrench"></i>
+            <p>
+              Academic Settings
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item ">
           <a href="admin-announcement.php" class="nav-link">
             <i class="nav-icon fas fa-solid fa-bullhorn"></i>
             <p>
