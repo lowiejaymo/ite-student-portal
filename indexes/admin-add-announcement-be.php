@@ -29,12 +29,7 @@ if (isset($_POST['addAnnouncement'])) {
     $school_year = validate($_POST['school_year']);
     $semester = validate($_POST['semester']);
 
-<<<<<<< Updated upstream
-    // Get the user role from the session
-    $postedBy = $_SESSION['role'] ;
-=======
-    $postedBy = $_SESSION['account_number'] ;
->>>>>>> Stashed changes
+    $postedBy = $_SESSION['account_number'];
 
     // Set the default timezone and the current date and time
     date_default_timezone_set('Asia/Manila');

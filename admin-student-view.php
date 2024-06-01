@@ -59,7 +59,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
           <div class="container-fluid">
             <div class="row mb-2 align-items-center">
               <div class="col-sm-6">
-                <h1>Events</h1>
+                <h1>Student Profile</h1>
               </div>
               <div class="col-sm-6 text-right">
                 <a id="addNewSubjectBtn" class="btn btn-secondary" href="admin-students.php"><i
@@ -78,9 +78,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
               <div class="card-header">
                 <div class="row align-items-center">
                   <?php
-                  if (isset($_GET['accountindx'])) {
-                    $accountindx = $_GET['accountindx'];
-                    $studentsql = "SELECT * FROM user WHERE account_indx = '$accountindx'";
+                  if (isset($_GET['account_number'])) {
+                    $account_number = $_GET['account_number'];
+                    $studentsql = "SELECT * FROM user WHERE account_number = '$account_number'";
                     $result = $conn->query($studentsql);
 
                     if ($result && $result->num_rows > 0) {

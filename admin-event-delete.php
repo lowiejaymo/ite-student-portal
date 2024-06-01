@@ -89,13 +89,13 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
 
                                         <form style="width: 100%" action="indexes/admin-event-delete-be.php" method="post">
                                             <?php
-                                            $eventIndex = $_GET['eventindex'];
-                                            $sql = "SELECT * FROM events WHERE event_indx = $eventIndex";
+                                            $event_id = $_GET['event_id'];
+                                            $sql = "SELECT * FROM events WHERE event_id = $event_id";
                                             $result = mysqli_query($conn, $sql);
 
                                             if (mysqli_num_rows($result) > 0) {
                                                 while ($row = mysqli_fetch_assoc($result)) {
-                                                    $event_indx = $row['event_indx'];
+                                                    $event_id = $row['event_id'];
                                                     $event_name = $row['event_name'];
                                                     $date = $row['date'];
                                                     $school_year = $row['school_year'];
@@ -104,7 +104,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                     ?>
 
 
-                                                    <input type="hidden" name="event_indx" value="<?php echo $event_indx; ?>">
+                                                    <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
 
                                                     <!-- Heading input -->
                                                     <label for="Announcement Heading" class="col-sm-4 col-form-label">Event

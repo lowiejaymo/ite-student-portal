@@ -116,58 +116,96 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                       </div>
                     
 
-                      <label for="schoolyear" class="col-sm-4 col-form-label">School Year</label>
-                      <div class="form-group row">
-                        <div class="col-sm-12">
-                          <?php if (isset($_GET['schoolyear'])) { ?>
-                            <select class="form-control" id="yearlevel" name="schoolyear">
-                              <option value="" disabled <?php if ($_GET['schoolyear'] == '')
-                                echo 'selected'; ?>>(Required)
-                              </option>
-                              <option value="2023-2024" <?php if ($_GET['schoolyear'] == '2023-2024')
-                                echo 'selected'; ?>>2023-2024</option>
-                              <option value="2024-2025" <?php if ($_GET['schoolyear'] == '2024-2025')
-                                echo 'selected'; ?>>2024-2025</option>
-                              <option value="2025-2026" <?php if ($_GET['schoolyear'] == '2025-2026')
-                                echo 'selected'; ?>>2025-2026</option>
-                              <option value="2026-2027" <?php if ($_GET['schoolyear'] == '2026-2027')
-                                echo 'selected'; ?>>2026-2027</option>
-                            </select>
-                          <?php } else { ?>
-                            <select class="form-control" id="schoolyear" name="schoolyear">
-                              <option value="" selected disabled>(Required)</option>
-                              <option value="2023-2024">2023-2024</option>
-                              <option value="2024-2025">2024-2025</option>
-                              <option value="2025-2026">2025-2026</option>
-                              <option value="2026-2027">2026-2027</option>
-                            </select>
-                          <?php } ?>
-                        </div>
-                      </div>
+                      <label for="school_year" class="col-sm-4 col-form-label">School Year</label>
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                    <?php
+                                                    // Assuming you have a database connection already established
+                                                    $schoolYearQuery = "SELECT * FROM school_year";
+                                                    $result = mysqli_query($conn, $schoolYearQuery);
+
+                                                    // Fetch all school years
+                                                    $schoolYears = [];
+                                                    $defaultYear = '';
+
+                                                    if ($result && mysqli_num_rows($result) > 0) {
+                                                        while ($row = mysqli_fetch_assoc($result)) {
+                                                            $schoolYears[] = $row;
+                                                            if ($row['dfault'] == 1) {
+                                                                $defaultYear = $row['school_year'];
+                                                            }
+                                                        }
+                                                    }
+                                                    ?>
+                                                    
+                                                    <select class="form-control" id="school_year" name="school_year">
+                                                        <option value="" disabled <?php if (!isset($_GET['school_year'])) echo 'selected'; ?>>(Required)</option>
+                                                        <?php foreach ($schoolYears as $year) { ?>
+                                                            <option value="<?php echo $year['school_year']; ?>" 
+                                                                <?php 
+                                                                    if (isset($_GET['school_year']) && $_GET['school_year'] == $year['school_year']) {
+                                                                        echo 'selected';
+                                                                    } elseif (!isset($_GET['school_year']) && $year['dfault'] == 1) {
+                                                                        echo 'selected';
+                                                                    }
+                                                                ?>>
+                                                                <?php echo $year['school_year']; ?>
+                                                            </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
 
 
                       <label for="semester" class="col-sm-4 col-form-label">Semester</label>
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                    <?php
+                                                    // Assuming you have a database connection already established
+                                                    $query = "SELECT * FROM semester";
+                                                    $result = mysqli_query($conn, $query);
+
+                                                    // Fetch all semesters
+                                                    $semesters = []; // Renamed to $semesters
+                                                    $defaultsemester = '';
+
+                                                    if ($result && mysqli_num_rows($result) > 0) {
+                                                        while ($row = mysqli_fetch_assoc($result)) {
+                                                            $semesters[] = $row;
+                                                            if ($row['dfault'] == 1) {
+                                                                $defaultsemester = $row['semester'];
+                                                            }
+                                                        }
+                                                    }
+                                                    ?>
+                                                    
+                                                    <select class="form-control" id="semester" name="semester">
+                                                        <option value="" disabled <?php if (!isset($_GET['semester'])) echo 'selected'; ?>>(Required)</option>
+                                                        <?php foreach ($semesters as $semester) { ?> <!-- Changed $semester to $semesters -->
+                                                            <option value="<?php echo $semester['semester']; ?>" 
+                                                                <?php 
+                                                                    if (isset($_GET['semester']) && $_GET['semester'] == $semester['semester']) {
+                                                                        echo 'selected';
+                                                                    } elseif (!isset($_GET['semester']) && $semester['dfault'] == 1) {
+                                                                        echo 'selected';
+                                                                    }
+                                                                ?>>
+                                                                <?php echo $semester['semester']; ?>
+                                                            </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <label for="points" class="col-sm-4 col-form-label">Points</label>
                       <div class="form-group row">
                         <div class="col-sm-12">
-                          <?php if (isset($_GET['semester'])) { ?>
-                            <select class="form-control" id="semester" name="semester">
-                              <option value="" disabled <?php if ($_GET['semester'] == '')
-                                echo 'selected'; ?>>(Required)
-                              </option>
-                              <option value="First" <?php if ($_GET['semester'] == 'First')
-                                echo 'selected'; ?>>First Semester </option>
-                              <option value="Second" <?php if ($_GET['semester'] == 'Second')
-                                echo 'selected'; ?>>Second Semester</option>
-                              <option value="Third" <?php if ($_GET['semester'] == 'Third')
-                                echo 'selected'; ?>>Third Semester</option>
-                            </select>
+                          <?php if (isset($_GET['points'])) { ?>
+                            <input type="text" class="form-control" id="points" name="points" placeholder="(Required)"
+                              value="<?php echo $_GET['points']; ?>">
                           <?php } else { ?>
-                            <select class="form-control" id="semester" name="semester">
-                              <option value="" selected disabled>(Required)</option>
-                              <option value="First">First Semester</option>
-                              <option value="Second">Second Semester</option>
-                              <option value="Third">Third Semester</option>
-                            </select>
+                            <input type="text" class="form-control" id="points" name="points"
+                              placeholder="(Required)">
                           <?php } ?>
                         </div>
                       </div>

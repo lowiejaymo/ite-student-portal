@@ -92,8 +92,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                         <form action="indexes/admin-student-delete-be.php" method="post">
 
                                             <?php
-                                            $accountindx = $_GET['accountindx'];
-                                            $studentsql = "SELECT * FROM user WHERE account_indx = '$accountindx'";
+                                            $account_number = $_GET['account_number'];
+                                            $studentsql = "SELECT * FROM user WHERE account_number = '$account_number'";
                                             $result = $conn->query($studentsql);
 
                                             if (mysqli_num_rows($result) > 0) {

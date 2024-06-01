@@ -205,9 +205,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                         <?php echo $row['year_level']; ?>
                       </td>
                       <td class="align-middle text-center">
-                        <a href='admin-student-view.php?accountindx=<?php echo $row['account_indx']; ?>'
+                        <a href='admin-student-view.php?account_number=<?php echo $row['account_number']; ?>'
                           class='btn btn-success btn-sm'><i class="nav-icon fas fa-solid fa-hand-pointer"></i> Select</a>
-                        <a href='admin-students-delete.php?accountindx=<?php echo $row['account_indx']; ?>'
+                        <a href='admin-students-delete.php?account_number=<?php echo $row['account_number']; ?>'
                           class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
                       </td>
                     </tr>

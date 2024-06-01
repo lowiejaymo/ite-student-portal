@@ -100,7 +100,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
               <?php
               if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
-                  $account_indx = $row['account_indx'];
                   $username = $row['username'];
                   $account_number = $row['account_number'];
                   $position = $row['position'];
@@ -127,7 +126,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                         First Name: <?php echo $first_name; ?><br>
                         <br>
                         <div class="card-footer d-flex justify-content-center">
-                          <a href='admin-officer-delete.php?account_indx=<?php echo $row['account_indx']; ?>'
+                          <a href='admin-officer-delete.php?account_number=<?php echo $row['account_number']; ?>'
                             class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
                         </div>
                       </div>

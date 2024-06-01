@@ -16,7 +16,6 @@ include "db_conn.php";
 if (isset($_POST['upload'])) {
 
     // Get the account index and account_number from the session
-    $account_indx = $_SESSION['account_indx']; 
     $account_number = $_SESSION['account_number']; 
 
     // Define file details
@@ -43,9 +42,9 @@ if (isset($_POST['upload'])) {
     if (move_uploaded_file($file_loc, $folder . $final_file)) {
 
         // Update the profile picture in the database
-        $sql = "UPDATE user SET profile_picture=? WHERE account_indx=?";
+        $sql = "UPDATE user SET profile_picture=? WHERE account_number=?";
         $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "si", $final_file, $account_indx);
+        mysqli_stmt_bind_param($stmt, "si", $final_file, $account_number);
         mysqli_stmt_execute($stmt);
 
         // Update the profile picture session

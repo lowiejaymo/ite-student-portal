@@ -184,9 +184,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                         <?php echo $row['semester']; ?>
                       </td>
                       <td class="align-middle text-center">
-                        <a href='admin-event-view.php?eventindex=<?php echo $row['event_indx']; ?>'
+                        <a href='admin-event-view.php?event_id=<?php echo $row['event_id']; ?>'
                           class='btn btn-success btn-sm'><i class="nav-icon fas fa-solid fa-hand-pointer"></i> Select</a>
-                        <a href='admin-event-delete.php?eventindex=<?php echo $row['event_indx']; ?>'
+                        <a href='admin-event-delete.php?event_id=<?php echo $row['event_id']; ?>'
                           class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
                       </td>
                     </tr>

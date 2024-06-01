@@ -87,9 +87,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                     <table class="subject-info">
                       <?php
                       // Add the code here
-                      if (isset($_GET['eventindex'])) {
-                        $eventIndex = $_GET['eventindex'];
-                        $eventsql = "SELECT * FROM events WHERE event_indx = '$eventIndex'";
+                      if (isset($_GET['event_id'])) {
+                        $event_id = $_GET['event_id'];
+                        $eventsql = "SELECT * FROM events WHERE event_id = '$event_id'";
                         $result = $conn->query($eventsql);
 
                         if ($result && $result->num_rows > 0) {
@@ -118,6 +118,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                               <td class="col-md-3"><strong>Semester:</strong></td>
                               <td class="col-md-9">
                               <?php echo $row['semester']; ?>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-3"><strong>Points:</strong></td>
+                              <td class="col-md-9">
+                              <?php echo $row['points']; ?>
                               </td>
                             </tr>
                             

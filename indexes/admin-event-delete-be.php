@@ -23,12 +23,12 @@ if (isset($_POST['deleteEvent'])) {
     }
 
     // Sanitize and validate 
-    $event_indx = validate($_POST['event_indx']);
+    $event_id = validate($_POST['event_id']);
 
     // Delete the event
-    $delete_event_query = "DELETE FROM events WHERE event_indx = ?";
+    $delete_event_query = "DELETE FROM events WHERE event_id = ?";
     $delete_event_stmt = mysqli_prepare($conn, $delete_event_query);
-    mysqli_stmt_bind_param($delete_event_stmt, "s", $event_indx);
+    mysqli_stmt_bind_param($delete_event_stmt, "s", $event_id);
     mysqli_stmt_execute($delete_event_stmt);
     $affected_rows = mysqli_stmt_affected_rows($delete_event_stmt);
 

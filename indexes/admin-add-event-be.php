@@ -26,13 +26,15 @@ if (isset($_POST['addEvent'])) {
     // Sanitize and validate 
     $eventname = validate($_POST['eventname']);
     $date = validate($_POST['date']);
-    $schoolyear = validate($_POST['schoolyear']);
+    $schoolyear = validate($_POST['school_year']);
     $semester = validate($_POST['semester']);
+    $points = validate($_POST['points']);
 
     // Construct user data string
     $user_data = 'eventname=' . $eventname .
     '&date=' . $date .
-    '&schoolyear=' . $schoolyear .
+    '&school_year=' . $schoolyear .
+    '&points=' . $points .
     '&semester=' . $semester;
 
 
@@ -52,6 +54,10 @@ if (isset($_POST['addEvent'])) {
     elseif (empty($semester)) {
         header("Location: ../admin-event-addnew.php?newEventError=Semester is required&$user_data");
         exit();
+    } 
+    elseif (empty($points)) {
+        header("Location: ../admin-event-addnew.php?newEventError=Points is required&$user_data");
+        exit();
     } else {
         // Check if event name already exists
         $sql_check_existing = "SELECT * FROM events WHERE event_name=?";
@@ -66,10 +72,10 @@ if (isset($_POST['addEvent'])) {
             exit();
         } else {
             // Insert new event
-            $sql_newevent_query = "INSERT INTO events(event_name, date, school_year, semester)
-                VALUES(?, ?, ?, ?)";
+            $sql_newevent_query = "INSERT INTO events(event_name, date, school_year, semester, points)
+                VALUES(?, ?, ?, ?, ?)";
             $stmt_newevent_query = mysqli_prepare($conn, $sql_newevent_query);
-            mysqli_stmt_bind_param($stmt_newevent_query, "ssss", $eventname, $date, $schoolyear, $semester);
+            mysqli_stmt_bind_param($stmt_newevent_query, "ssssi", $eventname, $date, $schoolyear, $semester, $points);
             $result_newevent_query = mysqli_stmt_execute($stmt_newevent_query);
 
             // Redirect based on the result of the SQL query
