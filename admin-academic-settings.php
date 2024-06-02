@@ -66,7 +66,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
           <div class="container">
             <div class="row justify-content-center">
               <div class="col-md-6">
-                <div class="card card-primary card-outline bg-white" for="new-subject">
+                <div class="card card-primary card-outline bg-white" for="schoolyear">
                   <div class="card-header">
                     <!-- add New Subject -->
                     <div class="card-header d-flex justify-content-center align-items-center">
@@ -122,7 +122,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
 
 
               <div class="col-md-6">
-                <div class="card card-primary card-outline bg-white" for="new-subject">
+                <div class="card card-primary card-outline bg-white" for="semester">
                   <div class="card-header">
                     <!-- add New Subject -->
                     <div class="card-header d-flex justify-content-center align-items-center">

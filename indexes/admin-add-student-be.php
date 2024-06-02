@@ -12,6 +12,7 @@ Overview: This file handles the addition of new students,
 
 session_start();
 require ('db_conn.php');
+require_once '../phpqrcode/qrlib.php';
 
 if (isset($_POST['addStudent'])) {
 
@@ -64,6 +65,8 @@ if (isset($_POST['addStudent'])) {
 
     // Get the username of the admin who enrolled the student
     $enrolled_by = $_SESSION['username'];
+
+    $qrcodeImage = $code . ".png";
 
     // Construct user data string
     $user_data = 'accountnumber=' . $accountnumber .
@@ -120,14 +123,19 @@ if (isset($_POST['addStudent'])) {
             exit();
         } else {
             // Insert new student
-            $sql_newstudent_query = "INSERT INTO user(account_number, code, password, username, role, last_name, first_name, middle_name, gender, email, phone_number, enrolled_by, year_level, program)
-                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql_newstudent_query = "INSERT INTO user(account_number, code, qrcode_images, password, username, role, last_name, first_name, middle_name, gender, email, phone_number, enrolled_by, year_level, program)
+                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt_newstudent_query = mysqli_prepare($conn, $sql_newstudent_query);
-            mysqli_stmt_bind_param($stmt_newstudent_query, "ssssssssssssss", $accountnumber, $code, $defaulthashed_pass, $username, $role, $lastname, $firstname, $middlename, $gender, $email, $phonenumber, $enrolled_by, $yearlevel, $program);
+            mysqli_stmt_bind_param($stmt_newstudent_query, "sssssssssssssss", $accountnumber, $code, $qrcodeImage, $defaulthashed_pass, $username, $role, $lastname, $firstname, $middlename, $gender, $email, $phonenumber, $enrolled_by, $yearlevel, $program);
             $result_newstudent_query = mysqli_stmt_execute($stmt_newstudent_query);
 
-            // Redirect based on the result of the SQL query
             if ($result_newstudent_query) {
+
+
+
+
+
+
                 header("Location: ../admin-students.php?newStudentSuccess=New Student account created successfully");
                 exit();
             } else {

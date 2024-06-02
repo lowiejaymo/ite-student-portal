@@ -32,7 +32,7 @@ if (
     $retypeNewPassword = validate($_POST['retypeNewPassword']);
 
     // Get the account index from the session
-    $account_indx = $_SESSION['account_indx'];
+    $account_number = $_SESSION['account_number'];
 
     // Validate if the new password is equal to retyped new password
     if ($newPassword !== $retypeNewPassword) {
@@ -41,9 +41,9 @@ if (
     }
 
     // Query the database to retrieve the stored password
-    $sql = "SELECT password FROM user WHERE account_indx=?";
+    $sql = "SELECT password FROM user WHERE account_number=?";
     $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "s", $account_indx);
+    mysqli_stmt_bind_param($stmt, "s", $account_number);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
@@ -66,9 +66,9 @@ if (
     $hashed_new_password = password_hash($newPassword, PASSWORD_DEFAULT);
 
     // Update the password in the database
-    $update_sql = "UPDATE user SET password=? WHERE account_indx=?";
+    $update_sql = "UPDATE user SET password=? WHERE account_number=?";
     $update_stmt = mysqli_prepare($conn, $update_sql);
-    mysqli_stmt_bind_param($update_stmt, "ss", $hashed_new_password, $account_indx);
+    mysqli_stmt_bind_param($update_stmt, "ss", $hashed_new_password, $account_number);
     $update_result = mysqli_stmt_execute($update_stmt);
 
     // Redirect based on the result of the SQL query

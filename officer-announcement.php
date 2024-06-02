@@ -1,15 +1,7 @@
- <!-- officer-announcement.php and to see the announcements in officer form.
-Authors:
-  - Lowie Jay Orillo (lowie.jaymier@gmail.com)
-  - Caryl Mae Subaldo (subaldomae29@gmail.com)
-  - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
-Brief overview of the file's contents. -->
-
 <?php
 session_start();
 include "indexes/db_conn.php";
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Officer'
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Admin'
   ?>
 
   <!DOCTYPE html>
@@ -18,7 +10,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Officer Home Page</title>
+    <title>ITE Student Portal | Admin Home Page</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -47,9 +39,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-      <?php include 'layout/officer-fixed-topnav.php'; ?>
+      <?php include 'layout/admin-fixed-topnav.php'; ?>
 
-      <?php include 'layout/officer-sidebar.php'; ?>
+      <?php include 'layout/admin-sidebar.php'; ?>
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
@@ -96,12 +88,20 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
               $announcement_id = $row['announcement_id'];
               $heading = $row['heading'];
               $content = $row['content'];
-              $posted_by = $row['posted_by'];
-              $created_on = $row['created_on'];
+              $posted_by = $row['account_number'];
 
-              $created_on = $row['created_on'];
+              $sqlPostedBy = "SELECT position FROM user WHERE account_number = '$posted_by'";
+              $resultPostedBy = mysqli_query($conn, $sqlPostedBy);
+              $position = '';
+              if ($resultPostedBy && mysqli_num_rows($resultPostedBy) > 0) {
+                $userRow = mysqli_fetch_assoc($resultPostedBy);
+                $position = $userRow['position'];
+              }
+
+              $posted_on = $row['posted_on'];
               $paragraphs = explode("\n", $content);
-              $formatted_date = date("F j, Y \a\\t g:i A", strtotime($created_on));
+              $formatted_date = date("F j, Y", strtotime($posted_on));
+              
               ?>
               <div class="container">
                 <div class="row justify-content-center">
@@ -109,8 +109,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                     <div class="card card-primary card-outline bg-white" for="new-subject">
                       <div class="card-header">
                         <!-- add New Subject -->
+                        
                         <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
-                          <?php echo $posted_by; ?>
+                          <?php echo $position; ?>
                         </h3><br>
                         <p class="card-title text-center">
                           <?php echo $formatted_date; ?>
@@ -132,7 +133,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                         <!-- /.card-header -->
                         <div class="card-footer d-flex justify-content-end">
                           <!-- Your other content goes here -->
-                          <a href='officer-announcement-delete.php?announcement_id=<?php echo $row['announcement_id']; ?>'
+                          <a href='admin-announcement-delete.php?announcement_id=<?php echo $row['announcement_id']; ?>'
                             class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
                         </div>
 
@@ -147,15 +148,11 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                 <?php
             }
           } else {
-            echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No posted announcment</strong></h2></div>";
+            echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No posted announcement</strong></h2></div>";
           }
           ?>
           </div>
         </section>
-
-
-
-
 
         <!-- /.content -->
       </div>

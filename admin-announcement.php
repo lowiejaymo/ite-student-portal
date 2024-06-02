@@ -90,7 +90,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
               $content = $row['content'];
               $posted_by = $row['account_number'];
 
-              // Retrieve position from user table
               $sqlPostedBy = "SELECT position FROM user WHERE account_number = '$posted_by'";
               $resultPostedBy = mysqli_query($conn, $sqlPostedBy);
               $position = '';
