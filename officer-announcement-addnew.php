@@ -1,4 +1,4 @@
- <!-- officer-announcement-addnew.php and to add new announcement in officer form.
+<!-- officer-announcement-addnew.php and to add new announcement in officer form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
@@ -77,6 +77,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                     <div class="card-header">
                                         <!-- add New Subject -->
                                         <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
+                                            Announcement Form</h3><br>
                                         <p class="text-muted">Note: Please be reminded that you are not able to edit the
                                             announcement after it has been posted, but you are able to delete it.</p>
 
@@ -89,19 +90,20 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                         <?php } ?>
 
 
-                                        <form style="width: 100%" action="indexes/officer-add-announcement-be.php" method="post">
+                                        <form style="width: 100%" action="indexes/officer-add-announcement-be.php"
+                                            method="post">
 
                                             <!-- Account Number input -->
-                                            <label for="Announcement Heading" class="col-sm-4 col-form-label">Heading</label>
+                                            <label for="Announcement Heading"
+                                                class="col-sm-4 col-form-label">Heading</label>
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
                                                     <?php if (isset($_GET['heading'])) { ?>
-                                                        <input type="text" class="form-control" id="heading"
-                                                            name="heading" placeholder="(Required)"
-                                                            value="<?php echo $_GET['heading']; ?>">
+                                                        <input type="text" class="form-control" id="heading" name="heading"
+                                                            placeholder="(Required)" value="<?php echo $_GET['heading']; ?>">
                                                     <?php } else { ?>
-                                                        <input type="text" class="form-control" id="heading"
-                                                            name="heading" placeholder="(Required)">
+                                                        <input type="text" class="form-control" id="heading" name="heading"
+                                                            placeholder="(Required)">
                                                     <?php } ?>
                                                 </div>
                                             </div>
@@ -114,14 +116,14 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                 <div class="col-sm-12">
                                                     <?php if (isset($_GET['content'])) { ?>
                                                         <textarea class="form-control" id="content" name="content"
-                                                            placeholder="(Required)" rows="6"><?php echo $_GET['content']; ?></textarea>
+                                                            placeholder="(Required)"
+                                                            rows="6"><?php echo $_GET['content']; ?></textarea>
                                                     <?php } else { ?>
                                                         <textarea class="form-control" id="content" name="content"
                                                             placeholder="(Required)" rows="6"></textarea>
                                                     <?php } ?>
                                                 </div>
                                             </div>
-
 
                                             <label for="school_year" class="col-sm-4 col-form-label">School Year</label>
                                             <div class="form-group row">
@@ -204,6 +206,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                 </div>
                                             </div>
 
+
+
                                             <div class="offset-sm-2 col-sm-10">
                                                 <button type="submit" value="Submit" name="addAnnouncement"
                                                     class="btn btn-success">Post</button>
@@ -223,6 +227,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
+            
+            
             <?php include 'layout/fixed-footer.php'; ?>
 
             <!-- Control Sidebar -->

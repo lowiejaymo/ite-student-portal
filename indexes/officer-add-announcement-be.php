@@ -5,7 +5,7 @@ Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
+Last Modified: June 2, 2024
 Overview: This file handles the addition of new announcements, 
     validating officer input and inserting the announcement into the database.
 */
@@ -26,20 +26,21 @@ if (isset($_POST['addAnnouncement'])) {
     // Sanitize and validate 
     $heading = validate($_POST['heading']);
     $content = validate($_POST['content']);
+    $school_year = validate($_POST['school_year']);
+    $semester = validate($_POST['semester']);
 
     // Get the user role from the session
-    $postedBy = $_SESSION['role'] ;
+    $postedBy = $_SESSION['account_number'] ;
 
     // Set the default timezone and the current date and time
     date_default_timezone_set('Asia/Manila');
     $time = date("Y-m-d H:i:s");
 
-    // Get the account index from the session
-    $account_indx = $_SESSION['account_indx'] ;
-
     // Construct user data string
     $user_data = '&heading=' . $heading .
-        '&content=' . $content;
+        '&content=' . $content.
+        '&school_year=' . $school_year.
+        '&semester=' . $semester;
 
 
     // Validate account number length
@@ -54,12 +55,18 @@ if (isset($_POST['addAnnouncement'])) {
     else if (empty($content)) {
         header("Location: ../officer-announcement-addnew.php?newaAnnouncementError=Content is required&$user_data");
         exit();
+    } elseif (empty($semester)) {
+        header("Location: ../admin-announcement-addnew.php?newaAnnouncementError=Semester is required&$user_data");
+        exit();
+    } elseif (empty($school_year)) {
+        header("Location: ../admin-announcement-addnew.php?newaAnnouncementError=School year is required&$user_data");
+        exit();
     } else {
         // Insert new announcement
-        $sql_newAnnouncement_query = "INSERT INTO announcement(heading, content, posted_by, created_on, account_indx)
-        VALUES(?, ?, ?, ?, ?)";
+        $sql_newAnnouncement_query = "INSERT INTO announcement(heading, content, account_number, posted_on, school_year, semester)
+        VALUES(?, ?, ?, ?, ?, ?)";
         $stmt_newoAnnouncement_query = mysqli_prepare($conn, $sql_newAnnouncement_query);
-        mysqli_stmt_bind_param($stmt_newoAnnouncement_query, "ssssi", $heading, $content, $postedBy, $time, $account_indx);
+        mysqli_stmt_bind_param($stmt_newoAnnouncement_query, "ssssss", $heading, $content, $postedBy, $time, $school_year, $semester);
         $result_newoAnnouncement_query = mysqli_stmt_execute($stmt_newoAnnouncement_query);
 
         // Redirect based on the result of the SQL query

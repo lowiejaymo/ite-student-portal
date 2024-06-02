@@ -1,15 +1,15 @@
- <!-- admin-announcement-delete.php and to delete the announcement in admin form.
+<!-- officer-event-delete.php and to delete event in officer form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: June 2, 2024
+Last Modified: June, 2024
 Brief overview of the file's contents. -->
 
 <?php
 session_start();
 include "indexes/db_conn.php";
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the role is set and it's 'Admin'
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Officer'
     ?>
 
     <!DOCTYPE html>
@@ -18,7 +18,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>ITE Student Portal | Admin Home Page</title>
+        <title>ITE Student Portal | Officer Home Page</title>
         <link rel="icon" type="image/png" href="favicon.ico" />
 
         <!-- Google Font: Source Sans Pro -->
@@ -49,8 +49,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
         <div class="wrapper">
 
             <!-- Navbar -->
-            <?php include 'layout/admin-fixed-topnav.php'; ?>
-            <?php include 'layout/admin-sidebar.php'; ?>
+            <?php include 'layout/officer-fixed-topnav.php'; ?>
+            <?php include 'layout/officer-sidebar.php'; ?>
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
@@ -59,7 +59,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0">Delete Announcement</h1>
+                                <h1 class="m-0">Delete Event</h1>
                             </div>
                         </div>
                     </div>
@@ -70,120 +70,97 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                 <section class="content">
                     <div class="container">
                         <div class="row justify-content-center">
-                            <div class="col-md-12">
+                            <div class="col-md-10">
                                 <div class="card card-danger card-outline bg-white" for="new-subject">
                                     <div class="card-header">
                                         <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
-                                            Are you sure you want to delete this announcement?</h3><br>
-                                        <p class="text-muted">Note: You cannot able to retrieve this announcement after
+                                            Are you sure you want to delete this event?</h3><br>
+                                        <p class="text-muted">Note: You cannot able to retrieve this event after
                                             deleting it.</p>
 
                                         <hr>
 
-                                        <?php if (isset($_GET['newaAnnouncementError'])) { ?>
+                                        <?php if (isset($_GET['deleteEventError'])) { ?>
                                             <div class="alert alert-danger">
-                                                <?php echo $_GET['newaAnnouncementError']; ?>
+                                                <?php echo $_GET['deleteEventError']; ?>
                                             </div>
                                         <?php } ?>
 
 
-                                        <form style="width: 100%" action="indexes/admin-announcement-delete-be.php"
-                                            method="post">
+                                        <form style="width: 100%" action="indexes/officer-event-delete-be.php" method="post">
                                             <?php
-                                            $announcement_id = $_GET['announcement_id'];
-                                            $sql = "SELECT a.*, u.position FROM announcement a JOIN user u ON a.account_number = u.account_number WHERE a.announcement_id = $announcement_id";
+                                            $event_id = $_GET['event_id'];
+                                            $sql = "SELECT * FROM events WHERE event_id = $event_id";
                                             $result = mysqli_query($conn, $sql);
 
                                             if (mysqli_num_rows($result) > 0) {
                                                 while ($row = mysqli_fetch_assoc($result)) {
-                                                    $heading = $row['heading'];
-                                                    $content = $row['content'];
-                                                    $position = $row['position'];
-                                                    $posted_on = $row['posted_on'];
+                                                    $event_id = $row['event_id'];
+                                                    $event_name = $row['event_name'];
+                                                    $date = $row['date'];
                                                     $school_year = $row['school_year'];
                                                     $semester = $row['semester'];
-                                                    $formatted_date = date("F j, Y", strtotime($posted_on));
+                                                    $formatted_date = date("F j, Y", strtotime($date));
                                                     ?>
 
-                                                    <input type="hidden" class="form-control" id="announcement_id" name="announcement_id" value="<?php echo $announcement_id; ?>">
-                                                    <!-- Heading input -->
-                                                    <label for="Announcement Heading"
-                                                        class="col-sm-4 col-form-label">Heading</label>
-                                                    <div class="form-group row">
-                                                        <div class="col-sm-12">
-                                                            <input type="text" class="form-control" id="heading" name="heading"
-                                                                placeholder="(Required)" value="<?php echo $heading; ?>">
-                                                        </div>
-                                                    </div>
 
-                                                    <!-- Content input -->
-                                                    <label for="announcement content"
-                                                        class="col-sm-4 col-form-label">Content</label>
+                                                    <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
+
+                                                    <!-- Heading input -->
+                                                    <label for="event Heading" class="col-sm-4 col-form-label">Event
+                                                        Name</label>
                                                     <div class="form-group row">
                                                         <div class="col-sm-12">
-                                                            <textarea class="form-control" id="content" name="content"
-                                                                placeholder="(Required)"
-                                                                rows="15"><?php echo $content; ?></textarea>
+                                                            <input type="text" class="form-control" id="heading" name="eventname"
+                                                                placeholder="(Required)" value="<?php echo $event_name; ?>">
                                                         </div>
                                                     </div>
 
                                                     <!-- Posted by input -->
-                                                    <label for="Announcement Posted By" class="col-sm-4 col-form-label">Posted
-                                                        By</label>
+                                                    <label for="event Posted By" class="col-sm-4 col-form-label">Date of
+                                                        Event</label>
                                                     <div class="form-group row">
                                                         <div class="col-sm-12">
-                                                            <input type="text" class="form-control" id="posted_by" name="posted_by"
-                                                                placeholder="(Required)" value="<?php echo $position; ?>">
+                                                            <input type="text" class="form-control" id="posted_by"
+                                                                name="datedisplay" placeholder="(Required)"
+                                                                value="<?php echo $formatted_date; ?>">
                                                         </div>
                                                     </div>
 
                                                     <!-- Posted on input -->
-                                                    <label for="Announcement Posted On" class="col-sm-4 col-form-label">Posted
-                                                        On</label>
-                                                    <div class="form-group row">
-                                                        <div class="col-sm-12">
-                                                            <input type="text" class="form-control" id="created_on_original"
-                                                                name="posted_on" placeholder="(Required)"
-                                                                value="<?php echo $formatted_date; ?>">
-                                                            <input type="hidden" name="posted_on"
-                                                                value="<?php echo $created_on; ?>">
-
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- School Year on input -->
-                                                    <label for="Announcement School Year" class="col-sm-4 col-form-label">School
+                                                    <label for="event Posted On" class="col-sm-4 col-form-label">School
                                                         Year</label>
                                                     <div class="form-group row">
                                                         <div class="col-sm-12">
-                                                            <input type="text" class="form-control" id="school_year"
-                                                                name="school_year" placeholder="(Required)"
+                                                            <input type="text" class="form-control" id="created_on_original"
+                                                                name="schoolyear" placeholder="(Required)"
                                                                 value="<?php echo $school_year; ?>">
                                                         </div>
                                                     </div>
 
-                                                    <!-- Semester on input -->
-                                                    <label for="Announcement Semester"
+                                                    <!-- Posted on input -->
+                                                    <label for="event Posted On"
                                                         class="col-sm-4 col-form-label">Semester</label>
                                                     <div class="form-group row">
                                                         <div class="col-sm-12">
-                                                            <input type="text" class="form-control" id="semester" name="semester"
-                                                                placeholder="(Required)" value="<?php echo $semester; ?>">
+                                                            <input type="text" class="form-control" id="created_on_original"
+                                                                name="semester" placeholder="(Required)"
+                                                                value="<?php echo $semester; ?>">
                                                         </div>
                                                     </div>
 
                                                     <!-- Submit button -->
                                                     <div class="offset-sm-2 col-sm-10">
-                                                        <button type="submit" value="Submit" name="deleteAnnouncement"
+                                                        <button type="submit" value="Submit" name="deleteEvent"
                                                             class="btn btn-danger">Delete</button>
                                                         <a type="button" name="cancel" class="btn btn-secondary"
-                                                            href="admin-announcement.php">Cancel</a>
+                                                            href="officer-events.php">Cancel</a>
                                                     </div>
                                                     <?php
                                                 }
                                             } else {
-                                                // Handle the case when no announcements are found
-                                                echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No posted announcement</strong></h2></div>";
+                                                // Handle the case when no events are found
+                                                echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No posted event</strong></h2></div>";
                                             }
                                             ?>
                                         </form>

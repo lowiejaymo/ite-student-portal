@@ -3,7 +3,7 @@ Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
+Last Modified: June 2, 2024
 Brief overview of the file's contents. -->
 
 <?php
@@ -48,8 +48,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
     <div class="wrapper">
 
         <!-- Navbar -->
-        <?php include 'layout/admin-fixed-topnav.php'; ?>
-        <?php include 'layout/admin-sidebar.php'; ?>
+        <?php include 'layout/officer-fixed-topnav.php'; ?>
+        <?php include 'layout/officer-sidebar.php'; ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -90,74 +90,96 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                         method="post">
                                         <?php
                                         $announcement_id = $_GET['announcement_id'];
-                                        $sql = "SELECT * FROM announcement WHERE announcement_id = $announcement_id";
-                                        $result = mysqli_query($conn, $sql);
+                                        $sql = "SELECT a.*, u.position FROM announcement a JOIN user u ON a.account_number = u.account_number WHERE a.announcement_id = $announcement_id";
+                                            $result = mysqli_query($conn, $sql);
 
                                         if (mysqli_num_rows($result) > 0) {
                                             while ($row = mysqli_fetch_assoc($result)) {
                                                 $heading = $row['heading'];
                                                 $content = $row['content'];
-                                                $posted_by = $row['posted_by'];
-                                                $created_on = $row['created_on'];
-                                                $formatted_date = date("F j, Y \a\\t g:i A", strtotime($created_on));
+                                                $position = $row['position'];
+                                                $posted_on = $row['posted_on'];
+                                                $school_year = $row['school_year'];
+                                                $semester = $row['semester'];
+                                                $formatted_date = date("F j, Y", strtotime($posted_on));
                                                 ?>
-                                                <!-- Heading input -->
-                                                <label for="Announcement Heading"
-                                                    class="col-sm-4 col-form-label">Heading</label>
-                                                <div class="form-group row">
-                                                    <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="heading"
-                                                            name="heading" placeholder="(Required)"
-                                                            value="<?php echo $heading; ?>">
+
+                                                <input type="hidden" class="form-control" id="announcement_id" name="announcement_id" value="<?php echo $announcement_id; ?>">
+                                                    <!-- Heading input -->
+                                                    <label for="Announcement Heading"
+                                                        class="col-sm-4 col-form-label">Heading</label>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="heading" name="heading"
+                                                                placeholder="(Required)" value="<?php echo $heading; ?>">
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <!-- Content input -->
-                                                <label for="announcement content"
-                                                    class="col-sm-4 col-form-label">Content</label>
-                                                <div class="form-group row">
-                                                    <div class="col-sm-12">
-                                                        <textarea class="form-control" id="content" name="content"
-                                                            placeholder="(Required)"
-                                                            rows="15"><?php echo $content; ?></textarea>
+                                                    <!-- Content input -->
+                                                    <label for="announcement content"
+                                                        class="col-sm-4 col-form-label">Content</label>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-12">
+                                                            <textarea class="form-control" id="content" name="content"
+                                                                placeholder="(Required)"
+                                                                rows="15"><?php echo $content; ?></textarea>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <!-- Posted by input -->
-                                                <label for="Announcement Posted By"
-                                                    class="col-sm-4 col-form-label">Posted By</label>
-                                                <div class="form-group row">
-                                                    <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="posted_by"
-                                                            name="posted_by" placeholder="(Required)"
-                                                            value="<?php echo $posted_by; ?>">
+                                                    <!-- Posted by input -->
+                                                    <label for="Announcement Posted By" class="col-sm-4 col-form-label">Posted
+                                                        By</label>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="posted_by" name="posted_by"
+                                                                placeholder="(Required)" value="<?php echo $position; ?>">
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <!-- Posted on input -->
-                                                <label for="Announcement Posted On"
-                                                    class="col-sm-4 col-form-label">Posted On</label>
-                                                <div class="form-group row">
-                                                    <div class="col-sm-12">
-                                                        <input type="text" class="form-control"
-                                                            id="created_on_original" name="created_on"
-                                                            placeholder="(Required)"
-                                                            value="<?php echo $formatted_date; ?>">
-                                                        <input type="hidden" name="created_on"
-                                                            value="<?php echo $created_on; ?>">
+                                                    <!-- Posted on input -->
+                                                    <label for="Announcement Posted On" class="col-sm-4 col-form-label">Posted
+                                                        On</label>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="created_on_original"
+                                                                name="posted_on" placeholder="(Required)"
+                                                                value="<?php echo $formatted_date; ?>">
+                                                            <input type="hidden" name="posted_on"
+                                                                value="<?php echo $created_on; ?>">
 
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <!-- Submit button -->
-                                                <div class="offset-sm-2 col-sm-10">
-                                                    <button type="submit" value="Submit" name="deleteAnnouncement"
-                                                        class="btn btn-danger">Delete</button>
-                                                    <a type="button" name="cancel" class="btn btn-secondary"
-                                                        href="officer-announcement.php">Cancel</a>
-                                                </div>
-                                            <?php
-                                            }
+                                                    <!-- School Year on input -->
+                                                    <label for="Announcement School Year" class="col-sm-4 col-form-label">School
+                                                        Year</label>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="school_year"
+                                                                name="school_year" placeholder="(Required)"
+                                                                value="<?php echo $school_year; ?>">
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Semester on input -->
+                                                    <label for="Announcement Semester"
+                                                        class="col-sm-4 col-form-label">Semester</label>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="semester" name="semester"
+                                                                placeholder="(Required)" value="<?php echo $semester; ?>">
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Submit button -->
+                                                    <div class="offset-sm-2 col-sm-10">
+                                                        <button type="submit" value="Submit" name="deleteAnnouncement"
+                                                            class="btn btn-danger">Delete</button>
+                                                        <a type="button" name="cancel" class="btn btn-secondary"
+                                                            href="officer-announcement.php">Cancel</a>
+                                                    </div>
+                                                    <?php
+                                                }
                                         } else {
                                             // Handle the case when no announcements are found
                                             echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No posted announcement</strong></h2></div>";
