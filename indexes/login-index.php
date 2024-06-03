@@ -65,6 +65,7 @@ if (isset($_POST['login'])) {
                 $_SESSION['first_name'] = $row['first_name'];
                 $_SESSION['middle_name'] = $row['middle_name'];
                 $_SESSION['email'] = $row['email'];
+                $_SESSION['program'] = $row['program'];
                 $_SESSION['phone_number'] = $row['phone_number'];
                 $_SESSION['profile_picture'] = $row['profile_picture'];
                 $_SESSION['gender'] = $row['gender'];

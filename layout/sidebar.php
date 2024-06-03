@@ -10,7 +10,7 @@ Brief overview of the file's contents. -->
 <aside class="main-sidebar sidebar-dark-primary elevation-2"
   style="background-image: url('images/sidebar-background.png'); background-size: cover; background-position: center;">
   <!-- Brand Logo -->
-  <a href="admin-dashboard.php" class="brand-link">
+  <a href="dashboard.php" class="brand-link">
     <img src="images/iteportal-sidebar-logo.png" alt="AdminLTE Logo" class="brand-image elevation-3"
       style="opacity: .8">
     <span class="brand-text font-weight-light">ITE Student Portal</span>
@@ -41,8 +41,6 @@ Brief overview of the file's contents. -->
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <!-- Add icons to the links using the .nav-icon class
-             with font-awesome or any other icon font library -->
         <li class="nav-item">
           <a href="dashboard.php" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
