@@ -1,4 +1,4 @@
- <!-- admin-sidebar.php and sidebar of admin form.
+<!-- admin-sidebar.php and sidebar of admin form.
 Author:
   Lowie Jay Orillo lowie.jaymier@gmail.com, 
   Caryl Mae Subaldo subaldomae29@gmail.com, 
@@ -52,14 +52,7 @@ Brief overview of the file's contents. -->
           </a>
         </li>
 
-        <li class="nav-item ">
-          <a href="admin-academic-settings.php" class="nav-link">
-            <i class="nav-icon fas fa-solid fa-wrench"></i>
-            <p>
-              Academic Settings
-            </p>
-          </a>
-        </li>
+
 
         <li class="nav-item ">
           <a href="admin-announcement.php" class="nav-link">
@@ -70,15 +63,6 @@ Brief overview of the file's contents. -->
           </a>
         </li>
 
-        <li class="nav-item ">
-          <a href="admin-events.php" class="nav-link">
-            <i class="nav-icon fas fa-solid fa-calendar-week"></i>
-            <p>
-              Events
-            </p>
-          </a>
-        </li>
-        
         <li class="nav-item ">
           <a href="admin-officer.php" class="nav-link">
             <i class="nav-icon fas fa-solid fa-user-tie"></i>
@@ -96,8 +80,40 @@ Brief overview of the file's contents. -->
             </p>
           </a>
         </li>
+
+
+        <li class="nav-item ">
+          <a href="admin-enrolled-students.php" class="nav-link">
+            <i class="nav-icon fas fa-solid fa-user-plus"></i>
+            <p>
+              Enrolled Student
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item ">
+          <a href="admin-events.php" class="nav-link">
+            <i class="nav-icon fas fa-solid fa-calendar-week"></i>
+            <p>
+              Events
+            </p>
+          </a>
+        </li>
+
+
+
+        <li class="nav-item ">
+          <a href="admin-academic-settings.php" class="nav-link">
+            <i class="nav-icon fas fa-solid fa-wrench"></i>
+            <p>
+              Academic Settings
+            </p>
+          </a>
+        </li>
       </ul>
     </nav>
+
+
     <!-- /.sidebar-menu -->
 
     <!-- Logout Button -->
