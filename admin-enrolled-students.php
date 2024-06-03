@@ -172,7 +172,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
               <thead>
                 <tr>
                   <th class="col-4">School Year</th>
-                  <th class="col-2">Semester</th>
+                  <th class="col-2 text-center">Semester</th>
                   <th class="col-2 text-center">No. of Students</th>
                   <th class="col-2 text-center">Action</th>
                 </tr>
@@ -221,7 +221,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                         <?php echo $row['num_students']; ?>
                       </td>
                       <td class="align-middle text-center">
-                        <a href='admin-event-view.php?event_id=<?php echo $row['event_id']; ?>'
+                        <a href='admin-enrolled-student-view.php?school_year=<?php echo $row['school_year'];?>&semester=<?php echo $row['semester'];?>'
                           class='btn btn-success btn-sm'>
                           <i class="nav-icon fas fa-solid fa-hand-pointer"></i> Select
                         </a>
