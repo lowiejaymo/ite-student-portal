@@ -1,4 +1,4 @@
-<!-- admin-event.php and to see the list of events in admin form.
+<!-- officer-event.php and to see the list of events in officer form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
@@ -9,7 +9,7 @@ Brief overview of the file's contents. -->
 <?php
 session_start();
 include "indexes/db_conn.php";
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the role is set and it's 'Admin'
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Officer'
   ?>
 
   <!DOCTYPE html>
@@ -18,7 +18,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Admin Home Page</title>
+    <title>ITE Student Portal | Officer Home Page</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -48,9 +48,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
     <div class="wrapper">
 
       <!-- Navbar -->
-      <?php include 'layout/admin-fixed-topnav.php'; ?>
+      <?php include 'layout/officer-fixed-topnav.php'; ?>
 
-      <?php include 'layout/admin-sidebar.php'; ?>
+      <?php include 'layout/officer-sidebar.php'; ?>
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
@@ -62,7 +62,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                 <h1>Events</h1>
               </div>
               <div class="col-sm-6 text-right">
-                <a id="addNewOfficerBtn" class="btn btn-success" href="admin-event-addnew.php"><i
+                <a id="addNewOfficerBtn" class="btn btn-success" href="officer-event-addnew.php"><i
                     class="nav-icon fas fa-solid fa-plus"></i> Add Event</a>
               </div>
             </div>
@@ -190,9 +190,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                         <?php echo $row['semester']; ?>
                       </td>
                       <td class="align-middle text-center">
-                        <a href='admin-event-view.php?event_id=<?php echo $row['event_id']; ?>'
+                        <a href='officer-event-view.php?event_id=<?php echo $row['event_id']; ?>'
                           class='btn btn-success btn-sm'><i class="nav-icon fas fa-solid fa-hand-pointer"></i> Select</a>
-                        <a href='admin-event-delete.php?event_id=<?php echo $row['event_id']; ?>'
+                        <a href='officer-event-delete.php?event_id=<?php echo $row['event_id']; ?>'
                           class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
                       </td>
                     </tr>

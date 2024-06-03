@@ -75,7 +75,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                     <div class="card-header">
                                         <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
                                             Are you sure you want to delete this event?</h3><br>
-                                        <p class="text-muted">Note: You cannot able to retrieve this announcement after
+                                        <p class="text-muted">Note: You cannot able to retrieve this event after
                                             deleting it.</p>
 
                                         <hr>
@@ -107,7 +107,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                     <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
 
                                                     <!-- Heading input -->
-                                                    <label for="Announcement Heading" class="col-sm-4 col-form-label">Event
+                                                    <label for="event Heading" class="col-sm-4 col-form-label">Event
                                                         Name</label>
                                                     <div class="form-group row">
                                                         <div class="col-sm-12">
@@ -117,7 +117,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                     </div>
 
                                                     <!-- Posted by input -->
-                                                    <label for="Announcement Posted By" class="col-sm-4 col-form-label">Date of
+                                                    <label for="event Posted By" class="col-sm-4 col-form-label">Date of
                                                         Event</label>
                                                     <div class="form-group row">
                                                         <div class="col-sm-12">
@@ -128,7 +128,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                     </div>
 
                                                     <!-- Posted on input -->
-                                                    <label for="Announcement Posted On" class="col-sm-4 col-form-label">School
+                                                    <label for="event Posted On" class="col-sm-4 col-form-label">School
                                                         Year</label>
                                                     <div class="form-group row">
                                                         <div class="col-sm-12">
@@ -139,7 +139,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                     </div>
 
                                                     <!-- Posted on input -->
-                                                    <label for="Announcement Posted On"
+                                                    <label for="event Posted On"
                                                         class="col-sm-4 col-form-label">Semester</label>
                                                     <div class="form-group row">
                                                         <div class="col-sm-12">
@@ -159,8 +159,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                     <?php
                                                 }
                                             } else {
-                                                // Handle the case when no announcements are found
-                                                echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No posted announcement</strong></h2></div>";
+                                                // Handle the case when no events are found
+                                                echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No posted event</strong></h2></div>";
                                             }
                                             ?>
                                         </form>

@@ -3,7 +3,7 @@ Author:
   Lowie Jay Orillo lowie.jaymier@gmail.com, 
   Caryl Mae Subaldo subaldomae29@gmail.com, 
   Brian Angelo Bognot c09651052069@gmail.com.
-Last Modified: May 15, 2024
+Last Modified: June 2, 2024
 Brief overview of the file's contents. -->
 
 <!-- Main Sidebar Container -->
@@ -57,6 +57,24 @@ Brief overview of the file's contents. -->
             <i class="nav-icon fas fa-solid fa-bullhorn"></i>
             <p>
               Announcements
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item ">
+          <a href="officer-events.php" class="nav-link">
+            <i class="nav-icon fas fa-solid fa-calendar-week"></i>
+            <p>
+              Events
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item ">
+          <a href="#.php" class="nav-link">
+            <i class="nav-icon fas fa-user-check"></i>
+            <p>
+            Attendance
             </p>
           </a>
         </li>

@@ -10,7 +10,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Admin Home Page</title>
+    <title>ITE Student Portal | Officer Home Page</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -133,8 +133,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                         <!-- /.card-header -->
                         <div class="card-footer d-flex justify-content-end">
                           <!-- Your other content goes here -->
-                          <a href='admin-announcement-delete.php?announcement_id=<?php echo $row['announcement_id']; ?>'
+                          <?php if ($_SESSION['account_number'] === $posted_by) { ?>
+                          <a href='officer-announcement-delete.php?announcement_id=<?php echo $row['announcement_id']; ?>'
                             class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
+                            <?php } ?>
                         </div>
 
 

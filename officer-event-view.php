@@ -1,9 +1,9 @@
- <!-- officer-event-view.php and ---- in officer form.
+<!-- officer-event-view.php and to see the information of the event in officer form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
+Last Modified: June 2, 2024
 Brief overview of the file's contents. -->
 
 <?php
@@ -62,7 +62,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                 <h1>Events</h1>
               </div>
               <div class="col-sm-6 text-right">
-              <a id="addNewSubjectBtn" class="btn btn-secondary" href="#"><i class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Events</a>
+              <a id="addNewSubjectBtn" class="btn btn-secondary" href="officer-events.php"><i class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Events</a>
               </div>
             </div>
           </div><!-- /.container-fluid -->
@@ -87,9 +87,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                     <table class="subject-info">
                       <?php
                       // Add the code here
-                      if (isset($_GET['eventindex'])) {
-                        $eventIndex = $_GET['eventindex'];
-                        $eventsql = "SELECT * FROM events WHERE event_indx = '$eventIndex'";
+                      if (isset($_GET['event_id'])) {
+                        $event_id = $_GET['event_id'];
+                        $eventsql = "SELECT * FROM events WHERE event_id = '$event_id'";
                         $result = $conn->query($eventsql);
 
                         if ($result && $result->num_rows > 0) {
@@ -118,6 +118,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                               <td class="col-md-3"><strong>Semester:</strong></td>
                               <td class="col-md-9">
                               <?php echo $row['semester']; ?>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="col-md-3"><strong>Points:</strong></td>
+                              <td class="col-md-9">
+                              <?php echo $row['points']; ?>
                               </td>
                             </tr>
                             

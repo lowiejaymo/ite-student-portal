@@ -3,7 +3,7 @@ Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 28, 2024
+Last Modified: June 2, 2024
 Brief overview of the file's contents. -->
 
 <?php
@@ -92,8 +92,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                         <form action="indexes/officer-student-delete-be.php" method="post">
 
                                             <?php
-                                            $accountindx = $_GET['accountindx'];
-                                            $studentsql = "SELECT * FROM user WHERE account_indx = '$accountindx'";
+                                            $account_number = $_GET['account_number'];
+                                            $studentsql = "SELECT * FROM user WHERE account_number = '$account_number'";
                                             $result = $conn->query($studentsql);
 
                                             if (mysqli_num_rows($result) > 0) {
@@ -193,7 +193,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                         <label for="Middle Name" class="col-sm-3 col-form-label">Middle Name</label>
                                                         <div class="col-sm-9">
                                                             <input type="text" class="form-control" id="created_on_original"
-                                                                placeholder="(Required)"
+                                                                placeholder=""
                                                                 value="<?php echo $displayedmiddle_name; ?>" disabled>
                                                             <input type="hidden" name="middle_name"
                                                                 value="<?php echo $middle_name; ?>">
@@ -228,13 +228,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
-            <footer class="main-footer">
-                <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-                All rights reserved.
-                <div class="float-right d-none d-sm-inline-block">
-                    <b>Version</b> 3.2.0
-                </div>
-            </footer>
+            <?php include 'layout/fixed-footer.php'; ?>
 
             <!-- Control Sidebar -->
             <aside class="control-sidebar control-sidebar-dark">

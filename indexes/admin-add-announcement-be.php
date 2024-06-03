@@ -35,9 +35,6 @@ if (isset($_POST['addAnnouncement'])) {
     date_default_timezone_set('Asia/Manila');
     $time = date("Y-m-d H:i:s");
 
-    // Get the account index from the session
-    $account_indx = $_SESSION['account_indx'] ;
-
     // Construct user data string
     $user_data = '&heading=' . $heading .
         '&content=' . $content.
