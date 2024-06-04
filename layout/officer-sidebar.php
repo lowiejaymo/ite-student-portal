@@ -62,28 +62,28 @@ Brief overview of the file's contents. -->
         </li>
 
         <li class="nav-item ">
-          <a href="officer-events.php" class="nav-link">
-            <i class="nav-icon fas fa-solid fa-calendar-week"></i>
-            <p>
-              Events
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-item ">
-          <a href="#.php" class="nav-link">
-            <i class="nav-icon fas fa-user-check"></i>
-            <p>
-            Attendance
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-item ">
           <a href="officer-students.php" class="nav-link">
             <i class="nav-icon fas fa-solid fa-users"></i>
             <p>
               Students
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item ">
+          <a href="officer-enrolled-students.php" class="nav-link">
+            <i class="nav-icon fas fa-user-plus"></i>
+            <p>
+              Enrolled Student
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item ">
+          <a href="officer-events.php" class="nav-link">
+            <i class="nav-icon fas fa-solid fa-calendar-week"></i>
+            <p>
+              Events
             </p>
           </a>
         </li>
