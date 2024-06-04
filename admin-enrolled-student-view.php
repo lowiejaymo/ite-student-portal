@@ -91,7 +91,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                           $school_year = $_GET['school_year'];
                           $semester = $_GET['semester'];
 
-                          $eventsql = "SELECT * FROM enrolled WHERE school_year = '$school_year' AND semester = '$semester'";
+                          $eventsql = "SELECT school_year, semester FROM enrolled WHERE school_year = '$school_year' AND semester = '$semester'";
                           $result = $conn->query($eventsql);
 
                           if ($result && $result->num_rows > 0) {

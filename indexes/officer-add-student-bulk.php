@@ -26,6 +26,8 @@ if (isset($_POST['save_excel_data'])) {
     // Define allowed file extensions
     $allowed_ext = ['xls', 'csv', 'xlsx'];
 
+    
+
     // Check if file extension is allowed
     if (in_array($file_ext, $allowed_ext)) {
         
@@ -53,7 +55,8 @@ if (isset($_POST['save_excel_data'])) {
                 $yearlevel = htmlspecialchars($row[5]);
                 $gender = htmlspecialchars($row[6]);
                 $email = filter_var($row[7], FILTER_SANITIZE_EMAIL);
-                $phonenumber = htmlspecialchars($row[8]);
+                $phonenumberdefault = htmlspecialchars($row[8]);
+                $phonenumber = "0". $phonenumberdefault;
 
                 // Convert the names to proper case
                 $lastname = ucwords(strtolower($lastnameNotProper));
