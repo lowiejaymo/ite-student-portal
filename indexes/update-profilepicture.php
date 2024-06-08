@@ -16,7 +16,6 @@ include "db_conn.php";
 if (isset($_POST['upload'])) {
 
     // Get the account index and account_number from the session
-    $account_indx = $_SESSION['account_indx']; 
     $account_number = $_SESSION['account_number']; 
 
     // Define file details

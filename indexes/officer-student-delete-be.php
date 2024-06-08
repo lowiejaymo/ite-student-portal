@@ -38,12 +38,28 @@ if (isset($_POST['deleteStudent'])) {
     mysqli_stmt_execute($delete_student_stmt);
     $affected_rows = mysqli_stmt_affected_rows($delete_student_stmt);
 
-    // Redirect based on the result of the SQL query
+    // Delete the associated QR code 
     if ($affected_rows > 0) {
-        header("Location: ../officer-students.php?deleteStudentSuccess=Successfully deleted that student");
+        $filePath = "../qrCodeImages/" . $account_number . ".png";
+
+        // Check if the file exists and delete it
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+
+        $extensions = ['png', 'jpg', 'jpeg'];
+
+        foreach ($extensions as $extension) {
+
+            $filePath2 = "../profile-pictures/" . $account_number . "." . $extension;
+            if (file_exists($filePath2)) {
+                unlink($filePath2); // Delete the file
+            }
+        }
+        header("Location: ../officer-students.php?deleteStudentSuccess=Successfully deleted the student");
         exit();
     } else {
-        header("Location: ../officer-students.php?deleteStudentError=Failed to delete that student");
+        header("Location: ../officer-students.php?deleteStudentError=Failed to delete the student");
         exit();
     }
 
