@@ -125,6 +125,13 @@ if (isset($_POST['addStudent'])) {
 
             // Redirect based on the result of the SQL query
             if ($result_newstudent_query) {
+
+
+
+
+
+
+                
                 header("Location: ../officer-students.php?newStudentSuccess=New Student enrolled successfully");
                 exit();
             } else {

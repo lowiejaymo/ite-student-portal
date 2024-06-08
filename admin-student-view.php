@@ -73,8 +73,19 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
         <!-- Main content -->
         <section class="content">
           <div class="container-fluid">
+            <?php if (isset($_GET['resetSuccess'])) { ?>
+              <div class="alert alert-success">
+                <?php echo $_GET['resetSuccess']; ?>
+              </div>
+            <?php } ?>
 
-          <div class="card card-primary card-outline bg-white" for="update-profilepicture">
+            <?php if (isset($_GET['resetError'])) { ?>
+              <div class="alert alert-danger">
+                <?php echo $_GET['resetError']; ?>
+              </div>
+            <?php } ?>
+
+            <div class="card card-primary card-outline bg-white" for="update-profilepicture">
               <div class="card-header">
                 <div class="row align-items-center">
                   <?php
@@ -88,7 +99,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                       ?>
                       <!-- Image column -->
                       <div class="col-md-auto">
-                        <img src="profile-pictures/<?php echo $row['profile_picture']; ?>" alt="Student Profile Picture" style="height: 10rem; width: 10rem; border-radius: 50%; object-fit: cover;">
+                        <img src="profile-pictures/<?php echo $row['profile_picture']; ?>" alt="Student Profile Picture"
+                          style="height: 10rem; width: 10rem; border-radius: 50%; object-fit: cover;">
                       </div>
 
                       <!-- Subject information column -->
@@ -133,6 +145,13 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                             </tr>
                           </table>
                         </div>
+                      </div>
+                      <div class="col-md-auto ml-auto">
+                        <form method="post" action="indexes/admin-students-reset-password.php" class="d-inline">
+                          <input type="hidden" name="account_number" value="<?php echo $row['account_number']; ?>">
+                          <button type="submit" class="btn btn-danger btn-sm"><i
+                              class="nav-icon fas fa-solid fa-arrows-rotate"></i> Reset Password</button>
+                        </form>
                       </div>
                       <?php
                     } else {
