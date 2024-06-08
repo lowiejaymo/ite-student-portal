@@ -81,6 +81,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                       </div>
                     <?php } ?>
 
+                    <?php if (isset($_GET['editStudentSuccess'])) { ?>
+                      <div class="alert alert-success">
+                        <?php echo $_GET['editStudentSuccess']; ?>
+                      </div>
+                    <?php } ?>
+
                     <?php if (isset($_GET['deleteStudentSuccess'])) { ?>
                       <div class="alert alert-success">
                         <?php echo $_GET['deleteStudentSuccess']; ?>

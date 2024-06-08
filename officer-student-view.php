@@ -62,6 +62,17 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                 <h1>Student Profile</h1>
               </div>
               <div class="col-sm-6 text-right">
+              <?php
+                  if (isset($_GET['account_number'])) {
+                    $account_number = $_GET['account_number'];
+                    $studentsql = "SELECT * FROM user WHERE account_number = '$account_number'";
+                    $result = $conn->query($studentsql);
+
+                    if ($result && $result->num_rows > 0) {
+                      $row = $result->fetch_assoc(); // Fetching row as associative array
+                      ?>
+              <a id="addNewSubjectBtn" class="btn btn-primary" href="officer-student-edit.php?account_number=<?php echo $row['account_number']; ?>"><i
+                    class="nav-icon fas fa-solid fa-chevron-left"></i> Edit this Student</a>
                 <a id="addNewSubjectBtn" class="btn btn-secondary" href="officer-students.php"><i
                     class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Student</a>
               </div>
@@ -77,15 +88,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
           <div class="card card-primary card-outline bg-white" for="update-profilepicture">
               <div class="card-header">
                 <div class="row align-items-center">
-                  <?php
-                  if (isset($_GET['account_number'])) {
-                    $account_number = $_GET['account_number'];
-                    $studentsql = "SELECT * FROM user WHERE account_number = '$account_number'";
-                    $result = $conn->query($studentsql);
-
-                    if ($result && $result->num_rows > 0) {
-                      $row = $result->fetch_assoc(); // Fetching row as associative array
-                      ?>
                       <!-- Image column -->
                       <div class="col-md-auto">
                         <img src="profile-pictures/<?php echo $row['profile_picture']; ?>" alt="Student Profile Picture" style="height: 10rem; width: 10rem; border-radius: 50%; object-fit: cover;">
