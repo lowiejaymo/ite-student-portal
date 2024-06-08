@@ -45,10 +45,6 @@ if (isset($_POST['editStudent'])) {
     // Remove the spaces of the last name
     $lastnameremovespace = str_replace(' ', '', $lastname);
 
-    // Set the password and hash it (this might not be needed for updates, so you can remove it if not required)
-    $defaultpassword = $lastnameremovespace . $accountnumber;
-    $defaulthashed_pass = password_hash($defaultpassword, PASSWORD_BCRYPT);
-
     // Get the first letter of the first name
     $first_letter = substr($firstname, 0, 1);
 
