@@ -72,7 +72,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') { // Check if t
                 <div class="card-wrapper">
                   <div class="card card-danger card-outline bg-white background-card custom-height" for="schoolyear">
                     <div class="card-body">
-                      <img src="qrCodeImages/2211600102.png" alt="QR Code" class="qr-code">
+                      <img src="qrCodeImages/<?php echo $_SESSION['code']; ?>?<?php echo time(); ?>"   alt="QR Code" class="qr-code">
                       <div class="info-table">
                         <table>
                           <tr>

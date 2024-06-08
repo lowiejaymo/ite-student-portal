@@ -55,7 +55,6 @@ if (isset($_POST['login'])) {
 
             // Validate if input password and stored password is equal
             if (password_verify($password, $row['password'])) {
-                $_SESSION['account_indx'] = $row['account_indx'];
                 $_SESSION['account_number'] = $row['account_number'];
                 $_SESSION['password'] = $row['password'];
                 $_SESSION['role'] = $row['role'];
@@ -69,6 +68,7 @@ if (isset($_POST['login'])) {
                 $_SESSION['phone_number'] = $row['phone_number'];
                 $_SESSION['profile_picture'] = $row['profile_picture'];
                 $_SESSION['gender'] = $row['gender'];
+                $_SESSION['code'] = $row['code'];
 
                 // Redirect based on user role
                 if ($role == "Admin") {
