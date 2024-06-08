@@ -62,35 +62,46 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                 <h1>Student Profile</h1>
               </div>
               <div class="col-sm-6 text-right">
-              <?php
-                  if (isset($_GET['account_number'])) {
-                    $account_number = $_GET['account_number'];
-                    $studentsql = "SELECT * FROM user WHERE account_number = '$account_number'";
-                    $result = $conn->query($studentsql);
+                <?php
+                if (isset($_GET['account_number'])) {
+                  $account_number = $_GET['account_number'];
+                  $studentsql = "SELECT * FROM user WHERE account_number = '$account_number'";
+                  $result = $conn->query($studentsql);
 
-                    if ($result && $result->num_rows > 0) {
-                      $row = $result->fetch_assoc(); // Fetching row as associative array
-                      ?>
-              <a id="addNewSubjectBtn" class="btn btn-primary" href="officer-student-edit.php?account_number=<?php echo $row['account_number']; ?>"><i
-                    class="nav-icon fas fa-solid fa-chevron-left"></i> Edit this Student</a>
-                <a id="addNewSubjectBtn" class="btn btn-secondary" href="officer-students.php"><i
-                    class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Student</a>
-              </div>
+                  if ($result && $result->num_rows > 0) {
+                    $row = $result->fetch_assoc(); // Fetching row as associative array
+                    ?>
+
+                    <a id="addNewSubjectBtn" class="btn btn-secondary" href="officer-students.php"><i
+                        class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Student</a>
+                  </div>
+                </div>
+              </div><!-- /.container-fluid -->
             </div>
-          </div><!-- /.container-fluid -->
-        </div>
-        <!-- /.content-header -->
+            <!-- /.content-header -->
 
-        <!-- Main content -->
-        <section class="content">
-          <div class="container-fluid">
+            <!-- Main content -->
+            <section class="content">
+              <div class="container-fluid">
+                <?php if (isset($_GET['resetSuccess'])) { ?>
+                  <div class="alert alert-success">
+                    <?php echo $_GET['resetSuccess']; ?>
+                  </div>
+                <?php } ?>
 
-          <div class="card card-primary card-outline bg-white" for="update-profilepicture">
-              <div class="card-header">
-                <div class="row align-items-center">
+                <?php if (isset($_GET['resetError'])) { ?>
+                  <div class="alert alert-danger">
+                    <?php echo $_GET['resetError']; ?>
+                  </div>
+                <?php } ?>
+
+                <div class="card card-primary card-outline bg-white" for="update-profilepicture">
+                  <div class="card-header">
+                    <div class="row align-items-center">
                       <!-- Image column -->
                       <div class="col-md-auto">
-                        <img src="profile-pictures/<?php echo $row['profile_picture']; ?>" alt="Student Profile Picture" style="height: 10rem; width: 10rem; border-radius: 50%; object-fit: cover;">
+                        <img src="profile-pictures/<?php echo $row['profile_picture']; ?>" alt="Student Profile Picture"
+                          style="height: 10rem; width: 10rem; border-radius: 50%; object-fit: cover;">
                       </div>
 
                       <!-- Subject information column -->
@@ -136,12 +147,24 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                           </table>
                         </div>
                       </div>
+                      <div class="col-md-auto ml-auto">
+                        <a id="addNewSubjectBtn" class="btn btn-primary btn-sm d-block mb-2"
+                          href="officer-student-edit.php?account_number=<?php echo $row['account_number']; ?>">
+                          <i class="fa-solid fa-pen-to-square"></i> Edit this Student
+                        </a>
+                        <form method="post" action="indexes/officer-students-reset-password.php" class="d-inline">
+                          <input type="hidden" name="account_number" value="<?php echo $row['account_number']; ?>">
+                          <button type="submit" class="btn btn-danger btn-sm d-block">
+                            <i class="nav-icon fas fa-solid fa-arrows-rotate"></i> Reset Password
+                          </button>
+                        </form>
+                      </div>
                       <?php
-                    } else {
-                      echo "<div class='col-md-12'>Event may not be existing.</div>";
-                    }
+                  } else {
+                    echo "<div class='col-md-12'>Event may not be existing.</div>";
                   }
-                  ?>
+                }
+                ?>
                 </div>
               </div>
             </div>
