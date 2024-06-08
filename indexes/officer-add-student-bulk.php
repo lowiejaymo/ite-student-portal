@@ -16,6 +16,8 @@ require '../vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
 
 if (isset($_POST['save_excel_data'])) {
 
@@ -79,6 +81,17 @@ if (isset($_POST['save_excel_data'])) {
                 // Generate the code
                 $code = strtoupper($lastname . " , " . $firstname . " " . $first_letter_middlename . ". - " . $accountnumber . " - " . $program);
 
+                $qr_code = QrCode::create($code);
+
+                $writer = new PngWriter;
+                $result = $writer->write($qr_code);
+
+                // Define the file path for the QR code
+                $filePath = "../qrCodeImages/". $code . ".png";
+                $result->saveToFile($filePath);
+
+                $qrcode = $code . ".png";
+                
                 // Generate username
                 $username = strtolower($first_letter) . strtolower($lastnameremovespace);
                 
@@ -95,7 +108,7 @@ if (isset($_POST['save_excel_data'])) {
 
                 
                 if ($stmt_newstudent_query) {
-                    mysqli_stmt_bind_param($stmt_newstudent_query, "ssssssssssssss", $accountnumber, $code, $defaulthashed_pass, $username, $role, $lastname, $firstname, $middlename, $gender, $email, $phonenumber, $enrolled_by, $yearlevel, $program);
+                    mysqli_stmt_bind_param($stmt_newstudent_query, "ssssssssssssss", $accountnumber, $qrcode, $defaulthashed_pass, $username, $role, $lastname, $firstname, $middlename, $gender, $email, $phonenumber, $enrolled_by, $yearlevel, $program);
                     $result_newstudent_query = mysqli_stmt_execute($stmt_newstudent_query);
 
                     // Redirect based on the result of the SQL query

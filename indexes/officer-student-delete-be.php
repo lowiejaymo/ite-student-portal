@@ -40,7 +40,9 @@ if (isset($_POST['deleteStudent'])) {
 
     // Delete the associated QR code 
     if ($affected_rows > 0) {
-        $filePath = "../qrCodeImages/" . $account_number . ".png";
+        $first_letter_middlename = substr($middle_name, 0, 1);
+        $code = strtoupper($last_name . " , " . $first_name . " " . $first_letter_middlename . ". - " . $account_number . " - " . $program);
+        $filePath = "../qrCodeImages/" . $code . ".png";
 
         // Check if the file exists and delete it
         if (file_exists($filePath)) {

@@ -65,10 +65,10 @@ if (isset($_POST['addStudent'])) {
     $result = $writer->write($qr_code);
 
     // Define the file path for the QR code
-    $filePath = "../qrCodeImages/". $accountnumber . ".png";
+    $filePath = "../qrCodeImages/". $code . ".png";
     $result->saveToFile($filePath);
 
-    $qrcode = $accountnumber . ".png";
+    $qrcode = $code . ".png";
 
     // Generate the username
     $username = strtolower($first_letter) . strtolower($lastnameremovespace);
