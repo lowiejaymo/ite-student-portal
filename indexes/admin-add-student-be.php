@@ -5,14 +5,15 @@ Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
-Overview: This file handles the addition of new students, 
-    validating admin input and inserting the student into the database.
+Last Modified: May 28, 2024
+Overview: This file handles the addition of new students, validating admin input and inserting the student into the database.
 */
-
 session_start();
-require ('db_conn.php');
-require_once '../phpqrcode/qrlib.php';
+require('db_conn.php');
+require "../vendor/autoload.php";
+
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
 
 if (isset($_POST['addStudent'])) {
 
@@ -44,7 +45,7 @@ if (isset($_POST['addStudent'])) {
     // Remove the spaces of the last name
     $lastnameremovespace = str_replace(' ', '', $lastname);
 
-    // Set the password and hashed it
+    // Set the password and hash it
     $defaultpassword = $lastnameremovespace . $accountnumber;
     $defaulthashed_pass = password_hash($defaultpassword, PASSWORD_BCRYPT);
 
@@ -56,6 +57,18 @@ if (isset($_POST['addStudent'])) {
 
     // Generate the code
     $code = strtoupper($lastname . " , " . $firstname . " " . $first_letter_middlename . ". - " . $accountnumber . " - " . $program);
+
+    // Generate the QR code
+    $qr_code = QrCode::create($code);
+
+    $writer = new PngWriter;
+    $result = $writer->write($qr_code);
+
+    // Define the file path for the QR code
+    $filePath = "../qrCodeImages/". $code . ".png";
+    $result->saveToFile($filePath);
+
+    $qrcode = $code . ".png";
 
     // Generate the username
     $username = strtolower($first_letter) . strtolower($lastnameremovespace);
@@ -78,7 +91,6 @@ if (isset($_POST['addStudent'])) {
         '&email=' . $email .
         '&gender=' . $gender .
         '&phonenumber=' . $phonenumber;
-
 
     // Validate account number length
     if (strlen($accountnumber) > 10) {
@@ -113,7 +125,7 @@ if (isset($_POST['addStudent'])) {
         // Check if account number already exists
         $sql_check_existing = "SELECT * FROM user WHERE account_number=?";
         $stmt_check_existing = mysqli_prepare($conn, $sql_check_existing);
-        mysqli_stmt_bind_param($stmt_check_existing, "s", $accountnumber, );
+        mysqli_stmt_bind_param($stmt_check_existing, "s", $accountnumber);
         mysqli_stmt_execute($stmt_check_existing);
         $result_check_existing = mysqli_stmt_get_result($stmt_check_existing);
 
@@ -123,20 +135,15 @@ if (isset($_POST['addStudent'])) {
             exit();
         } else {
             // Insert new student
-            $sql_newstudent_query = "INSERT INTO user(account_number, code, qrcode_images, password, username, role, last_name, first_name, middle_name, gender, email, phone_number, enrolled_by, year_level, program)
-                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql_newstudent_query = "INSERT INTO user(account_number, code, password, username, role, last_name, first_name, middle_name, gender, email, phone_number, enrolled_by, year_level, program)
+                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt_newstudent_query = mysqli_prepare($conn, $sql_newstudent_query);
-            mysqli_stmt_bind_param($stmt_newstudent_query, "sssssssssssssss", $accountnumber, $code, $qrcodeImage, $defaulthashed_pass, $username, $role, $lastname, $firstname, $middlename, $gender, $email, $phonenumber, $enrolled_by, $yearlevel, $program);
+            mysqli_stmt_bind_param($stmt_newstudent_query, "ssssssssssssss", $accountnumber, $qrcode, $defaulthashed_pass, $username, $role, $lastname, $firstname, $middlename, $gender, $email, $phonenumber, $enrolled_by, $yearlevel, $program);
             $result_newstudent_query = mysqli_stmt_execute($stmt_newstudent_query);
 
+            // Redirect based on the result of the SQL query
             if ($result_newstudent_query) {
-
-
-
-
-
-
-                header("Location: ../admin-students.php?newStudentSuccess=New Student account created successfully");
+                header("Location: ../admin-students.php?newStudentSuccess=New Student enrolled successfully");
                 exit();
             } else {
                 header("Location: ../admin-student-addnew.php?newStudentError=Failed to add new student account&$user_data");

@@ -79,6 +79,8 @@ if (isset($_POST['addStudent'])) {
     // Get the username of the admin who enrolled the student
     $enrolled_by = $_SESSION['username'];
 
+    $qrcodeImage = $code . ".png";
+
     // Construct user data string
     $user_data = 'accountnumber=' . $accountnumber .
         '&lastname=' . $lastname .
