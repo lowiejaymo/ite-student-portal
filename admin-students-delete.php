@@ -78,7 +78,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                         <!-- add New Subject -->
                                         <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
                                             Are you sure you want to delete this student?</h3><br>
-                                        <p class="text-muted">Note: You can no longer retreive this account once deleted.
+                                        <p class="text-muted">Note: You can no longer retreive this account once deleted. All student's record including their attendance, payments, and enrolled in school year and semester will be deleted.
                                         </p>
                                         <hr>
 
@@ -203,7 +203,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                 }
                                             } else {
                                                 // Handle the case when no announcements are found
-                                                echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No posted announcement</strong></h2></div>";
+                                                echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No student data found</strong></h2></div>";
                                             }
                                             ?>
 

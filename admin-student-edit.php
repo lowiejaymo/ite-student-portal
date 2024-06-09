@@ -9,7 +9,7 @@ Brief overview of the file's contents. -->
 <?php
 session_start();
 include "indexes/db_conn.php";
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Admin'
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the role is set and it's 'Admin'
     ?>
 
     <!DOCTYPE html>
@@ -49,9 +49,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
         <div class="wrapper">
 
             <!-- Navbar -->
-            <?php include 'layout/officer-fixed-topnav.php'; ?>
+            <?php include 'layout/admin-fixed-topnav.php'; ?>
 
-            <?php include 'layout/officer-sidebar.php'; ?>
+            <?php include 'layout/admin-sidebar.php'; ?>
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
@@ -60,7 +60,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0">Deleting Student</h1>
+                                <h1 class="m-0">Editing Student</h1>
                             </div><!-- /.col -->
                         </div><!-- /.row -->
                     </div><!-- /.container-fluid -->
@@ -71,14 +71,23 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                 <!-- Main content -->
                 <section class="content">
                     <div class="container">
+
                         <div class="row justify-content-center">
+
                             <div class="col-md-8">
-                                <div class="card card-danger card-outline bg-white" for="new-subject">
+
+
+                                <?php if (isset($_GET['editStudentError'])) { ?>
+                                    <div class="alert alert-danger">
+                                        <?php echo $_GET['editStudentError']; ?>
+                                    </div>
+                                <?php } ?>
+                                <div class="card card-primary card-outline bg-white" for="new-subject">
                                     <div class="card-header">
                                         <!-- add New Subject -->
                                         <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
-                                            Are you sure you want to delete this student?</h3><br>
-                                        <p class="text-muted">Note: You can no longer retreive this account once deleted. All student's record including their attendance, payments, and enrolled in school year and semester will be deleted.
+                                            Editing student</h3><br>
+                                        <p class="text-muted">Note: Do what makes you happy.
                                         </p>
                                         <hr>
 
@@ -88,8 +97,13 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                             </div>
                                         <?php } ?>
 
+                                        <?php if (isset($_GET['editStudentError'])) { ?>
+                                            <div class="alert alert-danger">
+                                                <?php echo $_GET['editStudentError']; ?>
+                                            </div>
+                                        <?php } ?>
 
-                                        <form action="indexes/officer-student-delete-be.php" method="post">
+                                        <form action="indexes/admin-student-edit-be.php" method="post">
 
                                             <?php
                                             $account_number = $_GET['account_number'];
@@ -107,6 +121,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                     $middle_name = $row['middle_name'];
                                                     $profile_picture = $row['profile_picture'];
                                                     $enrolled_by = $row['enrolled_by'];
+                                                    $email = $row['email'];
+                                                    $phone_number = $row['phone_number'];
+                                                    $gender = $row['gender'];
 
                                                     $displayedaccount_number = $account_number;
                                                     $displayedusername = $username;
@@ -116,11 +133,14 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                     $displayedfirst_name = $first_name;
                                                     $displayedmiddle_name = $middle_name;
                                                     $displayedenrolled_by = $enrolled_by;
+                                                    $displayedemail = $email;
+                                                    $displayedphone_number = $phone_number;
                                                     ?>
 
                                                     <div class="text-center"> <!-- Center the column content -->
                                                         <!-- displaying the profile picture -->
-                                                        <img class="profile-picture img-fluid rounded-circle" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover;"
+                                                        <img class="profile-picture img-fluid rounded-circle"
+                                                            style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover;"
                                                             src="profile-pictures/<?php echo $profile_picture; ?>?<?php echo time(); ?>"
                                                             alt="User profile picture">
                                                     </div>
@@ -139,42 +159,60 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="Username" class="col-sm-3 col-form-label">Username</label>
-                                                        <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="created_on_original"
-                                                                placeholder="(Required)" value="<?php echo $displayedusername; ?>"
-                                                                disabled>
-                                                            <input type="hidden" name="username" value="<?php echo $username; ?>">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group row">
                                                         <label for="Program" class="col-sm-3 col-form-label">Program</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="created_on_original"
-                                                                placeholder="(Required)" value="<?php echo $displayedprogram; ?>"
-                                                                disabled>
-                                                            <input type="hidden" name="program" value="<?php echo $program; ?>">
+                                                            <select class="form-control" id="program" name="program">
+                                                                <?php
+                                                                $programs = ['BSIT', 'BSCS', 'BLIS', 'ACT'];
+                                                                $cuProgram = htmlspecialchars($program, ENT_QUOTES, 'UTF-8');
+                                                                foreach ($programs as $prog) {
+                                                                    $selected = $prog === $cuProgram ? 'selected' : '';
+                                                                    echo "<option value='$prog' $selected>$prog</option>";
+                                                                }
+                                                                ?>
+                                                            </select>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
                                                         <label for="Year_Level" class="col-sm-3 col-form-label">Year Level</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="created_on_original"
-                                                                placeholder="(Required)" value="<?php echo $displayedyear_level; ?>"
-                                                                disabled>
-                                                            <input type="hidden" name="year_level" value="<?php echo $year_level; ?>">
+                                                            <select class="form-control" id="year_level" name="year_level">
+                                                                <?php
+                                                                $levels = ['1', '2', '3', '4'];
+                                                                $cuyear = htmlspecialchars($year_level, ENT_QUOTES, 'UTF-8');
+                                                                foreach ($levels as $year) {
+                                                                    $selected = $year === $cuyear ? 'selected' : '';
+                                                                    echo "<option value='$year' $selected>$year</option>";
+                                                                }
+                                                                ?>
+                                                            </select>
                                                         </div>
                                                     </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="gender" class="col-sm-3 col-form-label">Gender</label>
+                                                        <div class="col-sm-9">
+                                                            <select class="form-control" id="gender" name="gender">
+                                                                <?php
+                                                                $genders = ['Male', 'Female'];
+                                                                $cugender = htmlspecialchars($gender, ENT_QUOTES, 'UTF-8');
+                                                                foreach ($genders as $gen) {
+                                                                    $selected = $gen === $cugender ? 'selected' : '';
+                                                                    echo "<option value='$gen' $selected>$gen</option>";
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
 
                                                     <div class="form-group row">
                                                         <label for="Last Name" class="col-sm-3 col-form-label">Last Name</label>
                                                         <div class="col-sm-9">
                                                             <input type="text" class="form-control" id="created_on_original"
-                                                                placeholder="(Required)" value="<?php echo $displayedlast_name; ?>"
-                                                                disabled>
-                                                            <input type="hidden" name="last_name" value="<?php echo $last_name; ?>">
+                                                                placeholder="(Required)" name="last_name"
+                                                                value="<?php echo $displayedlast_name; ?>">
                                                         </div>
                                                     </div>
 
@@ -182,36 +220,49 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                         <label for="First Name" class="col-sm-3 col-form-label">First Name</label>
                                                         <div class="col-sm-9">
                                                             <input type="text" class="form-control" id="created_on_original"
-                                                                placeholder="(Required)" value="<?php echo $displayedfirst_name; ?>"
-                                                                disabled>
-                                                            <input type="hidden" name="first_name"
-                                                                value="<?php echo $first_name; ?>">
+                                                                placeholder="(Required)" name="first_name"
+                                                                value="<?php echo $displayedfirst_name; ?>">
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
                                                         <label for="Middle Name" class="col-sm-3 col-form-label">Middle Name</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="created_on_original"
-                                                                placeholder=""
-                                                                value="<?php echo $displayedmiddle_name; ?>" disabled>
-                                                            <input type="hidden" name="middle_name"
-                                                                value="<?php echo $middle_name; ?>">
+                                                            <input type="text" class="form-control" name="middle_name"
+                                                                id="created_on_original" placeholder=""
+                                                                value="<?php echo $displayedmiddle_name; ?>">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="Email" class="col-sm-3 col-form-label">Email</label>
+                                                        <div class="col-sm-9">
+                                                            <input type="email" class="form-control" name="email"
+                                                                id="created_on_original" value="<?php echo $displayedemail; ?>">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="Phone Number" class="col-sm-3 col-form-label">Phone
+                                                            Number</label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" class="form-control" name="phone_number"
+                                                                id="created_on_original" placeholder=""
+                                                                value="<?php echo $displayedphone_number; ?>">
                                                         </div>
                                                     </div>
                                                     <?php
                                                 }
                                             } else {
-                                                // Handle the case when no announcements are found
-                                                echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No posted announcement</strong></h2></div>";
+                                                echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>Sheeeesh</strong></h2></div>";
                                             }
                                             ?>
 
 
 
                                             <div class="offset-sm-2 col-sm-10">
-                                                <button type="submit" value="Submit" name="deleteStudent"
-                                                    class="btn btn-danger">Delete</button>
+                                                <button type="submit" value="Submit" name="editStudent"
+                                                    class="btn btn-primary">Edit</button>
                                                 <a type="button" name="cancel" class="btn btn-secondary"
                                                     href="officer-students.php">Cancel</a>
                                             </div>

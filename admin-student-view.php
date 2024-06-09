@@ -85,6 +85,18 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
               </div>
             <?php } ?>
 
+            <?php if (isset($_GET['editStudentSuccess'])) { ?>
+              <div class="alert alert-success">
+                <?php echo $_GET['editStudentSuccess']; ?>
+              </div>
+            <?php } ?>
+
+            <?php if (isset($_GET['editStudentError'])) { ?>
+              <div class="alert alert-danger">
+                <?php echo $_GET['editStudentError']; ?>
+              </div>
+            <?php } ?>
+
             <div class="card card-primary card-outline bg-white" for="update-profilepicture">
               <div class="card-header">
                 <div class="row align-items-center">
@@ -147,10 +159,15 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                         </div>
                       </div>
                       <div class="col-md-auto ml-auto">
-                        <form method="post" action="indexes/admin-students-reset-password.php" class="d-inline">
+                        <a id="addNewSubjectBtn" class="btn btn-primary btn-sm d-block mb-2"
+                          href="admin-student-edit.php?account_number=<?php echo $row['account_number']; ?>">
+                          <i class="fa-solid fa-pen-to-square"></i> Edit this Student
+                        </a>
+                        <form method="post" action="indexes/officer-students-reset-password.php" class="d-inline">
                           <input type="hidden" name="account_number" value="<?php echo $row['account_number']; ?>">
-                          <button type="submit" class="btn btn-danger btn-sm"><i
-                              class="nav-icon fas fa-solid fa-arrows-rotate"></i> Reset Password</button>
+                          <button type="submit" class="btn btn-danger btn-sm d-block">
+                            <i class="nav-icon fas fa-solid fa-arrows-rotate"></i> Reset Password
+                          </button>
                         </form>
                       </div>
                       <?php

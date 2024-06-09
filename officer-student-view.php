@@ -95,6 +95,18 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                   </div>
                 <?php } ?>
 
+                <?php if (isset($_GET['editStudentSuccess'])) { ?>
+                  <div class="alert alert-success">
+                    <?php echo $_GET['editStudentSuccess']; ?>
+                  </div>
+                <?php } ?>
+
+                <?php if (isset($_GET['editStudentError'])) { ?>
+                  <div class="alert alert-danger">
+                    <?php echo $_GET['editStudentError']; ?>
+                  </div>
+                <?php } ?>
+
                 <div class="card card-primary card-outline bg-white" for="update-profilepicture">
                   <div class="card-header">
                     <div class="row align-items-center">

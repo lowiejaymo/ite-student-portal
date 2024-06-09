@@ -82,41 +82,32 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                       style="width: 150px; height: auto;">
                   </div>
 
-                  <!-- Subject information column -->
                   <div class="col-md">
                     <div class="table-responsive">
                       <table class="subject-info">
+
                         <?php
                         if (isset($_GET['school_year']) && isset($_GET['semester'])) {
                           $school_year = $_GET['school_year'];
                           $semester = $_GET['semester'];
-
-                          $eventsql = "SELECT school_year, semester FROM enrolled WHERE school_year = '$school_year' AND semester = '$semester'";
-                          $result = $conn->query($eventsql);
-
-                          if ($result && $result->num_rows > 0) {
-                            $row = $result->fetch_assoc();
-                            ?>
-                            <table class="subject-info">
-                              <tr>
-                                <td class="col-md-3"><strong>School Year:</strong></td>
-                                <td class="col-md-9">
-                                  <?php echo $row['school_year']; ?>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td class="col-md-3"><strong>Semester:</strong></td>
-                                <td class="col-md-9">
-                                  <?php echo $row['semester']; ?>
-                                </td>
-                              </tr>
-                            </table>
-                            <?php
-                          } else {
-                            echo "School Year with that Semester may not exist.";
-                          }
+                        } else {
+                          $school_year = "Default School Year";
+                          $semester = "Default Semester";
                         }
                         ?>
+
+                        <table class="subject-info">
+                          <tr>
+                            <td class="col-md-3"><strong>School Year:</strong></td>
+                            <td class="col-md-9"><?php echo $school_year; ?></td>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="col-md-3"><strong>Semester:</strong></td>
+                            <td class="col-md-9"><?php echo $semester; ?></td>
+                            </td>
+                          </tr>
+                        </table>
                       </table>
                     </div>
                   </div>

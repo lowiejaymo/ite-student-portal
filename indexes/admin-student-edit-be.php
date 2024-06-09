@@ -1,15 +1,15 @@
 <?php
 /*
-officer-student-edit-be.php and student update process in officer
+admin-student-edit-be.php and student update process in admin
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
 Last Modified: May 28, 2024
-Overview: This file handles the updating of student information, validating officer input and updating the student in the database.
+Overview: This file handles the updating of student information, validating admin input and updating the student in the database.
 */
 session_start();
-require('db_conn.php');
+require ('db_conn.php');
 require "../vendor/autoload.php";
 
 use Endroid\QrCode\QrCode;
@@ -62,7 +62,7 @@ if (isset($_POST['editStudent'])) {
     $result = $writer->write($qr_code);
 
     // Define the file path for the QR code
-    $filePath = "../qrCodeImages/". $code . ".png";
+    $filePath = "../qrCodeImages/" . $code . ".png";
     $result->saveToFile($filePath);
 
     $qrcode = $code . ".png";
@@ -85,44 +85,44 @@ if (isset($_POST['editStudent'])) {
         '&phonenumber=' . $phonenumber;
 
     if (empty($accountnumber)) {
-        header("Location: ../officer-student-edit.php?account_number=$accountnumber&editStudentError=Account Number is required&$user_data");
+        header("Location: ../admin-student-edit.php?account_number=$accountnumber&editStudentError=Account Number is required&$user_data");
         exit();
     } // Validate last name if empty
     elseif (empty($lastname)) {
-        header("Location: ../officer-student-edit.php?account_number=$accountnumber&editStudentError=Last Name is required&$user_data");
+        header("Location: ../admin-student-edit.php?account_number=$accountnumber&editStudentError=Last Name is required&$user_data");
         exit();
     } // Validate first name if empty
     elseif (empty($firstname)) {
-        header("Location: ../officer-student-edit.php?account_number=$accountnumber&editStudentError=First Name is required&$user_data");
+        header("Location: ../admin-student-edit.php?account_number=$accountnumber&editStudentError=First Name is required&$user_data");
         exit();
     } // Validate program if empty
     elseif (empty($program)) {
-        header("Location: ../officer-student-edit.php?account_number=$accountnumber&editStudentError=Program is required&$user_data");
+        header("Location: ../admin-student-edit.php?account_number=$accountnumber&editStudentError=Program is required&$user_data");
         exit();
     } // Validate year level if empty
     elseif (empty($yearlevel)) {
-        header("Location: ../officer-student-edit.php?account_number=$accountnumber&editStudentError=Year level is required&$user_data");
+        header("Location: ../admin-student-edit.php?account_number=$accountnumber&editStudentError=Year level is required&$user_data");
         exit();
     } // Validate gender if empty
     elseif (empty($gender)) {
-        header("Location: ../officer-student-edit.php?account_number=$accountnumber&editStudentError=Gender is required&$user_data");
+        header("Location: ../admin-student-edit.php?account_number=$accountnumber&editStudentError=Gender is required&$user_data");
         exit();
     } else {
 
-            // Update existing student
-            $sql_updatestudent_query = "UPDATE user SET code=?, username=?, last_name=?, first_name=?, middle_name=?, gender=?, email=?, phone_number=?, year_level=?, program=? WHERE account_number=?";
-            $stmt_updatestudent_query = mysqli_prepare($conn, $sql_updatestudent_query);
-            mysqli_stmt_bind_param($stmt_updatestudent_query, "sssssssssss", $qrcode, $username, $lastname, $firstname, $middlename, $gender, $email, $phonenumber, $yearlevel, $program, $accountnumber);
-            $result_updatestudent_query = mysqli_stmt_execute($stmt_updatestudent_query);
+        // Update existing student
+        $sql_updatestudent_query = "UPDATE user SET code=?, username=?, last_name=?, first_name=?, middle_name=?, gender=?, email=?, phone_number=?, year_level=?, program=? WHERE account_number=?";
+        $stmt_updatestudent_query = mysqli_prepare($conn, $sql_updatestudent_query);
+        mysqli_stmt_bind_param($stmt_updatestudent_query, "sssssssssss", $qrcode, $username, $lastname, $firstname, $middlename, $gender, $email, $phonenumber, $yearlevel, $program, $accountnumber);
+        $result_updatestudent_query = mysqli_stmt_execute($stmt_updatestudent_query);
 
-            // Redirect based on the result of the SQL query
-            if ($result_updatestudent_query) {
-                header("Location: ../officer-student-view.php?account_number=$accountnumber&editStudentSuccess=Student updated successfully");
-                exit();
-            } else {
-                header("Location: ../officer-student-view.php?account_number=$accountnumber&editStudentError=Failed to update student account&$user_data");
-                exit();
-            }
+        // Redirect based on the result of the SQL query
+        if ($result_updatestudent_query) {
+            header("Location: ../admin-student-view.php?account_number=$accountnumber&editStudentSuccess=Student updated successfully");
+            exit();
+        } else {
+            header("Location: ../admin-student-view.php?account_number=$accountnumber&editStudentError=Failed to update student account&$user_data");
+            exit();
+        }
     }
 } else {
     header("Location: ../login.php");

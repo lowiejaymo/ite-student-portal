@@ -88,6 +88,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                             </div>
                                         <?php } ?>
 
+                                        <?php if (isset($_GET['editStudentError'])) { ?>
+                                            <div class="alert alert-danger">
+                                                <?php echo $_GET['editStudentError']; ?>
+                                            </div>
+                                        <?php } ?>
+
 
                                         <form action="indexes/officer-student-edit-be.php" method="post">
 
@@ -125,7 +131,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
 
                                                     <div class="text-center"> <!-- Center the column content -->
                                                         <!-- displaying the profile picture -->
-                                                        <img class="profile-picture img-fluid rounded-circle" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover;"
+                                                        <img class="profile-picture img-fluid rounded-circle"
+                                                            style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover;"
                                                             src="profile-pictures/<?php echo $profile_picture; ?>?<?php echo time(); ?>"
                                                             alt="User profile picture">
                                                     </div>
@@ -196,41 +203,44 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                         <label for="Last Name" class="col-sm-3 col-form-label">Last Name</label>
                                                         <div class="col-sm-9">
                                                             <input type="text" class="form-control" id="created_on_original"
-                                                                placeholder="(Required)" name="last_name" value="<?php echo $displayedlast_name; ?>" >
-                                                        </div>            
+                                                                placeholder="(Required)" name="last_name"
+                                                                value="<?php echo $displayedlast_name; ?>">
+                                                        </div>
                                                     </div>
 
                                                     <div class="form-group row">
                                                         <label for="First Name" class="col-sm-3 col-form-label">First Name</label>
                                                         <div class="col-sm-9">
                                                             <input type="text" class="form-control" id="created_on_original"
-                                                                placeholder="(Required)" name="first_name" value="<?php echo $displayedfirst_name; ?>" >
+                                                                placeholder="(Required)" name="first_name"
+                                                                value="<?php echo $displayedfirst_name; ?>">
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
                                                         <label for="Middle Name" class="col-sm-3 col-form-label">Middle Name</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="form-control" name="middle_name" id="created_on_original"
-                                                                placeholder=""
-                                                                value="<?php echo $displayedmiddle_name; ?>" >
+                                                            <input type="text" class="form-control" name="middle_name"
+                                                                id="created_on_original" placeholder=""
+                                                                value="<?php echo $displayedmiddle_name; ?>">
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
                                                         <label for="Email" class="col-sm-3 col-form-label">Email</label>
                                                         <div class="col-sm-9">
-                                                            <input type="email" class="form-control" name="email" id="created_on_original"
-                                                                value="<?php echo $displayedemail; ?>" >
+                                                            <input type="email" class="form-control" name="email"
+                                                                id="created_on_original" value="<?php echo $displayedemail; ?>">
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="Phone Number" class="col-sm-3 col-form-label">Phone Number</label>
+                                                        <label for="Phone Number" class="col-sm-3 col-form-label">Phone
+                                                            Number</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="form-control" name="phone_number" id="created_on_original"
-                                                                placeholder=""
-                                                                value="<?php echo $displayedphone_number; ?>" >
+                                                            <input type="text" class="form-control" name="phone_number"
+                                                                id="created_on_original" placeholder=""
+                                                                value="<?php echo $displayedphone_number; ?>">
                                                         </div>
                                                     </div>
                                                     <?php
