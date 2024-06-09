@@ -45,7 +45,6 @@ if (isset($_POST['editStudent'])) {
     // Remove the spaces of the last name
     $lastnameremovespace = str_replace(' ', '', $lastname);
 
-
     // Get the first letter of the first name
     $first_letter = substr($firstname, 0, 1);
 
