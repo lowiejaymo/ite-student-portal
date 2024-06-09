@@ -54,6 +54,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
               <div class="col-sm-6">
                 <h1>Enrolled Students</h1>
               </div>
+              
             </div>
           </div><!-- /.container-fluid -->
         </div>
@@ -86,9 +87,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                       }
                       ?>
                       <select class="form-control" id="school_year" name="school_year">
-                        <option value="" disabled <?php if (!isset($_GET['school_year']))
-                          echo 'selected'; ?>>(Required)
-                        </option>
                         <option value="All" <?php if (isset($_GET['school_year']) && $_GET['school_year'] == 'All')
                           echo 'selected'; ?>>All</option>
                         <?php foreach ($schoolYears as $year) { ?>

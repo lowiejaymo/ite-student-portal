@@ -114,7 +114,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
 
                   <!-- Add Student button -->
                   <div class="col-md-auto ml-auto">
-                    <a href="add_student.php" class="btn btn-success btn-sm">+ Add Student</a>
+                    <a href="admin-enrolled-add.php" class="btn btn-success btn-sm">+ Add Student</a>
                   </div>
                 </div>
               </div>

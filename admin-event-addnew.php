@@ -79,16 +79,16 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                     <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
                       New Event</h3><br>
 
-                    
+
                     <hr>
 
                     <form action="indexes/admin-add-event-be.php" method="post">
 
-                    <?php if (isset($_GET['newEventError'])) { ?>
-                      <div class="alert alert-danger">
-                        <?php echo $_GET['newEventError']; ?>
-                      </div>
-                    <?php } ?>
+                      <?php if (isset($_GET['newEventError'])) { ?>
+                        <div class="alert alert-danger">
+                          <?php echo $_GET['newEventError']; ?>
+                        </div>
+                      <?php } ?>
 
                       <label for="eventname" class="col-sm-4 col-form-label">Event Name</label>
                       <div class="form-group row">
@@ -108,104 +108,106 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                       <div class="form-group row">
                         <div class="col-sm-12">
                           <?php if (isset($_GET['date'])) { ?>
-                              <input type="date" class="form-control" name="date" id="date" value="<?php echo $_GET['date']; ?>">
+                            <input type="date" class="form-control" name="date" id="date"
+                              value="<?php echo $_GET['date']; ?>">
                           <?php } else { ?>
                             <input type="date" class="form-control" name="date" id="date">
                           <?php } ?>
                         </div>
                       </div>
-                    
+
 
                       <label for="school_year" class="col-sm-4 col-form-label">School Year</label>
-                                            <div class="form-group row">
-                                                <div class="col-sm-12">
-                                                    <?php
-                                                    // Assuming you have a database connection already established
-                                                    $schoolYearQuery = "SELECT * FROM school_year";
-                                                    $result = mysqli_query($conn, $schoolYearQuery);
+                      <div class="form-group row">
+                        <div class="col-sm-12">
+                          <?php
+                          // Assuming you have a database connection already established
+                          $schoolYearQuery = "SELECT * FROM school_year";
+                          $result = mysqli_query($conn, $schoolYearQuery);
 
-                                                    // Fetch all school years
-                                                    $schoolYears = [];
-                                                    $defaultYear = '';
+                          // Fetch all school years
+                          $schoolYears = [];
+                          $defaultYear = '';
 
-                                                    if ($result && mysqli_num_rows($result) > 0) {
-                                                        while ($row = mysqli_fetch_assoc($result)) {
-                                                            $schoolYears[] = $row;
-                                                            if ($row['dfault'] == 1) {
-                                                                $defaultYear = $row['school_year'];
-                                                            }
-                                                        }
-                                                    }
-                                                    ?>
-                                                    
-                                                    <select class="form-control" id="school_year" name="school_year">
-                                                        <option value="" disabled <?php if (!isset($_GET['school_year'])) echo 'selected'; ?>>(Required)</option>
-                                                        <?php foreach ($schoolYears as $year) { ?>
-                                                            <option value="<?php echo $year['school_year']; ?>" 
-                                                                <?php 
-                                                                    if (isset($_GET['school_year']) && $_GET['school_year'] == $year['school_year']) {
-                                                                        echo 'selected';
-                                                                    } elseif (!isset($_GET['school_year']) && $year['dfault'] == 1) {
-                                                                        echo 'selected';
-                                                                    }
-                                                                ?>>
-                                                                <?php echo $year['school_year']; ?>
-                                                            </option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                            </div>
+                          if ($result && mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                              $schoolYears[] = $row;
+                              if ($row['dfault'] == 1) {
+                                $defaultYear = $row['school_year'];
+                              }
+                            }
+                          }
+                          ?>
+
+                          <select class="form-control" id="school_year" name="school_year">
+                            <option value="" disabled <?php if (!isset($_GET['school_year']))
+                              echo 'selected'; ?>>
+                              (Required)</option>
+                            <?php foreach ($schoolYears as $year) { ?>
+                              <option value="<?php echo $year['school_year']; ?>" <?php
+                                 if (isset($_GET['school_year']) && $_GET['school_year'] == $year['school_year']) {
+                                   echo 'selected';
+                                 } elseif (!isset($_GET['school_year']) && $year['dfault'] == 1) {
+                                   echo 'selected';
+                                 }
+                                 ?>>
+                                <?php echo $year['school_year']; ?>
+                              </option>
+                            <?php } ?>
+                          </select>
+                        </div>
+                      </div>
 
 
                       <label for="semester" class="col-sm-4 col-form-label">Semester</label>
-                                            <div class="form-group row">
-                                                <div class="col-sm-12">
-                                                    <?php
-                                                    // Assuming you have a database connection already established
-                                                    $query = "SELECT * FROM semester";
-                                                    $result = mysqli_query($conn, $query);
+                      <div class="form-group row">
+                        <div class="col-sm-12">
+                          <?php
+                          // Assuming you have a database connection already established
+                          $query = "SELECT * FROM semester";
+                          $result = mysqli_query($conn, $query);
 
-                                                    // Fetch all semesters
-                                                    $semesters = []; // Renamed to $semesters
-                                                    $defaultsemester = '';
+                          // Fetch all semesters
+                          $semesters = []; // Renamed to $semesters
+                          $defaultsemester = '';
 
-                                                    if ($result && mysqli_num_rows($result) > 0) {
-                                                        while ($row = mysqli_fetch_assoc($result)) {
-                                                            $semesters[] = $row;
-                                                            if ($row['dfault'] == 1) {
-                                                                $defaultsemester = $row['semester'];
-                                                            }
-                                                        }
-                                                    }
-                                                    ?>
-                                                    
-                                                    <select class="form-control" id="semester" name="semester">
-                                                        <option value="" disabled <?php if (!isset($_GET['semester'])) echo 'selected'; ?>>(Required)</option>
-                                                        <?php foreach ($semesters as $semester) { ?> <!-- Changed $semester to $semesters -->
-                                                            <option value="<?php echo $semester['semester']; ?>" 
-                                                                <?php 
-                                                                    if (isset($_GET['semester']) && $_GET['semester'] == $semester['semester']) {
-                                                                        echo 'selected';
-                                                                    } elseif (!isset($_GET['semester']) && $semester['dfault'] == 1) {
-                                                                        echo 'selected';
-                                                                    }
-                                                                ?>>
-                                                                <?php echo $semester['semester']; ?>
-                                                            </option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                            </div>
+                          if ($result && mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                              $semesters[] = $row;
+                              if ($row['dfault'] == 1) {
+                                $defaultsemester = $row['semester'];
+                              }
+                            }
+                          }
+                          ?>
 
-                                            <label for="points" class="col-sm-4 col-form-label">Points</label>
+                          <select class="form-control" id="semester" name="semester">
+                            <option value="" disabled <?php if (!isset($_GET['semester']))
+                              echo 'selected'; ?>>(Required)
+                            </option>
+                            <?php foreach ($semesters as $semester) { ?> <!-- Changed $semester to $semesters -->
+                              <option value="<?php echo $semester['semester']; ?>" <?php
+                                 if (isset($_GET['semester']) && $_GET['semester'] == $semester['semester']) {
+                                   echo 'selected';
+                                 } elseif (!isset($_GET['semester']) && $semester['dfault'] == 1) {
+                                   echo 'selected';
+                                 }
+                                 ?>>
+                                <?php echo $semester['semester']; ?>
+                              </option>
+                            <?php } ?>
+                          </select>
+                        </div>
+                      </div>
+
+                      <label for="points" class="col-sm-4 col-form-label">Points</label>
                       <div class="form-group row">
                         <div class="col-sm-12">
                           <?php if (isset($_GET['points'])) { ?>
                             <input type="text" class="form-control" id="points" name="points" placeholder="(Required)"
                               value="<?php echo $_GET['points']; ?>">
                           <?php } else { ?>
-                            <input type="text" class="form-control" id="points" name="points"
-                              placeholder="(Required)">
+                            <input type="text" class="form-control" id="points" name="points" placeholder="(Required)">
                           <?php } ?>
                         </div>
                       </div>
