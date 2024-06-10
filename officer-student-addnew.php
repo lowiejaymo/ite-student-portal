@@ -232,20 +232,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                         </div>
                       </div>
 
-
-                      <!-- Email Address input -->
-                      <label for="accountnumber" class="col-sm-4 col-form-label">Email Address</label>
-                      <div class="form-group row">
-                        <div class="col-sm-12">
-                          <?php if (isset($_GET['email'])) { ?>
-                            <input type="email" class="form-control" id="email" name="email" placeholder=""
-                              value="<?php echo $_GET['email']; ?>">
-                          <?php } else { ?>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="">
-                          <?php } ?>
-                        </div>
-                      </div>
-
                       <!-- Phone Number input -->
                       <label for="accountnumber" class="col-sm-4 col-form-label">Phone Number</label>
                       <div class="form-group row">

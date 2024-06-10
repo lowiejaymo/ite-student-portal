@@ -56,8 +56,7 @@ if (isset($_POST['save_excel_data'])) {
                 $program = htmlspecialchars($row[4]);
                 $yearlevel = htmlspecialchars($row[5]);
                 $gender = htmlspecialchars($row[6]);
-                $email = filter_var($row[7], FILTER_SANITIZE_EMAIL);
-                $phonenumberdefault = htmlspecialchars($row[8]);
+                $phonenumberdefault = htmlspecialchars($row[7]);
                 $phonenumber = "0". $phonenumberdefault;
 
                 // Convert the names to proper case
@@ -102,13 +101,13 @@ if (isset($_POST['save_excel_data'])) {
                 $enrolled_by = $_SESSION['username'];
 
                 // Insert new student
-                $sql_newstudent_query = "INSERT INTO user (account_number, code, password, username, role, last_name, first_name, middle_name, gender, email, phone_number, enrolled_by, year_level, program)
-                                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                $sql_newstudent_query = "INSERT INTO user (account_number, code, password, username, role, last_name, first_name, middle_name, gender, phone_number, enrolled_by, year_level, program)
+                                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 $stmt_newstudent_query = mysqli_prepare($conn, $sql_newstudent_query);
 
                 
                 if ($stmt_newstudent_query) {
-                    mysqli_stmt_bind_param($stmt_newstudent_query, "ssssssssssssss", $accountnumber, $qrcode, $defaulthashed_pass, $username, $role, $lastname, $firstname, $middlename, $gender, $email, $phonenumber, $enrolled_by, $yearlevel, $program);
+                    mysqli_stmt_bind_param($stmt_newstudent_query, "sssssssssssss", $accountnumber, $qrcode, $defaulthashed_pass, $username, $role, $lastname, $firstname, $middlename, $gender, $phonenumber, $enrolled_by, $yearlevel, $program);
                     $result_newstudent_query = mysqli_stmt_execute($stmt_newstudent_query);
 
                     // Redirect based on the result of the SQL query
