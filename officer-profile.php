@@ -143,12 +143,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                     <?php echo $_SESSION['phone_number']; ?>
                                                 </a>
                                             </li>
-                                            <li class="list-group-item">
-                                                <!-- Displaying email -->
-                                                <b>Email Address</b> <a class="float-right">
-                                                    <?php echo $_SESSION['email']; ?>
-                                                </a>
-                                            </li>
                                             <br>
                                             <a href="officer-profile-setting.php" class="btn btn-primary btn-block">Edit my
                                                 profile</a>

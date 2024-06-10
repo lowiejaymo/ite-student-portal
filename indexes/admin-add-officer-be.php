@@ -31,7 +31,6 @@ if (isset($_POST['addOfficer'])) {
     $lastnameNotProper = validate($_POST['lastname']);
     $firstnameNotProper = validate($_POST['firstname']);
     $middlenameNotProper = validate($_POST['middlename']);
-    $email = validate($_POST['email']);
     $phonenumber = validate($_POST['phonenumber']);
     $gender = validate($_POST['gender']);
 
@@ -63,7 +62,6 @@ if (isset($_POST['addOfficer'])) {
         '&lastname=' . $lastname .
         '&firstname=' . $firstname .
         '&middlename=' . $middlename .
-        '&email=' . $email .
         '&phonenumber=' . $phonenumber .
         '&gender=' . $gender;
 
@@ -106,11 +104,12 @@ if (isset($_POST['addOfficer'])) {
             header("Location: ../admin-officer-addnew.php?newOfficerError=Account Number already exists&$user_data");
             exit();
         } else {
+            $is_verified = '1';
             // Insert new officer
-            $sql_newofficer_query = "INSERT INTO user(account_number, code, password, username, role, position, last_name, first_name, middle_name, gender, email, phone_number, enrolled_by)
+            $sql_newofficer_query = "INSERT INTO user(account_number, code, password, username, role, position, last_name, first_name, middle_name, gender, phone_number, enrolled_by, is_verified)
         VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt_newofficer_query = mysqli_prepare($conn, $sql_newofficer_query);
-            mysqli_stmt_bind_param($stmt_newofficer_query, "sssssssssssss", $accountnumber, $code, $defaulthashed_pass, $username, $role, $position, $lastname, $firstname, $middlename, $gender, $email, $phonenumber, $enrolled_by);
+            mysqli_stmt_bind_param($stmt_newofficer_query, "ssssssssssssi", $accountnumber, $code, $defaulthashed_pass, $username, $role, $position, $lastname, $firstname, $middlename, $gender, $phonenumber, $enrolled_by, $is_verified);
             $result_newofficer_query = mysqli_stmt_execute($stmt_newofficer_query);
 
             // Redirect based on the result of the SQL query

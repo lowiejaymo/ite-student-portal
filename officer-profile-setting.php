@@ -1,4 +1,4 @@
- <!-- officer-profile-setting.php and to edit your account profile in officer form.
+<!-- officer-profile-setting.php and to edit your account profile in officer form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
@@ -143,12 +143,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                     <?php echo $_SESSION['phone_number']; ?>
                                                 </a>
                                             </li>
-                                            <li class="list-group-item">
-                                                <!-- Displaying email -->
-                                                <b>Email Address</b> <a class="float-right">
-                                                    <?php echo $_SESSION['email']; ?>
-                                                </a>
-                                            </li>
                                         </ul>
                                     </div>
                                     <!-- /.card-body -->
@@ -162,8 +156,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                 <div class="card">
                                     <div class="card-header p-2">
                                         <ul class="nav nav-pills">
-                                            <!-- <li class="nav-item"><a class="nav-link" href="#activity" data-toggle="tab">Activity</a></li>
-                      <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li> -->
                                             <li class="nav-item"><a class="nav-link active" href="#settings"
                                                     data-toggle="tab">Settings</a></li>
                                         </ul>
@@ -175,7 +167,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                 <p class="text-muted">Note: Fields marked with an asterisk (*) are required.
                                                 </p>
 
-                                                
+
 
 
 
