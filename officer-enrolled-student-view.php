@@ -1,4 +1,4 @@
-<!-- admin-event-view.php and to see the information of the event in admin form.
+<!-- Officer-event-view.php and to see the information of the event in Officer form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
@@ -9,7 +9,7 @@ Brief overview of the file's contents. -->
 <?php
 session_start();
 include "indexes/db_conn.php";
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the role is set and it's 'Admin'
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Officer'
   ?>
 
   <!DOCTYPE html>
@@ -18,7 +18,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Admin Home Page</title>
+    <title>ITE Student Portal | Officer Home Page</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -48,9 +48,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
     <div class="wrapper">
 
       <!-- Navbar -->
-      <?php include 'layout/admin-fixed-topnav.php'; ?>
+      <?php include 'layout/officer-fixed-topnav.php'; ?>
 
-      <?php include 'layout/admin-sidebar.php'; ?>
+      <?php include 'layout/officer-sidebar.php'; ?>
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
@@ -62,7 +62,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                 <h1>Enrolled Student</h1>
               </div>
               <div class="col-sm-6 text-right">
-                <a id="addNewSubjectBtn" class="btn btn-secondary" href="admin-enrolled-students.php"><i
+                <a id="addNewSubjectBtn" class="btn btn-secondary" href="officer-enrolled-students.php"><i
                     class="nav-icon fas fa-solid fa-chevron-left"></i> Back to School Year and Semester</a>
               </div>
             </div>
@@ -114,7 +114,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
 
                   <!-- Add Student button -->
                   <div class="col-md-auto ml-auto">
-                    <a href="admin-enrolled-add.php?school_year=<?php echo $_GET['school_year']; ?>&semester=<?php echo $_GET['semester']; ?>" class="btn btn-success btn-sm">+ Add Student</a>
+                    <a href="officer-enrolled-add.php?school_year=<?php echo $_GET['school_year']; ?>&semester=<?php echo $_GET['semester']; ?>" class="btn btn-success btn-sm">+ Add Student</a>
                   </div>
                 </div>
               </div>
@@ -157,7 +157,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                         <?php
                           $current_url = $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
                         ?>
-                          <form method="POST" action="indexes/admin-unenroll.php">
+                          <form method="POST" action="indexes/officer-unenroll.php">
                             <input type="hidden" name="account_number" value="<?php echo $row['account_number']; ?>">
                             <input type="hidden" name="school_year" value="<?php echo isset($_GET['school_year']) ? htmlspecialchars($_GET['school_year']) : ''; ?>">
                             <input type="hidden" name="semester" value="<?php echo isset($_GET['semester']) ? htmlspecialchars($_GET['semester']) : ''; ?>">
