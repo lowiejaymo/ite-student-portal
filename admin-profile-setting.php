@@ -1,4 +1,4 @@
- <!-- admin-profile-setting.php and to edit your account profile in admin form.
+<!-- admin-profile-setting.php and to edit your account profile in admin form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
@@ -77,7 +77,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                             <div class="row justify-content-center">
                                                 <div class="text-center"> <!-- Center the column content -->
                                                     <!-- displaying the profile picture -->
-                                                    <img class="img-fluid rounded-circle" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;"
+                                                    <img class="img-fluid rounded-circle"
+                                                        style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;"
                                                         src="profile-pictures/<?php echo $_SESSION['profile_picture']; ?>?<?php echo time(); ?>"
                                                         alt="User profile picture">
                                                 </div>
@@ -216,7 +217,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                             <div class="row justify-content-center">
                                                                 <div class="image">
                                                                     <!-- Displaying current profile picture -->
-                                                                    <img class="change-profile-picture img-fluid rounded-circle" style="width: 500px; height: 500px; border-radius: 50%; object-fit: cover;"
+                                                                    <img class="change-profile-picture img-fluid rounded-circle"
+                                                                        style="width: 500px; height: 500px; border-radius: 50%; object-fit: cover;"
                                                                         src="profile-pictures/<?php echo $_SESSION['profile_picture']; ?>?<?php echo time(); ?>"
                                                                         alt="User profile picture">
                                                                 </div>
@@ -240,6 +242,128 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                     </div>
                                                     <!-- /.card-body -->
                                                 </div>
+
+
+
+
+
+                                                <div class="card card-primary card-outline bg-white" for="change-email">
+                                                    <div class="card-header">
+                                                        <!-- changing email address -->
+                                                        <h3 class="card-title text-center"
+                                                            style="font-size: 1.25rem; font-weight: bold;">
+                                                            Request to Change Email Address</h3><br>
+                                                        <hr>
+
+
+                                                        <form style="width: 100%" action="indexes/admin-change-email-request-code.php"
+                                                            method="post">
+                                                            <?php if (isset($_GET['sencodeerror'])) { ?>
+                                                                <div class="alert alert-danger">
+                                                                    <?php echo $_GET['sencodeerror']; ?>
+                                                                </div>
+                                                            <?php } ?>
+                                                            <?php if (isset($_GET['sencodesuccess'])) { ?>
+                                                                <div class="alert alert-success">
+                                                                    <?php echo $_GET['sencodesuccess']; ?>
+                                                                </div>
+                                                            <?php } ?>
+                                                            <div class="mb-3">
+                                                                <!-- Current email address input -->
+                                                                <label for="currentEmail" class="fw-bold">Current Email
+                                                                    Address</label>
+                                                                <input type="text" class="form-control" id="inputName"
+                                                                    name="current_email" placeholder="Current Email Address"
+                                                                    style="font-weight: bold;"
+                                                                    value="<?php echo isset($_SESSION['email']) ? $_SESSION['email'] : ''; ?>"
+                                                                    disabled>
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <!-- New email address input -->
+                                                                <label for="newEmail" class="fw-bold">New Email
+                                                                    Address</label>
+                                                                <div class="input-group">
+                                                                    <?php if (empty($_SESSION['new_email'])) { ?>
+                                                                        <input type="email" class="form-control col-9 me-2"
+                                                                            name="new_email" placeholder="New Email Address*"
+                                                                            required
+                                                                            value="<?php echo isset($_GET['new_email_data']) ? $_GET['new_email_data'] : ''; ?>">
+                                                                    <?php } else { ?>
+                                                                        <input type="email" class="form-control col-9 me-2"
+                                                                            name="new_email" placeholder="New Email Address*"
+                                                                            required
+                                                                            value="<?php echo $_SESSION['new_email']; ?>">
+                                                                    <?php } ?>
+
+                                                                    <button class="btn btn-primary mx-2" type="submit"
+                                                                        name="send_code" value="send_request_code">Send
+                                                                        Request Code</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+
+
+
+
+                                                        <form style="width: 100%" action="indexes/admin-changemail-be.php"
+                                                            method="post">
+
+                                                            <?php if (isset($_GET['requestcodeerror'])) { ?>
+                                                                <div class="alert alert-danger">
+                                                                    <?php echo $_GET['requestcodeerror']; ?>
+                                                                </div>
+                                                            <?php } ?>
+                                                            <?php if (isset($_GET['requestcodesuccess'])) { ?>
+                                                                <div class="alert alert-success">
+                                                                    <?php echo $_GET['requestcodesuccess']; ?>
+                                                                </div>
+                                                            <?php } ?>
+                                                            <div class="mb-3">
+                                                                <!-- Verification code input -->
+                                                                <label for="requestCode" class="fw-bold">Request
+                                                                    Code</label>
+                                                                <?php if (isset($_GET['request_code_data'])) { ?>
+                                                                    <input type="text" class="form-control" id="requestCode"
+                                                                        name="request_code" placeholder="Verification Code"
+                                                                        value="<?php echo $_GET['request_code_data']; ?>">
+                                                                <?php } else { ?>
+                                                                    <input type="text" class="form-control" id="requestCode"
+                                                                        name="request_code" placeholder="Verification Code">
+                                                                <?php } ?>
+
+
+
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <!-- Password input -->
+                                                                <label for="password" class="fw-bold">Password</label>
+                                                                <input type="password" class="form-control " id="password"
+                                                                    name="change_email_password" placeholder="Password">
+
+                                                                <p class="text-muted">To verify your identity, please enter
+                                                                    your password to successfully
+                                                                    update your Email Address.</p>
+                                                            </div>
+
+                                                            <div class="form-group row">
+                                                                <div class="offset-sm-2 col-sm-10">
+                                                                    <button type="submit" value="update_email_address"
+                                                                        class="btn btn-success"
+                                                                        name="update_email">Update</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+
+
+                                                    </div>
+                                                    <!-- /.card-body -->
+                                                </div>
+
+
+
+
 
                                                 <div class="card card-primary card-outline bg-white" for="change-password">
                                                     <div class="card-header">
@@ -295,6 +419,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                     <!-- /.card-body -->
                                                 </div>
 
+
+
                                             </div>
                                             <!-- /.tab-pane -->
                                         </div>
@@ -321,195 +447,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
             <!-- /.control-sidebar -->
         </div>
         <!-- ./wrapper -->
-
-        <!-- Modal for modifying profile information -->
-        <div class="modal fade" id="profiletermsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Terms and Conditions</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <ol>
-                            <li><strong>Introduction</strong><br>
-                                By accessing or using the form provided by us, you agree to comply with and be bound by
-                                these terms and conditions. If you do not agree to these terms and conditions, please do not
-                                use the form.
-                            </li>
-                            <li><strong>Modifications to Form</strong><br>
-                                We reserves the right to modify, suspend, or discontinue the form, or any part thereof, at
-                                any time
-                                without prior notice.
-                            </li>
-                            <li><strong>User Information</strong><br>
-                                Users are responsible for providing accurate and up-to-date information when modifying their
-                                details. We
-                                not liable for any inaccuracies or outdated information provided by the user.
-                            </li>
-                            <li><strong>Privacy and Security</strong><br>
-                                We takes the privacy and security of user information seriously. User data collected through
-                                the form will
-                                be handled in accordance with our Privacy Policy. By using the form, you consent to the
-                                collection, use,
-                                and sharing of your information as described in the Privacy Policy.
-                            </li>
-                            <li><strong>Password Protection</strong><br>
-                                Users are required to enter their password to verify their identity before making any
-                                modifications to
-                                their information. Users are responsible for maintaining the confidentiality of their
-                                password and for any
-                                activities that occur under their account.
-                            </li>
-                            <li><strong>Use of Information</strong><br>
-                                The information provided by users will be used for the purposes of updating their details
-                                within the
-                                system and for communication purposes related to their account.
-                            </li>
-                            <li><strong>Governing Law</strong><br>
-                                These terms and conditions shall be governed by and construed in accordance with the laws of
-                                Republic Act
-                                No. 10173, also known as the Data Privacy Act of 2012. Any disputes arising under these
-                                terms and
-                                conditions shall be subject to the exclusive jurisdiction of the courts of authority.</li>
-                        </ol>
-                        <p>By using the form, you acknowledge that you have read, understood, and agree to be bound by these
-                            terms and
-                            conditions.</p>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal for modifying email address -->
-        <div class="modal fade" id="changeemailtermsModal" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Terms and Conditions</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <ol>
-                            <li>
-                                <strong>Introduction</strong><br>
-                                By initiating the process of changing your email address through the platform provided by
-                                us,
-                                you agree to comply with and be bound by these terms and conditions. If you do not agree to
-                                these
-                                terms and conditions, please do not proceed with the email address change process.
-                            </li>
-
-                            <li>
-                                <strong>Request for Email Address Change:</strong><br>
-                                <ol>
-                                    <li>To initiate the process of changing your email address, you must send a request
-                                        through the
-                                        platform's designated procedure.</li>
-                                    <li>Upon initiating the request, you will be prompted to input the new email address to
-                                        which the
-                                        request code will be sent.</li>
-                                    <li>The request code will be sent to the provided new email address for verification
-                                        purposes.</li>
-                                </ol>
-                            </li>
-
-                            <li>
-                                <strong>Verification Process:</strong><br>
-                                <ol>
-                                    <li>Upon receiving the request code at your new email address, you must retrieve the
-                                        code and return to
-                                        the platform to continue the process.</li>
-                                    <li>You are required to enter the received request code accurately as part of the
-                                        verification process.
-                                    </li>
-                                    <li>Additionally, you will be prompted to provide your account password to further
-                                        verify your identity.
-                                    </li>
-                                </ol>
-                            </li>
-
-                            <li>
-                                <strong>Confirmation and Completion:</strong><br>
-                                <ol>
-                                    <li>Once the request code and password have been successfully verified, your email
-                                        address change
-                                        request will be processed.</li>
-                                    <li>You will receive confirmation of the email address change via the new email address
-                                        provided.</li>
-                                    <li>Your account information, including your login credentials, will be updated to
-                                        reflect the new email
-                                        address.</li>
-                                </ol>
-                            </li>
-
-                            <li>
-                                <strong>Responsibilities:</strong><br>
-                                <ol>
-                                    <li>You are solely responsible for ensuring the accuracy and security of the new email
-                                        address provided
-                                        during the email address change process.</li>
-                                    <li>It is your responsibility to keep your account password confidential and to prevent
-                                        unauthorized
-                                        access to your account.</li>
-                                    <li>Any unauthorized access or misuse of your account resulting from negligence in
-                                        safeguarding your
-                                        credentials shall be your sole responsibility.</li>
-                                </ol>
-                            </li>
-
-                            <li>
-                                <strong>Limitation of Liability:</strong><br>
-                                <ol>
-                                    <li>We shall not be liable for any loss or damage arising from unauthorized access to
-                                        your account due
-                                        to negligence on your part.</li>
-                                    <li>We reserve the right to deny or delay processing any email address change request
-                                        deemed suspicious
-                                        or potentially fraudulent.</li>
-                                </ol>
-                            </li>
-
-                            <li>
-                                <strong>Governing Law:</strong><br>
-                                <ol>
-                                    <li>These terms and conditions shall be governed by and construed in accordance with the
-                                        laws of
-                                        [Jurisdiction], without regard to its conflict of law provisions.</li>
-                                </ol>
-                            </li>
-
-                            <li>
-                                <strong>Modification of Terms:</strong><br>
-                                <ol>
-                                    <li>We reserve the right to modify or update these terms and conditions at any time
-                                        without prior
-                                        notice.</li>
-                                    <li>It is your responsibility to review these terms periodically for any changes.</li>
-                                </ol>
-                            </li>
-                        </ol>
-                        <p>By using the form, you acknowledge that you have read, understood, and agree to be bound by these
-                            terms and
-                            conditions.</p>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- jQuery -->
         <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

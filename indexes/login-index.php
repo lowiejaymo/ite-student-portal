@@ -55,6 +55,16 @@ if (isset($_POST['login'])) {
 
             // Validate if input password and stored password is equal
             if (password_verify($password, $row['password'])) {
+
+                if ($row['is_verified'] == 0) {
+                    // Account is not verified
+                    $_SESSION['verify'] = true;
+                    $_SESSION['email'] = $row['email'];
+                    $_SESSION['account_number'] = $row['account_number'];
+                    header("Location: ../verify-email.php");
+                    exit;
+                }
+
                 $_SESSION['account_number'] = $row['account_number'];
                 $_SESSION['password'] = $row['password'];
                 $_SESSION['role'] = $row['role'];
@@ -64,6 +74,7 @@ if (isset($_POST['login'])) {
                 $_SESSION['first_name'] = $row['first_name'];
                 $_SESSION['middle_name'] = $row['middle_name'];
                 $_SESSION['email'] = $row['email'];
+                $_SESSION['new_email'] = $row['new_email'];
                 $_SESSION['program'] = $row['program'];
                 $_SESSION['phone_number'] = $row['phone_number'];
                 $_SESSION['profile_picture'] = $row['profile_picture'];

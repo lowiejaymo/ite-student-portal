@@ -61,6 +61,11 @@ Brief overview of the file's contents. -->
                                                 <?php echo $_GET['login-error']; ?>
                                             </div>
                                         <?php } ?>
+                                        <?php if (isset($_GET['success'])) { ?>
+                                            <div class="alert alert-success text-center">
+                                                <?php echo $_GET['success']; ?>
+                                            </div>
+                                        <?php } ?>
 
                                         <form action="indexes/login-index.php" method="post">
                                             <div class="row gy-3 overflow-hidden">
@@ -84,11 +89,11 @@ Brief overview of the file's contents. -->
                                                     <div class="form-floating mb-1">
                                                         <?php if (isset($_GET['accountnumber'])) { ?>
                                                             <input type="text" class="form-control" name="accountnumber"
-                                                                id="accountnumber" placeholder="name@example.com"
+                                                                id="accountnumber" placeholder="Account Number"
                                                                 value="<?php echo $_GET['accountnumber']; ?>">
                                                         <?php } else { ?>
                                                             <input type="text" class="form-control" name="accountnumber"
-                                                                id="accountnumber" placeholder="name@example.com">
+                                                                id="accountnumber" placeholder="Account Number">
                                                         <?php } ?>
                                                         <label for="Account Number" class="form-label">Account
                                                             Number</label>

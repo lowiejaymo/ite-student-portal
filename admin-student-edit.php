@@ -121,7 +121,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                     $middle_name = $row['middle_name'];
                                                     $profile_picture = $row['profile_picture'];
                                                     $enrolled_by = $row['enrolled_by'];
-                                                    $email = $row['email'];
                                                     $phone_number = $row['phone_number'];
                                                     $gender = $row['gender'];
 
@@ -133,7 +132,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                     $displayedfirst_name = $first_name;
                                                     $displayedmiddle_name = $middle_name;
                                                     $displayedenrolled_by = $enrolled_by;
-                                                    $displayedemail = $email;
                                                     $displayedphone_number = $phone_number;
                                                     ?>
 
@@ -231,14 +229,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                             <input type="text" class="form-control" name="middle_name"
                                                                 id="created_on_original" placeholder=""
                                                                 value="<?php echo $displayedmiddle_name; ?>">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group row">
-                                                        <label for="Email" class="col-sm-3 col-form-label">Email</label>
-                                                        <div class="col-sm-9">
-                                                            <input type="email" class="form-control" name="email"
-                                                                id="created_on_original" value="<?php echo $displayedemail; ?>">
                                                         </div>
                                                     </div>
 
