@@ -1,7 +1,7 @@
 <?php
 session_start();
 include "indexes/db_conn.php";
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the role is set and it's 'Admin'
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Officer'
   ?>
 
   <!DOCTYPE html>
@@ -10,7 +10,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Admin Home Page</title>
+    <title>ITE Student Portal | Officer Home Page</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -39,10 +39,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
     <div class="wrapper">
 
       <!-- Navbar -->
-      <?php include 'layout/admin-fixed-topnav.php'; ?>
+      <?php include 'layout/officer-fixed-topnav.php'; ?>
 
       <!-- Sidebar -->
-      <?php include 'layout/admin-sidebar.php'; ?>
+      <?php include 'layout/officer-sidebar.php'; ?>
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
@@ -58,7 +58,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                 <input type="hidden" name="semester" value="<?php echo isset($_GET['semester']) ? $_GET['semester'] : ''; ?>">
               </div>
               <div class="col-sm-6 text-right">
-                <a id="addNewSubjectBtn" class="btn btn-secondary" href="admin-enrolled-student-view.php?school_year=<?php echo isset($_GET['school_year']) ? $_GET['school_year'] : ''; ?>&semester=<?php echo isset($_GET['semester']) ? $_GET['semester'] : ''; ?>"><i
+                <a id="addNewSubjectBtn" class="btn btn-secondary" href="officer-enrolled-student-view.php?school_year=<?php echo isset($_GET['school_year']) ? $_GET['school_year'] : ''; ?>&semester=<?php echo isset($_GET['semester']) ? $_GET['semester'] : ''; ?>"><i
                     class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Enrolled Student</a>
               </div>
             </div>
@@ -166,7 +166,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                       $current_url = $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
                       ?>
                       <td class="align-middle text-center">
-                        <form method="POST" action="indexes/admin-enroll.php">
+                        <form method="POST" action="indexes/officer-enroll.php">
                             <input type="hidden" name="account_number" value="<?php echo $row['account_number']; ?>">
                             <input type="hidden" name="school_year" value="<?php echo isset($_GET['school_year']) ? htmlspecialchars($_GET['school_year']) : ''; ?>">
                             <input type="hidden" name="semester" value="<?php echo isset($_GET['semester']) ? htmlspecialchars($_GET['semester']) : ''; ?>">

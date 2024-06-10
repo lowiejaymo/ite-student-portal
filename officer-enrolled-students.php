@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "indexes/db_conn.php";
+
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Officer'
   ?>
 
@@ -14,7 +15,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
@@ -41,7 +43,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
       <!-- Navbar -->
       <?php include 'layout/officer-fixed-topnav.php'; ?>
 
-      <!-- Sidebar -->
       <?php include 'layout/officer-sidebar.php'; ?>
 
       <!-- Content Wrapper. Contains page content -->
@@ -53,6 +54,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
               <div class="col-sm-6">
                 <h1>Enrolled Students</h1>
               </div>
+              
             </div>
           </div><!-- /.container-fluid -->
         </div>
@@ -63,77 +65,94 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
           <div class="container-fluid">
 
             <!-- Search Form -->
-            <form method="GET">
-              <div class="form-group row mb-3">
-                <div class="col-sm-3">
-                  <select class="form-control" id="school_year" name="school_year" required>
-                    <option value="" disabled selected>School Year</option>
-                    <?php
-                    // Fetch school years from database
-                    $schoolYearsQuery = "SELECT school_year, dfault FROM school_year";
-                    $schoolYearsResult = $conn->query($schoolYearsQuery);
-                    while ($year = $schoolYearsResult->fetch_assoc()) { ?>
-                      <option value="<?php echo $year['school_year']; ?>" <?php
-                        if (isset($_GET['school_year']) && $_GET['school_year'] == $year['school_year']) {
-                          echo 'selected';
-                        } elseif (!isset($_GET['school_year']) && $year['dfault'] == 1) {
-                          echo 'selected';
+            <form method="GET" action="">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label for="school_year" class="col-sm-4 col-form-label">School Year</label>
+                    <div class="col-sm-8">
+                      <?php
+                      $schoolYearQuery = "SELECT * FROM school_year";
+                      $result = mysqli_query($conn, $schoolYearQuery);
+                      $schoolYears = [];
+                      $defaultYear = '';
+
+                      if ($result && mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                          $schoolYears[] = $row;
+                          if ($row['dfault'] == 1) {
+                            $defaultYear = $row['school_year'];
+                          }
                         }
-                        ?>>
-                        <?php echo $year['school_year']; ?>
-                      </option>
-                    <?php } ?>
-                  </select>
+                      }
+                      ?>
+                      <select class="form-control" id="school_year" name="school_year">
+                        <option value="All" <?php if (isset($_GET['school_year']) && $_GET['school_year'] == 'All')
+                          echo 'selected'; ?>>All</option>
+                        <?php foreach ($schoolYears as $year) { ?>
+                          <option value="<?php echo $year['school_year']; ?>" <?php
+                             if (isset($_GET['school_year']) && $_GET['school_year'] == $year['school_year']) {
+                               echo 'selected';
+                             } elseif (!isset($_GET['school_year']) && $year['dfault'] == 1) {
+                               echo 'selected';
+                             }
+                             ?>>
+                            <?php echo $year['school_year']; ?>
+                          </option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                  </div>
                 </div>
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label for="semester" class="col-sm-4 col-form-label">Semester</label>
+                    <div class="col-sm-8">
+                      <?php
+                      $query = "SELECT * FROM semester";
+                      $result = mysqli_query($conn, $query);
+                      $semesters = [];
+                      $defaultSemester = '';
 
-                <div class="col-sm-3">
-                  <select class="form-control" id="semester" name="semester" required>
-                    <option value="" disabled selected>Semester</option>
-                    <?php
-                    // Fetch semesters from database
-                    $semestersQuery = "SELECT semester, dfault FROM semester";
-                    $semestersResult = $conn->query($semestersQuery);
-                    while ($semester = $semestersResult->fetch_assoc()) { ?>
-                      <option value="<?php echo $semester['semester']; ?>" <?php
-                        if (isset($_GET['semester']) && $_GET['semester'] == $semester['semester']) {
-                          echo 'selected';
-                        } elseif (!isset($_GET['semester']) && $semester['dfault'] == 1) {
-                          echo 'selected';
+                      if ($result && mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                          $semesters[] = $row;
+                          if ($row['dfault'] == 1) {
+                            $defaultSemester = $row['semester'];
+                          }
                         }
-                        ?>>
-                        <?php echo $semester['semester']; ?>
-                      </option>
-                    <?php } ?>
-                  </select>
+                      }
+                      ?>
+                      <select class="form-control" id="semester" name="semester">
+                        <option value="" <?php if (!isset($_GET['semester']))
+                          echo 'selected'; ?>>All</option>
+                        <?php foreach ($semesters as $semester) { ?>
+                          <option value="<?php echo $semester['semester']; ?>" <?php
+                             if (isset($_GET['semester']) && $_GET['semester'] == $semester['semester']) {
+                               echo 'selected';
+                             } elseif (!isset($_GET['semester']) && $semester['dfault'] == 1) {
+                               echo 'selected';
+                             }
+                             ?>>
+                            <?php echo $semester['semester']; ?>
+                          </option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                  </div>
                 </div>
-
-                <div class="col-sm-2">
-                  <select class="form-control" id="program" name="program" required>
-                    <option value="" disabled selected>Program</option>
-                    <option value="BSIT" <?php if (isset($_GET['program']) && $_GET['program'] == 'BSIT') echo 'selected'; ?>>BSIT</option>
-                    <option value="BSCS" <?php if (isset($_GET['program']) && $_GET['program'] == 'BSCS') echo 'selected'; ?>>BSCS</option>
-                    <option value="BLIS" <?php if (isset($_GET['program']) && $_GET['program'] == 'BLIS') echo 'selected'; ?>>BLIS</option>
-                    <option value="ACT" <?php if (isset($_GET['program']) && $_GET['program'] == 'ACT') echo 'selected'; ?>>ACT</option>
-                  </select>
-                </div>
-
-                <div class="col-sm-2">
-                  <select class="form-control" id="year_level" name="year_level" required>
-                    <option value="" disabled selected>Year Level</option>
-                    <option value="1" <?php if (isset($_GET['year_level']) && $_GET['year_level'] == '1') echo 'selected'; ?>>1</option>
-                    <option value="2" <?php if (isset($_GET['year_level']) && $_GET['year_level'] == '2') echo 'selected'; ?>>2</option>
-                    <option value="3" <?php if (isset($_GET['year_level']) && $_GET['year_level'] == '3') echo 'selected'; ?>>3</option>
-                    <option value="4" <?php if (isset($_GET['year_level']) && $_GET['year_level'] == '4') echo 'selected'; ?>>4</option>
-                  </select>
-                </div>
-
-                <div class="col-sm-2">
-                  <button class="btn btn-outline-secondary" type="submit" name="search">Submit</button>
+                <div class="col-md-2">
+                  <div class="form-group row">
+                    <div class="col-sm-12">
+                      <button type="submit" class="btn btn-outline-secondary">Search</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </form>
 
-            <!-- Display Messages -->
+
+
             <?php if (isset($_GET['newEventSuccess'])) { ?>
               <div class="alert alert-success">
                 <?php echo $_GET['newEventSuccess']; ?>
@@ -152,82 +171,68 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
               </div>
             <?php } ?>
 
-            <!-- Students table -->
-            <?php
-            if (isset($_GET['search'])) {
-
-              function validate($data)
-              {
-                  $data = trim($data); // Remove whitespace from the beginning and end of string
-                  $data = stripslashes($data); // Remove backslashes
-                  $data = htmlspecialchars($data); // Convert special characters to HTML entities
-                  return $data;
-              }
-              $school_year = validate($_GET['school_year']);
-              $semester = validate($_GET['semester']);
-              $program = validate($_GET['program']);
-              $year_level = validate($_GET['year_level']);
-
-
-            
-              $studentsql = "SELECT u.account_number, u.last_name, u.first_name, u.middle_name, u.program, u.year_level, 
-                                    e.account_number AS enrolled
-                            FROM user u 
-                            LEFT JOIN enrolled e ON u.account_number = e.account_number 
-                            AND e.school_year = '$school_year' AND e.semester = '$semester'
-                            WHERE u.role = 'Student' AND u.program = '$program' AND u.year_level = '$year_level'
-                            ORDER BY enrolled ASC, u.account_number ASC";
-              $result = $conn->query($studentsql);
-            }            
-            ?>
+            <!-- Events table -->
             <table class="table">
               <thead>
                 <tr>
-                  <th class="col-2">Student Number</th>
-                  <th class="col-2">Last Name</th>
-                  <th class="col-2">First Name</th>
-                  <th class="col-2">Middle Name</th>
-                  <th class="col-1 text-center">Action</th>
+                  <th class="col-4">School Year</th>
+                  <th class="col-2 text-center">Semester</th>
+                  <th class="col-2 text-center">No. of Students</th>
+                  <th class="col-2 text-center">Action</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
-                if (isset($result) && $result->num_rows > 0) {
-                  while ($row = $result->fetch_assoc()) { ?>
+
+                $semester_condition = "";
+                if (isset($_GET['semester']) && $_GET['semester'] != "") {
+                  $semester_condition = "AND sem.semester = '" . $_GET['semester'] . "'";
+                }
+
+                $school_year_condition = "";
+                if (isset($_GET['school_year']) && $_GET['school_year'] != "All") {
+                  $school_year_condition = "AND sy.school_year = '" . $_GET['school_year'] . "'";
+                }
+
+                $query = "
+                      SELECT sy.school_year, sem.semester, COUNT(e.account_number) AS num_students
+                      FROM school_year sy
+                      CROSS JOIN semester sem
+                      LEFT JOIN enrolled e ON e.school_year = sy.school_year AND e.semester = sem.semester
+                      WHERE 1=1 $school_year_condition $semester_condition
+                      GROUP BY sy.school_year, sem.semester
+                      ORDER BY sy.school_year, sem.semester
+                      ";
+
+                $result = $conn->query($query);
+                if ($result->num_rows > 0) {
+                  while ($row = $result->fetch_assoc()) {
+                    ?>
                     <tr>
-                      <td class="align-middle"><?php echo $row['account_number']; ?></td>
-                      <td class="align-middle"><?php echo $row['last_name']; ?></td>
-                      <td class="align-middle"><?php echo $row['first_name']; ?></td>
-                      <td class="align-middle"><?php echo $row['middle_name']; ?></td>
+                      <td class="align-middle">
+                        <?php echo $row['school_year']; ?>
+                      </td>
                       <td class="align-middle text-center">
-                        <?php if (isset($row['enrolled']) && $row['enrolled']) { ?>
-                          <form method="POST" action="indexes/officer-unenroll.php">
-                            <input type="hidden" name="account_number" value="<?php echo $row['account_number']; ?>">
-                            <input type="hidden" name="school_year" value="<?php echo $school_year; ?>">
-                            <input type="hidden" name="semester" value="<?php echo $semester; ?>">
-                            <input type="hidden" name="program" value="<?php echo $program; ?>">
-                            <input type="hidden" name="year_level" value="<?php echo $year_level; ?>">
-                            <button type="submit" class="btn btn-danger btn-sm">Unenroll</button>
-                          </form>
-                        <?php } else { ?>
-                          <form method="POST" action="indexes/officer-enroll.php">
-                            <input type="hidden" name="account_number" value="<?php echo $row['account_number']; ?>">
-                            <input type="hidden" name="school_year" value="<?php echo $school_year; ?>">
-                            <input type="hidden" name="semester" value="<?php echo $semester; ?>">
-                            <input type="hidden" name="program" value="<?php echo $program; ?>">
-                            <input type="hidden" name="year_level" value="<?php echo $year_level; ?>">
-                            <button type="submit" class="btn btn-success btn-sm">Enroll</button>
-                          </form>
-                        <?php } ?>
+                        <?php echo $row['semester']; ?>
+                      </td>
+                      <td class="align-middle text-center">
+                        <?php echo $row['num_students']; ?>
+                      </td>
+                      <td class="align-middle text-center">
+                        <a href='officer-enrolled-student-view.php?school_year=<?php echo $row['school_year']; ?>&semester=<?php echo $row['semester']; ?>'
+                          class='btn btn-success btn-sm'>
+                          <i class="nav-icon fas fa-solid fa-hand-pointer"></i> Select</a>
                       </td>
                     </tr>
-                  <?php }
+                    <?php
+                  }
                 } else {
-                  echo "<tr><td colspan='5'>No Student found.</td></tr>";
+                  echo "<tr><td colspan='4'>No data found.</td></tr>";
                 }
                 ?>
               </tbody>
             </table>
+            <!-- /.row -->
           </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
