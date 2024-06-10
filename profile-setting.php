@@ -223,6 +223,145 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') { // Check if t
                                                     <!-- /.card-body -->
                                                 </div>
 
+
+
+
+
+
+
+
+
+
+
+                                                <div class="card card-primary card-outline bg-white" for="change-email">
+                                                    <div class="card-header">
+                                                        <!-- changing email address -->
+                                                        <h3 class="card-title text-center"
+                                                            style="font-size: 1.25rem; font-weight: bold;">
+                                                            Request to Change Email Address</h3><br>
+                                                        <hr>
+
+
+                                                        <form style="width: 100%" action="indexes/change-email-request-code.php"
+                                                            method="post">
+                                                            <?php if (isset($_GET['sencodeerror'])) { ?>
+                                                                <div class="alert alert-danger">
+                                                                    <?php echo $_GET['sencodeerror']; ?>
+                                                                </div>
+                                                            <?php } ?>
+                                                            <?php if (isset($_GET['sencodesuccess'])) { ?>
+                                                                <div class="alert alert-success">
+                                                                    <?php echo $_GET['sencodesuccess']; ?>
+                                                                </div>
+                                                            <?php } ?>
+                                                            <div class="mb-3">
+                                                                <!-- Current email address input -->
+                                                                <label for="currentEmail" class="fw-bold">Current Email
+                                                                    Address</label>
+                                                                <input type="text" class="form-control" id="inputName"
+                                                                    name="current_email" placeholder="Current Email Address"
+                                                                    style="font-weight: bold;"
+                                                                    value="<?php echo isset($_SESSION['email']) ? $_SESSION['email'] : ''; ?>"
+                                                                    disabled>
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <!-- New email address input -->
+                                                                <label for="newEmail" class="fw-bold">New Email
+                                                                    Address</label>
+                                                                <div class="input-group">
+                                                                    <?php if (empty($_SESSION['new_email'])) { ?>
+                                                                        <input type="email" class="form-control col-9 me-2"
+                                                                            name="new_email" placeholder="New Email Address*"
+                                                                            required
+                                                                            value="<?php echo isset($_GET['new_email_data']) ? $_GET['new_email_data'] : ''; ?>">
+                                                                    <?php } else { ?>
+                                                                        <input type="email" class="form-control col-9 me-2"
+                                                                            name="new_email" placeholder="New Email Address*"
+                                                                            required
+                                                                            value="<?php echo $_SESSION['new_email']; ?>">
+                                                                    <?php } ?>
+
+                                                                    <button class="btn btn-primary mx-2" type="submit"
+                                                                        name="send_code" value="send_request_code">Send
+                                                                        Request Code</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+
+
+
+
+                                                        <form style="width: 100%" action="indexes/changemail-be.php"
+                                                            method="post">
+
+                                                            <?php if (isset($_GET['requestcodeerror'])) { ?>
+                                                                <div class="alert alert-danger">
+                                                                    <?php echo $_GET['requestcodeerror']; ?>
+                                                                </div>
+                                                            <?php } ?>
+                                                            <?php if (isset($_GET['requestcodesuccess'])) { ?>
+                                                                <div class="alert alert-success">
+                                                                    <?php echo $_GET['requestcodesuccess']; ?>
+                                                                </div>
+                                                            <?php } ?>
+                                                            <div class="mb-3">
+                                                                <!-- Verification code input -->
+                                                                <label for="requestCode" class="fw-bold">Request
+                                                                    Code</label>
+                                                                <?php if (isset($_GET['request_code_data'])) { ?>
+                                                                    <input type="text" class="form-control" id="requestCode"
+                                                                        name="request_code" placeholder="Verification Code"
+                                                                        value="<?php echo $_GET['request_code_data']; ?>">
+                                                                <?php } else { ?>
+                                                                    <input type="text" class="form-control" id="requestCode"
+                                                                        name="request_code" placeholder="Verification Code">
+                                                                <?php } ?>
+
+
+
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <!-- Password input -->
+                                                                <label for="password" class="fw-bold">Password</label>
+                                                                <input type="password" class="form-control " id="password"
+                                                                    name="change_email_password" placeholder="Password">
+
+                                                                <p class="text-muted">To verify your identity, please enter
+                                                                    your password to successfully
+                                                                    update your Email Address.</p>
+                                                            </div>
+
+                                                            <div class="form-group row">
+                                                                <div class="offset-sm-2 col-sm-10">
+                                                                    <button type="submit" value="update_email_address"
+                                                                        class="btn btn-success"
+                                                                        name="update_email">Update</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+
+
+                                                    </div>
+                                                    <!-- /.card-body -->
+                                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                                 <div class="card card-primary card-outline bg-white" for="change-password">
                                                     <div class="card-header">
                                                         <!-- changing password -->
