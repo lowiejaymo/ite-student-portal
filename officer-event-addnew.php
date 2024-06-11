@@ -204,10 +204,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                       <div class="form-group row">
                         <div class="col-sm-12">
                           <?php if (isset($_GET['points'])) { ?>
-                            <input type="text" class="form-control" id="points" name="points" placeholder="(Required)"
+                            <input type="number" class="form-control" id="points" name="points" placeholder="(Required)"
                               value="<?php echo $_GET['points']; ?>">
                           <?php } else { ?>
-                            <input type="text" class="form-control" id="points" name="points" placeholder="(Required)">
+                            <input type="number" class="form-control" id="points" name="points" placeholder="(Required)">
                           <?php } ?>
                         </div>
                       </div>
