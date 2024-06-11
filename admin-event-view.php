@@ -1,9 +1,9 @@
-<!-- admin-event-view.php and to see the information of the event in admin form.
+<!-- Admin-event-view.php and to see the information of the event in Admin form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
+Last Modified: June 2, 2024
 Brief overview of the file's contents. -->
 
 <?php
@@ -59,7 +59,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
           <div class="container-fluid">
             <div class="row mb-2 align-items-center">
               <div class="col-sm-6">
-                <h1>Events</h1>
+                <h1>Event</h1>
               </div>
               <div class="col-sm-6 text-right">
               <a id="addNewSubjectBtn" class="btn btn-secondary" href="admin-events.php"><i class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Events</a>
@@ -126,18 +126,20 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                               <?php echo $row['points']; ?>
                               </td>
                             </tr>
-                            
                           </table>
-
-                          <?php
+                    </table>
+                  </div>
+                </div>
+                <!-- Add Student button -->
+                <div class="col-md-auto ml-auto">
+                    <a href="admin-event-add-student.php?event_id=<?php echo $row['event_id']; ?>" class="btn btn-success btn-sm">+ Add Student</a>
+                  </div>
+                  <?php
                         } else {
                           echo "Event may not be existing.";
                         }
                       }
                       ?>
-                    </table>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

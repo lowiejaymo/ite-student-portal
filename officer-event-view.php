@@ -59,7 +59,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
           <div class="container-fluid">
             <div class="row mb-2 align-items-center">
               <div class="col-sm-6">
-                <h1>Events</h1>
+                <h1>Event</h1>
               </div>
               <div class="col-sm-6 text-right">
               <a id="addNewSubjectBtn" class="btn btn-secondary" href="officer-events.php"><i class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Events</a>
@@ -126,18 +126,20 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                               <?php echo $row['points']; ?>
                               </td>
                             </tr>
-                            
                           </table>
-
-                          <?php
+                    </table>
+                  </div>
+                </div>
+                <!-- Add Student button -->
+                <div class="col-md-auto ml-auto">
+                    <a href="officer-event-add-student.php?event_id=<?php echo $row['event_id']; ?>" class="btn btn-success btn-sm">+ Add Student</a>
+                  </div>
+                  <?php
                         } else {
                           echo "Event may not be existing.";
                         }
                       }
                       ?>
-                    </table>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

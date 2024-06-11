@@ -1,12 +1,12 @@
 <?php
 /*
-admin-add-event-be.php and event addition process in admin
+Officer-add-event-be.php and event addition process in Officer
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
 Last Modified: May 15, 2024
-Overview: This file handles the addition of new events, validating admin input and inserting the event into the database.
+Overview: This file handles the addition of new events, validating Officer input and inserting the event into the database.
 */
 
 session_start();
@@ -40,23 +40,23 @@ if (isset($_POST['addEvent'])) {
 
     // Validate event name if empty
     if (empty($eventname)) {
-        header("Location: ../admin-event-addnew.php?newEventError=Event name is required&$user_data");
+        header("Location: ../officer-event-addnew.php?newEventError=Event name is required&$user_data");
         exit();
     } // Validate date if empty
     elseif (empty($date)) {
-        header("Location: ../admin-event-addnew.php?newEventError=Date is required&$user_data");
+        header("Location: ../officer-event-addnew.php?newEventError=Date is required&$user_data");
         exit();
     } // Validate school year if empty
     elseif (empty($schoolyear)) {
-        header("Location: ../admin-event-addnew.php?newEventError=School year is required&$user_data");
+        header("Location: ../officer-event-addnew.php?newEventError=School year is required&$user_data");
         exit();
     } // Validate semester if empty
     elseif (empty($semester)) {
-        header("Location: ../admin-event-addnew.php?newEventError=Semester is required&$user_data");
+        header("Location: ../officer-event-addnew.php?newEventError=Semester is required&$user_data");
         exit();
     } 
     elseif (empty($points)) {
-        header("Location: ../admin-event-addnew.php?newEventError=Points is required&$user_data");
+        header("Location: ../officer-event-addnew.php?newEventError=Points is required&$user_data");
         exit();
     } else {
         // Check if event name already exists
@@ -68,7 +68,7 @@ if (isset($_POST['addEvent'])) {
 
         // Validate event name if already exists
         if (mysqli_num_rows($result_check_existing) > 0) {
-            header("Location: ../admin-event-addnew.php?newEventError=Event name already exists&$user_data");
+            header("Location: ../officer-event-addnew.php?newEventError=Event name already exists&$user_data");
             exit();
         } else {
             // Insert new event
@@ -80,10 +80,10 @@ if (isset($_POST['addEvent'])) {
 
             // Redirect based on the result of the SQL query
             if ($result_newevent_query) {
-                header("Location: ../admin-events.php?newEventSuccess=New event added successfully");
+                header("Location: ../officer-events.php?newEventSuccess=New event added successfully");
                 exit();
             } else {
-                header("Location: ../admin-event-addnew.php?newEventError=Failed to add new event&$user_data");
+                header("Location: ../officer-event-addnew.php?newEventError=Failed to add new event&$user_data");
                 exit();
             }
         }
