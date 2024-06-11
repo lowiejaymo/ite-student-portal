@@ -248,13 +248,13 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                             }
                                             ?>
 
-
-
                                             <div class="offset-sm-2 col-sm-10">
                                                 <button type="submit" value="Submit" name="editStudent"
                                                     class="btn btn-primary">Edit</button>
                                                 <a type="button" name="cancel" class="btn btn-secondary"
-                                                    href="officer-students.php">Cancel</a>
+                                                    href="admin-student-view.php?account_number=<?php echo $_GET['account_number']; ?>">Cancel</a>
+
+
                                             </div>
 
                                         </form>

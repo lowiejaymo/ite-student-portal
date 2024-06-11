@@ -30,12 +30,6 @@ if (isset($_SESSION['verify'])) {
                 background-size: cover;
                 background-position: center;
             }
-
-            @media screen and (max-width: 768px) {
-                .login-image {
-                    display: none;
-                }
-            }
         </style>
     </head>
 

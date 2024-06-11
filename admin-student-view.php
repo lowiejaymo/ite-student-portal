@@ -1,15 +1,7 @@
-<!-- admin-student-view.php and to show the information of the student in admin form.
-Authors:
-  - Lowie Jay Orillo (lowie.jaymier@gmail.com)
-  - Caryl Mae Subaldo (subaldomae29@gmail.com)
-  - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
-Brief overview of the file's contents. -->
-
 <?php
 session_start();
 include "indexes/db_conn.php";
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the role is set and it's 'Admin'
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
   ?>
 
   <!DOCTYPE html>
@@ -20,7 +12,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ITE Student Portal | Admin Home Page</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
-
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -49,7 +40,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
 
       <!-- Navbar -->
       <?php include 'layout/admin-fixed-topnav.php'; ?>
-
       <?php include 'layout/admin-sidebar.php'; ?>
 
       <!-- Content Wrapper. Contains page content -->
@@ -62,8 +52,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                 <h1>Student Profile</h1>
               </div>
               <div class="col-sm-6 text-right">
-                <a id="addNewSubjectBtn" class="btn btn-secondary" href="admin-students.php"><i
-                    class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Student</a>
+                <a id="addNewSubjectBtn" class="btn btn-secondary" href="admin-students.php">
+                  <i class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Student
+                </a>
               </div>
             </div>
           </div><!-- /.container-fluid -->
@@ -159,11 +150,73 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                         </div>
                       </div>
                       <div class="col-md-auto ml-auto">
-                        <a id="addNewSubjectBtn" class="btn btn-primary btn-sm d-block mb-2"
+                        <a id="editStudentButton" class="btn btn-primary btn-sm d-block mb-2"
                           href="admin-student-edit.php?account_number=<?php echo $row['account_number']; ?>">
                           <i class="fa-solid fa-pen-to-square"></i> Edit this Student
                         </a>
-                        <form method="post" action="indexes/officer-students-reset-password.php" class="d-inline">
+
+                        <a id="viewQRCodeBtn" class="btn btn-success btn-sm d-block mb-2"
+                          data-account-number="<?php echo $row['account_number']; ?>">
+                          <i class="fa-solid fa-pen-to-square"></i> View QR Code
+                        </a>
+
+                        <!-- Modal Structure -->
+                        <div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog"
+                          aria-labelledby="qrCodeModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="qrCodeModalLabel">Student QR Code</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="container">
+                                  <div class="row justify-content-center">
+                                    <div class="col-md-12">
+                                      <div class="card-wrapper">
+                                        <div class="card card-danger card-outline bg-white background-card custom-height"
+                                          for="schoolyear">
+                                          <div class="card-body">
+                                            <img id="qrCodeImage" src="" alt="QR Code" class="qr-code">
+                                            <div class="info-table">
+                                              <table>
+                                                <tr>
+                                                  <td>NAME</td>
+                                                </tr>
+                                                <tr>
+                                                  <th id="studentName"></th>
+                                                </tr>
+                                                <tr>
+                                                  <td>PROGRAM</td>
+                                                </tr>
+                                                <tr>
+                                                  <th id="studentProgram"></th>
+                                                </tr>
+                                                <tr>
+                                                  <td>STUDENT NO.</td>
+                                                </tr>
+                                                <tr>
+                                                  <th id="studentNumber"></th>
+                                                </tr>
+                                              </table>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <form method="post" action="indexes/admin-students-reset-password.php" class="d-inline">
                           <input type="hidden" name="account_number" value="<?php echo $row['account_number']; ?>">
                           <button type="submit" class="btn btn-danger btn-sm d-block">
                             <i class="nav-icon fas fa-solid fa-arrows-rotate"></i> Reset Password
@@ -194,6 +247,41 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
       <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Script for QR Code -->
+    <script>
+      $(document).ready(function () {
+        $('#viewQRCodeBtn').click(function () {
+          var accountNumber = $(this).data('account-number');
+
+          // Perform AJAX request to fetch student data
+          $.ajax({
+            url: 'fetch_student_data.php',
+            type: 'POST',
+            data: { account_number: accountNumber },
+            success: function (response) {
+              // Parse JSON response
+              var data = JSON.parse(response);
+
+              // Update modal content
+              $('#qrCodeImage').attr('src', 'qrCodeImages/' + data.code + '?' + new Date().getTime());
+              $('#studentName').text(data.last_name.toUpperCase() + ', ' + data.first_name.toUpperCase() + ' ' + data.middle_name.charAt(0).toUpperCase() + '.');
+              $('#studentProgram').text(data.program);
+              $('#studentNumber').text(data.account_number);
+
+              // Show the modal
+              $('#qrCodeModal').modal('show');
+            },
+            error: function () {
+              alert('Failed to fetch student data.');
+            }
+          });
+        });
+      });
+    </script>
 
     <!-- jQuery -->
     <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
