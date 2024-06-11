@@ -16,7 +16,7 @@ if (isset($_POST['account_number'], $_POST['school_year'], $_POST['semester'], $
   $semester = validate($_POST['semester']);
   $program = validate($_POST['program']);
   $year_level = validate($_POST['year_level']);
-  $previous_url = $_POST['previous_url']; // No need to re-validate as it was already escaped before sending
+  $previous_url = $_POST['previous_url'];
 
   $query = "INSERT INTO enrolled (account_number, school_year, semester) 
             VALUES ('$account_number', '$school_year', '$semester')";

@@ -256,7 +256,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                 <button type="submit" value="Submit" name="editStudent"
                                                     class="btn btn-primary">Edit</button>
                                                 <a type="button" name="cancel" class="btn btn-secondary"
-                                                    href="officer-students.php">Cancel</a>
+                                                    href="officer-student-view.php?account_number=<?php echo $_GET['account_number']; ?>">Cancel</a>
                                             </div>
 
                                         </form>
