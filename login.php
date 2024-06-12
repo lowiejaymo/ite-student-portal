@@ -108,8 +108,8 @@ Brief overview of the file's contents. -->
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="text-end">
-                                                        <a href="#" class="form-check-label text-secondary"
-                                                            id="ForgotPassword" style=" text-decoration: none;">Forgot
+                                                        <a href="forgotpassword.php" class="form-check-label text-secondary"
+                                                            id="ForgotPassword" style="text-decoration: none;">Forgot
                                                             Password?</a>
                                                     </div>
                                                 </div>

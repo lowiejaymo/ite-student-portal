@@ -6,7 +6,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-//this function use for sending verification button and verification code
 function sendMail($email, $v_code, $last_name, $first_name, $middle_name, $program, $year_level, $username)
 {
     require ("PHPMailer/PHPMailer.php");

@@ -22,6 +22,8 @@ if (isset($_SESSION['verify'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/png" href="favicon.ico" />
         <title>ITE Student Portal | Log In Page</title>
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link rel="stylesheet" type="text/css" href="AdminLTE-3.2.0/dist/css/bootstrap.css">
         <style>
@@ -36,9 +38,13 @@ if (isset($_SESSION['verify'])) {
     <body>
         <section>
             <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh">
-                <div class="shadow p-4 mb-5 bg-white rounded">
 
-                    <form style="width: 500px" action="indexes/sendverificationcode.php" method="post">
+                <div class="shadow p-4 mb-5 bg-white rounded" style="width: 500px;">
+                    <a href="login.php" class="btn btn-secondary mb-3"><i
+                            class="nav-icon fas fa-solid fa-chevron-left"></i>
+                        Back</a>
+
+                    <form action="indexes/sendverificationcode.php" method="post">
                         <h1 style="text-align:center"><i class="bi bi-patch-check"></i></h1>
                         <h6 class="success-text" style="text-align:center">Please register your active email address.</h6>
                         <br>
@@ -72,7 +78,7 @@ if (isset($_SESSION['verify'])) {
                                 <input type="email" class="form-control" name="email" placeholder="Email Address*">
                             <?php } ?>
                         </div>
-                        
+
                         <div class="d-grid gap-2 col-6 mx-auto">
                             <button type="submit" class="btn btn-dark" name="sendCode">Send Verification Code</button>
                         </div>
@@ -80,7 +86,7 @@ if (isset($_SESSION['verify'])) {
 
                     <hr>
 
-                    <form style="width: 500px" action="indexes/verifyaccount.php" method="post">
+                    <form action="indexes/verifyaccount.php" method="post">
                         <?php if (isset($_GET['verifyFailed'])) { ?>
                             <div class="alert alert-danger ">
                                 <?php echo $_GET['verifyFailed']; ?>
