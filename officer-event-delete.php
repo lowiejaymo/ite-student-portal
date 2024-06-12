@@ -75,8 +75,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                     <div class="card-header">
                                         <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
                                             Are you sure you want to delete this event?</h3><br>
-                                        <p class="text-muted">Note: You cannot able to retrieve this event after
-                                            deleting it.</p>
+                                        <p class="text-muted">Note: All cannot able to retrieve this event after
+                                        deleting it including the attendance of the students. </p>
 
                                         <hr>
 
