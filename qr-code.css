@@ -17,7 +17,7 @@
       width: calc(95vw);
       height: calc(95vw / 1.586);
     }
-  }
+  } 
 
   @media (max-width: 1150px) {
     .custom-height {

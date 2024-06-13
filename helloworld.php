@@ -1,11 +1,3 @@
- <!-- login.php and to login in ITE Student Portal.
-Authors:
-  - Lowie Jay Orillo (lowie.jaymier@gmail.com)
-  - Caryl Mae Subaldo (subaldomae29@gmail.com)
-  - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
-Brief overview of the file's contents. -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,19 +13,28 @@ Brief overview of the file's contents. -->
             background-size: cover;
             background-position: center;
         }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
         .helloworld {
-    font-family: Courier New, monospace;
-    font-weight: 400; 
-    color: gold;
-    text-shadow: 2px 2px 4px black; 
-}   
+            font-family: Courier New, monospace;
+            font-weight: 400; 
+            color: gold;
+            text-shadow: 2px 2px 4px black; 
+        }
     </style>
 </head>
 
 <body>
     <section>
-        <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-           <h1 class="helloworld">Hello World!</h1>
+        <div class="container">
+           <h1 class="helloworld">Hala bat ka nag IT boang kaba?!</h1>
+           <h2 class="helloworld">Stop this MADNESS!!! mag shift kana!</h2>
+           <h2 class="helloworld">Please lang maawa ka sa sarili mo huhuhuhu</h2>
         </div>
     </section>
 </body>
