@@ -22,7 +22,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') { // Check if t
     <link rel="icon" type="image/png" href="favicon.ico" />
     <link rel="stylesheet" type="text/css" href="qr-code.css">
 
-   
+
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -72,7 +72,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') { // Check if t
                 <div class="card-wrapper">
                   <div class="card card-danger card-outline bg-white background-card custom-height" for="schoolyear">
                     <div class="card-body">
-                      <img src="qrCodeImages/<?php echo $_SESSION['code']; ?>?<?php echo time(); ?>"   alt="QR Code" class="qr-code">
+                      <img src="qrCodeImages/<?php echo $_SESSION['code']; ?>?<?php echo time(); ?>" alt="QR Code"
+                        class="qr-code">
                       <div class="info-table">
                         <table>
                           <tr>
@@ -136,14 +137,20 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') { // Check if t
     <script src="AdminLTE-3.2.0/plugins/sparklines/sparkline.js"></script>
     <!-- JQVMap -->
     <script src="AdminLTE-3.2.0/plugins/jqvmap/jquery.vmap.min.js"></script>
-    <!-- Theme style -->
-    <link rel="stylesheet" href="AdminLTE-3.2.0/dist/css/adminlte.min.css">
+    <script src="AdminLTE-3.2.0/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="AdminLTE-3.2.0/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <!-- daterangepicker -->
+    <script src="AdminLTE-3.2.0/plugins/moment/moment.min.js"></script>
+    <script src="AdminLTE-3.2.0/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="AdminLTE-3.2.0/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Summernote -->
+    <script src="AdminLTE-3.2.0/plugins/summernote/summernote-bs4.min.js"></script>
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="AdminLTE-3.2.0/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="AdminLTE-3.2.0/plugins/daterangepicker/daterangepicker.css">
-    <!-- summernote -->
-    <link rel="stylesheet" href="AdminLTE-3.2.0/plugins/summernote/summernote-bs4.min.css">
+    <script src="AdminLTE-3.2.0/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="AdminLTE-3.2.0/dist/js/adminlte.js"></script>
     </head>
 
 

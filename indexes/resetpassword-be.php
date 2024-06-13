@@ -31,7 +31,7 @@ session_start();
 //         $mail->Body = "
 //         <html>
 
-    
+
 //         <head>
 //                 <style>
 //                     body {
@@ -105,19 +105,48 @@ if (isset($_POST['resetPassword'])) {
     $email = validate($_POST['email']);
     $v_code = validate($_POST['v_code']);
 
-
-
     if (empty($v_code)) {
         header("Location: ../verifyforgotpassword.php?verifyFailed=Reset Password Code is required");
         exit();
     } else {
-       
+        $sql = "SELECT last_name FROM user WHERE account_number = ? AND email = ? AND verification_code = ?";
+        if ($stmt = $conn->prepare($sql)) {
+            $stmt->bind_param("sss", $account_number, $email, $v_code);
+            $stmt->execute();
+            $stmt->store_result();
+
+            if ($stmt->num_rows > 0) {
+                $stmt->bind_result($last_name);
+                $stmt->fetch();
+
+                $last_name_no_space = str_replace(' ', '', $last_name);
+                $defaultpassword = $last_name_no_space . $account_number;
+                $defaulthashed_pass = password_hash($defaultpassword, PASSWORD_BCRYPT);
+
+                echo $defaulthashed_pass;
+
+                // Update password in the database
+                $update_sql = "UPDATE user SET password = ? WHERE account_number = ?";
+                $update_stmt = $conn->prepare($update_sql);
+                $update_stmt->bind_param("ss", $defaulthashed_pass, $account_number);
+                if ($update_stmt->execute()) {
+                    header("Location: ../login.php?success=Password reset successfully");
+                } else {
+                    header("Location: ../verifyforgotpassword.php?verifyFailed=Failed to reset your password to default. Please contact your officer. Thank you");
+                }
+
+            } else {
+                header("Location: ../verifyforgotpassword.php?verifyFailed=Invalid account number, email, or verification code");
+            }
+            $stmt->close();
+        } else {
+            header("Location: ../verifyforgotpassword.php?verifyFailed=Database error");
+        }
+
+        $conn->close();
     }
 } else {
     header("Location: ../login.php");
     exit();
 }
-
-
-
 ?>

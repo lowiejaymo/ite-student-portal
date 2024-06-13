@@ -38,9 +38,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') { // Check if t
 
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-
       <?php include 'layout/topnav.php'; ?>
-
       <?php include 'layout/sidebar.php'; ?>
 
       <!-- Content Wrapper. Contains page content -->
