@@ -31,7 +31,6 @@ if (isset($_POST['editStudent'])) {
     $lastnameNotProper = validate($_POST['last_name']);
     $firstnameNotProper = validate($_POST['first_name']);
     $middlenameNotProper = validate($_POST['middle_name']);
-    $email = validate($_POST['email']);
     $phonenumber = validate($_POST['phone_number']);
     $gender = validate($_POST['gender']);
     $yearlevel = validate($_POST['year_level']);
@@ -109,9 +108,9 @@ if (isset($_POST['editStudent'])) {
     } else {
 
             // Update existing student
-            $sql_updatestudent_query = "UPDATE user SET code=?, username=?, last_name=?, first_name=?, middle_name=?, gender=?, email=?, phone_number=?, year_level=?, program=? WHERE account_number=?";
+            $sql_updatestudent_query = "UPDATE user SET code=?, username=?, last_name=?, first_name=?, middle_name=?, gender=?, phone_number=?, year_level=?, program=? WHERE account_number=?";
             $stmt_updatestudent_query = mysqli_prepare($conn, $sql_updatestudent_query);
-            mysqli_stmt_bind_param($stmt_updatestudent_query, "sssssssssss", $qrcode, $username, $lastname, $firstname, $middlename, $gender, $email, $phonenumber, $yearlevel, $program, $accountnumber);
+            mysqli_stmt_bind_param($stmt_updatestudent_query, "ssssssssss", $qrcode, $username, $lastname, $firstname, $middlename, $gender, $phonenumber, $yearlevel, $program, $accountnumber);
             $result_updatestudent_query = mysqli_stmt_execute($stmt_updatestudent_query);
 
             // Redirect based on the result of the SQL query

@@ -10,7 +10,7 @@ include "db_conn.php";
 
             // Prepare and bind
             $stmt = $conn->prepare("INSERT INTO attendance (event_id, account_number, remarks) VALUES (?, ?, ?)");
-            $remarks = "";
+            $remarks = "Pending";
             $stmt->bind_param("iis", $event_id, $account_number, $remarks);
 
             // Execute the statement

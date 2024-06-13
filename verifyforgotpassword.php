@@ -13,7 +13,7 @@ if (isset($_SESSION['verify']) && isset($_SESSION['email'])) {
         <link rel="icon" type="image/png" href="favicon.ico" />
         <!-- Font Awesome -->
         <link rel="stylesheet" href="AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
-        <title>ITE Student Portal | Log In Page</title>
+        <title>ITE Student Portal | Forgot Password Page</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link rel="stylesheet" type="text/css" href="AdminLTE-3.2.0/dist/css/bootstrap.css">
         <style>

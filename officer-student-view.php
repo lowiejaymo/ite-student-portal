@@ -18,7 +18,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Officer Home Page</title>
+    <title>ITE Student Portal | Officer Student Page</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -224,7 +224,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                           </div>
                         </div>
 
-                        <form method="post" action="indexes/admin-students-reset-password.php" class="d-inline">
+                        <form method="post" action="indexes/officer-students-reset-password.php" class="d-inline">
                           <input type="hidden" name="account_number" value="<?php echo $row['account_number']; ?>">
                           <button type="submit" class="btn btn-danger btn-sm d-block">
                             <i class="nav-icon fas fa-solid fa-arrows-rotate"></i> Reset Password

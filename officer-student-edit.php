@@ -18,7 +18,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>ITE Student Portal | Officer Home Page</title>
+        <title>ITE Student Portal | Officer Student Page</title>
         <link rel="icon" type="image/png" href="favicon.ico" />
 
         <!-- Google Font: Source Sans Pro -->
@@ -223,14 +223,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                             <input type="text" class="form-control" name="middle_name"
                                                                 id="created_on_original" placeholder=""
                                                                 value="<?php echo $displayedmiddle_name; ?>">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group row">
-                                                        <label for="Email" class="col-sm-3 col-form-label">Email</label>
-                                                        <div class="col-sm-9">
-                                                            <input type="email" class="form-control" name="email"
-                                                                id="created_on_original" value="<?php echo $displayedemail; ?>">
                                                         </div>
                                                     </div>
 
