@@ -1,4 +1,4 @@
-<!-- officer-event-view.php and to see the information of the event in officer form.
+<!-- Officer-event-view.php and to see the information of the event in Officer form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
@@ -62,7 +62,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                 <h1>Event</h1>
               </div>
               <div class="col-sm-6 text-right">
-              <a id="addNewSubjectBtn" class="btn btn-secondary" href="officer-events.php"><i class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Events</a>
+                <a id="addNewSubjectBtn" class="btn btn-secondary" href="officer-events.php"><i
+                    class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Events</a>
               </div>
             </div>
           </div><!-- /.container-fluid -->
@@ -72,77 +73,87 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
         <!-- Main content -->
         <section class="content">
           <div class="container-fluid">
+          <?php if (isset($_GET['updateEventSuccess'])) { ?>
+              <div class="alert alert-success">
+                <?php echo $_GET['updateEventSuccess']; ?>
+              </div>
+            <?php } ?>
 
-          <div class="card card-primary card-outline bg-white" for="update-profilepicture">
-            <div class="card-header">
-              <div class="row align-items-center">
-                <!-- Image column -->
-                <div class="col-md-auto">
-                  <img src="images/calendar_avatar.webp" alt="View event avatar" style="width: 150px; height: auto;">
-                </div>
+            <div class="card card-primary card-outline bg-white" for="update-profilepicture">
+              <div class="card-header">
+                <div class="row align-items-center">
+                  <!-- Image column -->
+                  <div class="col-md-auto">
+                    <img src="images/calendar_avatar.webp" alt="View event avatar" style="width: 150px; height: auto;">
+                  </div>
 
-                <!-- Subject information column -->
-                <div class="col-md">
-                  <div class="table-responsive">
-                    <table class="subject-info">
-                      <?php
-                      // Add the code here
-                      if (isset($_GET['event_id'])) {
-                        $event_id = $_GET['event_id'];
-                        $eventsql = "SELECT * FROM events WHERE event_id = '$event_id'";
-                        $result = $conn->query($eventsql);
+                  <!-- Subject information column -->
+                  <div class="col-md">
+                    <div class="table-responsive">
+                      <table class="subject-info">
+                        <?php
+                        // Add the code here
+                        if (isset($_GET['event_id'])) {
+                          $event_id = $_GET['event_id'];
+                          $eventsql = "SELECT * FROM events WHERE event_id = '$event_id'";
+                          $result = $conn->query($eventsql);
 
-                        if ($result && $result->num_rows > 0) {
-                          $row = $result->fetch_assoc(); // Fetching row as associative array
-                          ?>
-                          <table class="subject-info">
-                            <tr>
-                              <td class="col-md-3"><strong>Event Name:</strong></td>
-                              <td class="col-md-9">
-                                <?php echo $row['event_name']; ?>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td class="col-md-3"><strong>Date:</strong></td>
-                              <td class="col-md-9">
-                                <?php echo $row['date']; ?>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td class="col-md-3"><strong>School Year:</strong></td>
-                              <td class="col-md-9">
-                                <?php echo $row['school_year']; ?>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td class="col-md-3"><strong>Semester:</strong></td>
-                              <td class="col-md-9">
-                              <?php echo $row['semester']; ?>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td class="col-md-3"><strong>Points:</strong></td>
-                              <td class="col-md-9">
-                              <?php echo $row['points']; ?>
-                              </td>
-                            </tr>
+                          if ($result && $result->num_rows > 0) {
+                            $row = $result->fetch_assoc(); // Fetching row as associative array
+                            ?>
+                            <table class="subject-info">
+                              <tr>
+                                <td class="col-md-3"><strong>Event Name:</strong></td>
+                                <td class="col-md-9">
+                                  <?php echo $row['event_name']; ?>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="col-md-3"><strong>Date:</strong></td>
+                                <td class="col-md-9">
+                                  <?php echo $row['date']; ?>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="col-md-3"><strong>School Year:</strong></td>
+                                <td class="col-md-9">
+                                  <?php echo $row['school_year']; ?>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="col-md-3"><strong>Semester:</strong></td>
+                                <td class="col-md-9">
+                                  <?php echo $row['semester']; ?>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="col-md-3"><strong>Points:</strong></td>
+                                <td class="col-md-9">
+                                  <?php echo $row['points']; ?>
+                                </td>
+                              </tr>
+                            </table>
                           </table>
-                    </table>
-                  </div>
-                </div>
-                <!-- Add Student button -->
-                <div class="col-md-auto ml-auto">
-                    <a href="officer-event-add-student.php?event_id=<?php echo $row['event_id']; ?>" class="btn btn-success btn-sm">+ Add Student</a>
-                  </div>
-                  <?php
-                        } else {
-                          echo "Event may not be existing.";
+                        </div>
+                      </div>
+                      <!-- Add Student button -->
+                      <div class="col-md-auto ml-auto">
+                        <a href="officer-event-add-student.php?event_id=<?php echo $row['event_id']; ?>"
+                          class="btn btn-success btn-sm d-block mb-2"><i class="nav-icon fas fa-solid fa-plus"></i> Add
+                          Student</a>
+                        <a href="officer-event-edit.php?event_id=<?php echo $row['event_id']; ?>"
+                          class="btn btn-secondary btn-sm d-block mb-2"><i
+                            class="nav-icon fas fa-regular fa-pen-to-square"></i> Edit event</a>
+                      </div>
+                      <?php
+                          } else {
+                            echo "Event may not be existing.";
+                          }
                         }
-                      }
-                      ?>
+                        ?>
+                </div>
               </div>
             </div>
-          </div>
 
           </div><!-- /.container-fluid -->
         </section>
