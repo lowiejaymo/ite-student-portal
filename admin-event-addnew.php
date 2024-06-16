@@ -121,11 +121,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                       <div class="form-group row">
                         <div class="col-sm-12">
                           <?php
-                          // Assuming you have a database connection already established
                           $schoolYearQuery = "SELECT * FROM school_year";
                           $result = mysqli_query($conn, $schoolYearQuery);
 
-                          // Fetch all school years
                           $schoolYears = [];
                           $defaultYear = '';
 
@@ -163,12 +161,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                       <div class="form-group row">
                         <div class="col-sm-12">
                           <?php
-                          // Assuming you have a database connection already established
                           $query = "SELECT * FROM semester";
                           $result = mysqli_query($conn, $query);
-
-                          // Fetch all semesters
-                          $semesters = []; // Renamed to $semesters
+                          $semesters = []; 
                           $defaultsemester = '';
 
                           if ($result && mysqli_num_rows($result) > 0) {
@@ -185,7 +180,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                             <option value="" disabled <?php if (!isset($_GET['semester']))
                               echo 'selected'; ?>>(Required)
                             </option>
-                            <?php foreach ($semesters as $semester) { ?> <!-- Changed $semester to $semesters -->
+                            <?php foreach ($semesters as $semester) { ?> 
                               <option value="<?php echo $semester['semester']; ?>" <?php
                                  if (isset($_GET['semester']) && $_GET['semester'] == $semester['semester']) {
                                    echo 'selected';

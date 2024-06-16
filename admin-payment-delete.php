@@ -59,7 +59,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0">Delete Event</h1>
+                                <h1 class="m-0">Delete Payment</h1>
+                            </div>
+
+                            <div class="col-sm-6 text-right">
+                                <a id="addNewPaymentBtn" class="btn btn-secondary" href="admin-paymentfor.php"><i
+                                        class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Payment</a>
                             </div>
                         </div>
                     </div>
@@ -74,9 +79,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                 <div class="card card-danger card-outline bg-white" for="new-subject">
                                     <div class="card-header">
                                         <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
-                                            Are you sure you want to delete this event?</h3><br>
+                                            Are you sure you want to delete this payment?</h3><br>
                                         <p class="text-muted">Note: All data cannot able to retrieve this event after
-                                            deleting it including the attendance of the students. </p>
+                                            deleting it including the payments of the students. </p>
 
                                         <hr>
 
@@ -87,38 +92,41 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                         <?php } ?>
 
 
-                                        <form style="width: 100%" action="indexes/admin-event-delete-be.php" method="post">
+                                        <form style="width: 100%" action="indexes/admin-payment-delete-be.php" method="post">
                                             <?php
-                                            $event_id = $_GET['event_id'];
-                                            $sql = "SELECT * FROM events WHERE event_id = $event_id";
+                                            $payment_for_id = $_GET['payment_for_id'];
+                                            $sql = "SELECT * FROM payment_for WHERE payment_for_id = $payment_for_id";
                                             $result = mysqli_query($conn, $sql);
 
                                             if (mysqli_num_rows($result) > 0) {
                                                 while ($row = mysqli_fetch_assoc($result)) {
-                                                    $event_id = $row['event_id'];
-                                                    $event_name = $row['event_name'];
+                                                    $payment_for_id = $row['payment_for_id'];
+                                                    $payment_description = $row['payment_description'];
                                                     $date = $row['date'];
                                                     $school_year = $row['school_year'];
                                                     $semester = $row['semester'];
+                                                    $amount = $row['amount'];
                                                     $formatted_date = date("F j, Y", strtotime($date));
                                                     ?>
 
 
-                                                    <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
+                                                    <input type="hidden" name="payment_for_id"
+                                                        value="<?php echo $payment_for_id; ?>">
 
-                                                    <!-- Heading input -->
-                                                    <label for="event Heading" class="col-sm-4 col-form-label">Event
-                                                        Name</label>
+                                                    <!-- Payment Description -->
+                                                    <label for="payment_description" class="col-sm-4 col-form-label">Payment
+                                                        Description</label>
                                                     <div class="form-group row">
                                                         <div class="col-sm-12">
-                                                            <input type="text" class="form-control" id="heading" name="eventname"
-                                                                placeholder="(Required)" value="<?php echo $event_name; ?>">
+                                                            <input type="text" class="form-control" id="payment_description"
+                                                                name="payment_description" placeholder="(Required)"
+                                                                value="<?php echo $payment_description; ?>">
                                                         </div>
                                                     </div>
 
-                                                    <!-- Posted by input -->
-                                                    <label for="event Posted By" class="col-sm-4 col-form-label">Date of
-                                                        Event</label>
+                                                    <!-- Date of Payment Posted -->
+                                                    <label for="date of payment" class="col-sm-4 col-form-label">Date of Payment
+                                                        Posted</label>
                                                     <div class="form-group row">
                                                         <div class="col-sm-12">
                                                             <input type="text" class="form-control" id="posted_by"
@@ -127,8 +135,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                         </div>
                                                     </div>
 
-                                                    <!-- Posted on input -->
-                                                    <label for="event Posted On" class="col-sm-4 col-form-label">School
+                                                    <!-- School Year -->
+                                                    <label for="schoolyear" class="col-sm-4 col-form-label">School
                                                         Year</label>
                                                     <div class="form-group row">
                                                         <div class="col-sm-12">
@@ -138,9 +146,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                         </div>
                                                     </div>
 
-                                                    <!-- Posted on input -->
-                                                    <label for="event Posted On"
-                                                        class="col-sm-4 col-form-label">Semester</label>
+                                                    <!-- Semester -->
+                                                    <label for="semester" class="col-sm-4 col-form-label">Semester</label>
                                                     <div class="form-group row">
                                                         <div class="col-sm-12">
                                                             <input type="text" class="form-control" id="created_on_original"
@@ -149,18 +156,28 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                         </div>
                                                     </div>
 
+                                                    <!-- Amount -->
+                                                    <label for="amount" class="col-sm-4 col-form-label">Amount</label>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-12">
+                                                            <input type="text" class="form-control" id="amount" name="amount"
+                                                                placeholder="(Required)" value="<?php echo $amount; ?>">
+                                                        </div>
+                                                    </div>
+
                                                     <!-- Submit button -->
                                                     <div class="offset-sm-2 col-sm-10">
-                                                        <button type="submit" value="Submit" name="deleteEvent"
+                                                        <button type="submit" value="Submit" name="deletePayment"
                                                             class="btn btn-danger">Delete</button>
                                                         <a type="button" name="cancel" class="btn btn-secondary"
-                                                            href="admin-events.php">Cancel</a>
+                                                            href="admin-payment.php">Cancel</a>
                                                     </div>
+
                                                     <?php
                                                 }
                                             } else {
                                                 // Handle the case when no events are found
-                                                echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No posted event</strong></h2></div>";
+                                                echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>Payment not found</strong></h2></div>";
                                             }
                                             ?>
                                         </form>

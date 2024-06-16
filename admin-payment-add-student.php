@@ -44,11 +44,11 @@ function validate($data)
 }
 
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
-    if (isset($_GET['event_id'])) {
-        $event_id = intval($_GET['event_id']);
+    if (isset($_GET['payment_for_id'])) {
+        $payment_for_id = intval($_GET['payment_for_id']);
 
         // Get the event details to extract the school year and semester
-        $sql = "SELECT school_year, semester FROM events WHERE event_id = $event_id";
+        $sql = "SELECT school_year, semester FROM payment_for WHERE payment_for_id = $payment_for_id";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
@@ -74,12 +74,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                             <div class="container-fluid">
                                 <div class="row mb-2 align-items-center">
                                     <div class="col-sm-6">
-                                        <h1>Adding Students to Event</h1>
+                                        <h1>Adding Students to Payment</h1>
                                     </div>
                                     <div class="col-sm-6 text-right">
                                         <a id="addNewSubjectBtn" class="btn btn-secondary"
-                                            href="admin-event-view.php?event_id=<?php echo $event_id; ?>"><i
-                                                class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Event</a>
+                                            href="admin-payment-view.php?payment_for_id=<?php echo $payment_for_id; ?>"><i
+                                                class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Payment</a>
                                     </div>
                                 </div>
                             </div><!-- /.container-fluid -->
@@ -89,6 +89,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                         <!-- Main content -->
                         <section class="content">
                             <div class="container-fluid">
+
                                 <?php if (isset($_GET['failedToAddStudent'])) { ?>
                                     <div class="alert alert-danger">
                                         <?php echo $_GET['failedToAddStudent']; ?>
@@ -96,7 +97,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                                 <?php } ?>
                                 <!-- Search Form -->
                                 <form method="GET">
-                                    <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
+                                    <input type="hidden" name="payment_for_id" value="<?php echo $payment_for_id; ?>">
                                     <div class="form-group row mb-3">
                                         <div class="col-sm-3">
                                             <select class="form-control" id="program" name="program">
@@ -171,11 +172,11 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                                 $studentsql = "SELECT u.account_number, u.last_name, u.first_name, u.middle_name, u.program, u.year_level
                                FROM user u
                                INNER JOIN enrolled e ON u.account_number = e.account_number
-                               LEFT JOIN attendance a ON u.account_number = a.account_number AND a.event_id = $event_id
+                               LEFT JOIN payment p ON u.account_number = p.account_number AND p.payment_for_id = $payment_for_id
                                WHERE e.school_year = '$school_year'
                                  AND e.semester = '$semester'
                                  AND u.role = 'Student'
-                                 AND a.account_number IS NULL
+                                 AND p.account_number IS NULL
                                  $whereClause
                                ORDER BY u.account_number ASC";
                                 $result = $conn->query($studentsql);
@@ -207,11 +208,13 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                                                         <?php
                                                         $current_url = $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
                                                         ?>
-                                                        <form method="POST" action="indexes/admin-event-add-student-be.php">
-                                                            <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
+                                                        <form method="POST" action="indexes/admin-payment-add-student-be.php">
+                                                            <input type="hidden" name="payment_for_id"
+                                                                value="<?php echo $payment_for_id; ?>">
                                                             <input type="hidden" name="account_number"
                                                                 value="<?php echo $row['account_number']; ?>">
-                                                            <button class="btn btn-success" type="submit" name="enroll_student">Add
+
+                                                            <button class="btn btn-success" type="submit" name="add_student">Add
                                                             </button>
                                                         </form>
                                                     </td>
@@ -247,10 +250,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
 
             <?php
         } else {
-            echo "Event not found.";
+            echo "payment not found.";
         }
     } else {
-        echo "Event ID is not specified.";
+        echo "Payment for ID is not specified.";
     }
 } else {
     header("Location: login.php");

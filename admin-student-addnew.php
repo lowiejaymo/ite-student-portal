@@ -67,8 +67,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
         </div><!-- /.container-fluid -->
 
         <!-- /.content-header -->
-
-        <!-- Main content -->
         <!-- Main content -->
         <section class="content">
           <div class="container">
