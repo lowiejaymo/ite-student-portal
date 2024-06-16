@@ -60,7 +60,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0">Deleting Officer</h1>
+                                <h1 class="m-0">Edit Officer's Information</h1>
                             </div><!-- /.col -->
                         </div><!-- /.row -->
                     </div><!-- /.container-fluid -->
@@ -72,23 +72,14 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-md-8">
-                                <div class="card card-danger card-outline bg-white" for="new-subject">
-                                    <div class="card-header">
-                                        <!-- add New Subject -->
-                                        <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
-                                            Are you sure you want to delete this officer?</h3><br>
-                                        <p class="text-muted">Note: You can no longer retreive this account once deleted.
-                                        </p>
-                                        <hr>
-
-                                        <?php if (isset($_GET['deleteOfficerError'])) { ?>
+                            <?php if (isset($_GET['editOfficerError'])) { ?>
                                             <div class="alert alert-danger">
-                                                <?php echo $_GET['deleteOfficerError']; ?>
+                                                <?php echo $_GET['editOfficerError']; ?>
                                             </div>
                                         <?php } ?>
-
-
-                                        <form action="indexes/admin-officer-delete-be.php" method="post">
+                                <div class="card card-primary card-outline bg-white" for="new-subject">
+                                    <div class="card-header">
+                                        <form action="indexes/admin-officer-edit-be.php" method="post">
 
                                             <?php
                                             $account_number = $_GET['account_number'];
@@ -98,26 +89,20 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                             if (mysqli_num_rows($result) > 0) {
                                                 while ($row = mysqli_fetch_assoc($result)) {
                                                     $account_number = $row['account_number'];
-                                                    $username = $row['username'];
                                                     $position = $row['position'];
                                                     $last_name = $row['last_name'];
                                                     $first_name = $row['first_name'];
                                                     $middle_name = $row['middle_name'];
                                                     $profile_picture = $row['profile_picture'];
-                                                    $enrolled_by = $row['enrolled_by'];
+                                                    $gender = $row['gender'];
+                                                    $phone_number = $row['phone_number'];
 
                                                     $displayedaccount_number = $account_number;
-                                                    $displayedusername = $username;
-                                                    $displayedposition = $position;
-                                                    $displayedlast_name = $last_name;
-                                                    $displayedfirst_name = $first_name;
-                                                    $displayedmiddle_name = $middle_name;
-                                                    $displayedenrolled_by = $enrolled_by;
                                                     ?>
 
-                                                    <div class="text-center"> <!-- Center the column content -->
-                                                        <!-- displaying the profile picture -->
-                                                        <img class="profile-picture img-fluid rounded-circle" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover;"
+                                                    <div class="text-center">
+                                                        <img class="profile-picture img-fluid rounded-circle"
+                                                            style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover;"
                                                             src="profile-pictures/<?php echo $profile_picture; ?>?<?php echo time(); ?>"
                                                             alt="User profile picture">
                                                     </div>
@@ -136,42 +121,32 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label for="Username" class="col-sm-3 col-form-label">Username</label>
-                                                        <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="created_on_original"
-                                                                placeholder="(Required)" value="<?php echo $displayedusername; ?>"
-                                                                disabled>
-                                                            <input type="hidden" name="username" value="<?php echo $username; ?>">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group row">
                                                         <label for="Position" class="col-sm-3 col-form-label">Position</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="created_on_original"
-                                                                placeholder="(Required)" value="<?php echo $displayedposition; ?>"
-                                                                disabled>
-                                                            <input type="hidden" name="position" value="<?php echo $position; ?>">
+                                                            <select class="form-control" id="position" name="position">
+                                                                <option value="President" <?php if ($position == 'President') echo 'selected'; ?>>President</option>
+                                                                <option value="Vice-President" <?php if ($position == 'Vice-President') echo 'selected'; ?>>Vice-President</option>
+                                                                <option value="Secretary" <?php if ($position == 'Secretary') echo 'selected'; ?>>Secretary</option>
+                                                                <option value="Treasurer" <?php if ($position == 'Treasurer') echo 'selected'; ?>>Treasurer</option>
+                                                                <option value="Auditor" <?php if ($position == 'Auditor') echo 'selected'; ?>>Auditor</option>
+                                                                <option value="Staff" <?php if ($position == 'Staff') echo 'selected'; ?>>Staff</option>
+                                                            </select>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
                                                         <label for="Last Name" class="col-sm-3 col-form-label">Last Name</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="created_on_original"
-                                                                placeholder="(Required)" value="<?php echo $displayedlast_name; ?>"
-                                                                disabled>
-                                                            <input type="hidden" name="last_name" value="<?php echo $last_name; ?>">
+                                                            <input type="text" class="form-control" id="last_name" name="last_name"
+                                                                placeholder="(Required)" value="<?php echo $last_name; ?>">
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
                                                         <label for="First Name" class="col-sm-3 col-form-label">First Name</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="created_on_original"
-                                                                placeholder="(Required)" value="<?php echo $displayedfirst_name; ?>"
-                                                                disabled>
-                                                            <input type="hidden" name="first_name"
+                                                            <input type="text" class="form-control" id="first_name"
+                                                                name="first_name" placeholder="(Required)"
                                                                 value="<?php echo $first_name; ?>">
                                                         </div>
                                                     </div>
@@ -179,24 +154,42 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                     <div class="form-group row">
                                                         <label for="Middle Name" class="col-sm-3 col-form-label">Middle Name</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="created_on_original"
-                                                                placeholder="(Required)"
-                                                                value="<?php echo $displayedmiddle_name; ?>" disabled>
-                                                            <input type="hidden" name="middle_name"
+                                                            <input type="text" class="form-control" id="middle_name"
+                                                                name="middle_name" placeholder="(Required)"
                                                                 value="<?php echo $middle_name; ?>">
                                                         </div>
                                                     </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="Gender" class="col-sm-3 col-form-label">Gender</label>
+                                                        <div class="col-sm-9">
+                                                            <select class="form-control" id="gender" name="gender">
+                                                                <option value="Male" <?php if ($gender == 'Male') echo 'selected'; ?>>Male</option>
+                                                                <option value="Female" <?php if ($gender == 'Female') echo 'selected'; ?>>Female</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="Phone Number" class="col-sm-3 col-form-label">Phone
+                                                            Number</label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" class="form-control" id="phone_number"
+                                                                name="phone_number" placeholder="(Required)"
+                                                                value="<?php echo $phone_number; ?>">
+                                                        </div>
+                                                    </div>
+
                                                     <?php
                                                 }
                                             } else {
-                                                // Handle the case when no announcements are found
-                                                echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No posted announcement</strong></h2></div>";
+                                                echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>Officer cannot be found</strong></h2></div>";
                                             }
                                             ?>
 
                                             <div class="offset-sm-2 col-sm-10">
-                                                <button type="submit" value="Submit" name="deleteOfficer"
-                                                    class="btn btn-danger">Delete</button>
+                                                <button type="submit" value="Submit" name="editOfficer"
+                                                    class="btn btn-success">Edit</button>
                                                 <a type="button" name="cancel" class="btn btn-secondary"
                                                     href="admin-officer.php">Cancel</a>
                                             </div>
@@ -213,13 +206,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
-            <footer class="main-footer">
-                <strong>Copyright &copy; 2023 <a href="#">ITE Student Portal</a>.</strong>
-                All rights reserved.
-                <div class="float-right d-none d-sm-inline-block">
-                    <b>Version</b> 1.0.0
-                </div>
-            </footer>
+            <?php include 'layout/fixed-footer.php'; ?>
 
             <!-- Control Sidebar -->
             <aside class="control-sidebar control-sidebar-dark">
@@ -265,8 +252,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
 
     <?php
 } else {
-    // Redirect to the login page if the user is not logged in
-    header("Location: login.php");
+    header("Location: admin.php");
     exit();
 }
 ?>

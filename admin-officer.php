@@ -78,6 +78,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
               </div>
             <?php } ?>
 
+            <?php if (isset($_GET['editOfficerSuccess'])) { ?>
+              <div class="alert alert-success">
+                <?php echo $_GET['editOfficerSuccess']; ?>
+              </div>
+            <?php } ?>
+
             <?php if (isset($_GET['deleteOfficerError'])) { ?>
               <div class="alert alert-danger">
                 <?php echo $_GET['deleteOfficerError']; ?>
@@ -106,6 +112,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                   $last_name = $row['last_name'];
                   $first_name = $row['first_name'];
                   $profile_picture = $row['profile_picture'];
+                  $phone_number = $row['phone_number'];
                   ?>
                   <div class="col-md-2">
                     <div class="card">
@@ -124,11 +131,19 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                         Position: <?php echo $position; ?><br>
                         Last Name: <?php echo $last_name; ?><br>
                         First Name: <?php echo $first_name; ?><br>
+                        Phone Number: <?php echo $phone_number; ?><br>
                         <br>
                         <div class="card-footer d-flex justify-content-center">
+                          <a href='admin-officer-edit.php?account_number=<?php echo $row['account_number']; ?>'
+                            class='btn btn-success btn-sm mx-2'>
+                            <i class="nav-icon fas fa-solid fa-user-pen"></i> Edit
+                          </a>
                           <a href='admin-officer-delete.php?account_number=<?php echo $row['account_number']; ?>'
-                            class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
+                            class='btn btn-danger btn-sm mx-2'>
+                            <i class="nav-icon fas fa-solid fa-trash"></i> Delete
+                          </a>
                         </div>
+
                       </div>
                     </div>
                   </div>

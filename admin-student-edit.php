@@ -97,12 +97,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                             </div>
                                         <?php } ?>
 
-                                        <?php if (isset($_GET['editStudentError'])) { ?>
-                                            <div class="alert alert-danger">
-                                                <?php echo $_GET['editStudentError']; ?>
-                                            </div>
-                                        <?php } ?>
-
                                         <form action="indexes/admin-student-edit-be.php" method="post">
 
                                             <?php
