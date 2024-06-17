@@ -102,8 +102,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
             <!-- Students table -->
             <?php
             if (isset($_GET['search'])) {
-              $program = validate($_GET['program']);
-              $year_level = validate($_GET['year_level']);
+              $program = $_GET['program'];
+              $year_level = $_GET['year_level'];
             
               $conditions = [];
               if ($program !== 'all') {
