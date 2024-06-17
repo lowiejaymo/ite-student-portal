@@ -88,6 +88,15 @@ Brief overview of the file's contents. -->
           </a>
         </li>
 
+        <li class="nav-item ">
+          <a href="officer-payment.php" class="nav-link">
+            <i class="nav-icon fas fa-money-bill-wave"></i>
+            <p>
+              Payments
+            </p>
+          </a>
+        </li>
+
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

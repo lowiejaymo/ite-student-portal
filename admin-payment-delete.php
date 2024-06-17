@@ -1,10 +1,3 @@
-<!-- admin-event-delete.php and to delete event in admin form.
-Authors:
-  - Lowie Jay Orillo (lowie.jaymier@gmail.com)
-  - Caryl Mae Subaldo (subaldomae29@gmail.com)
-  - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
-Brief overview of the file's contents. -->
 
 <?php
 session_start();
@@ -63,7 +56,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                             </div>
 
                             <div class="col-sm-6 text-right">
-                                <a id="addNewPaymentBtn" class="btn btn-secondary" href="admin-paymentfor.php"><i
+                                <a id="addNewPaymentBtn" class="btn btn-secondary" href="admin-payment.php"><i
                                         class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Payment</a>
                             </div>
                         </div>

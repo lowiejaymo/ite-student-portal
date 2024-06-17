@@ -31,22 +31,22 @@ if (isset($_POST['addEvent'])) {
 
     // Validate event name if empty
     if (empty($payment_description)) {
-        header("Location: ../admin-payment-addnew.php?newPaymentError=Payment description is required&$user_data");
+        header("Location: ../officer-payment-addnew.php?newPaymentError=Payment description is required&$user_data");
         exit();
     } // Validate date if empty
     elseif (empty($date)) {
-        header("Location: ../admin-payment-addnew.php?newPaymentError=Date is required&$user_data");
+        header("Location: ../officer-payment-addnew.php?newPaymentError=Date is required&$user_data");
         exit();
     } // Validate school year if empty
     elseif (empty($schoolyear)) {
-        header("Location: ../admin-payment-addnew.php?newPaymentError=School year is required&$user_data");
+        header("Location: ../officer-payment-addnew.php?newPaymentError=School year is required&$user_data");
         exit();
     } // Validate semester if empty
     elseif (empty($semester)) {
-        header("Location: ../admin-payment-addnew.php?newPaymentError=Semester is required&$user_data");
+        header("Location: ../officer-payment-addnew.php?newPaymentError=Semester is required&$user_data");
         exit();
     } elseif (empty($amount)) {
-        header("Location: ../admin-payment-addnew.php?newPaymentError=Amount is required&$user_data");
+        header("Location: ../officer-payment-addnew.php?newPaymentError=Amount is required&$user_data");
         exit();
     } else {
         // Insert new event
@@ -58,10 +58,10 @@ if (isset($_POST['addEvent'])) {
 
         // Redirect based on the result of the SQL query
         if ($result_newevent_query) {
-            header("Location: ../admin-payment.php?newPaymentSuccess=New payment added successfully");
+            header("Location: ../officer-payment.php?newPaymentSuccess=New payment added successfully");
             exit();
         } else {
-            header("Location: ../admin-payment-addnew.php?newPaymentError=Failed to add new event&$user_data");
+            header("Location: ../officer-payment-addnew.php?newPaymentError=Failed to add new event&$user_data");
             exit();
         }
     }

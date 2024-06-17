@@ -4,7 +4,7 @@ include "indexes/db_conn.php";
 if (isset($_POST['account_number'])) {
     $account_number = $_POST['account_number'];
 
-    // Fetch student data from the database
+        // Fetch student data from the database
     $query = "SELECT * FROM user WHERE account_number = '$account_number'";
     $result = $conn->query($query);
 

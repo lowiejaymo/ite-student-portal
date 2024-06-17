@@ -2,7 +2,7 @@
 session_start();
 include "indexes/db_conn.php";
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the role is set and it's 'Admin'
-  ?>
+?>
 
   <!DOCTYPE html>
   <html lang="en">

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Admin Event Page</title>
+    <title>ITE Student Portal | Officer Event Page</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -43,7 +43,7 @@ function validate($data)
     return mysqli_real_escape_string($conn, $data);
 }
 
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
     if (isset($_GET['payment_for_id'])) {
         $payment_for_id = intval($_GET['payment_for_id']);
 
@@ -62,10 +62,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                 <div class="wrapper">
 
                     <!-- Navbar -->
-                    <?php include 'layout/admin-fixed-topnav.php'; ?>
+                    <?php include 'layout/officer-fixed-topnav.php'; ?>
 
                     <!-- Sidebar -->
-                    <?php include 'layout/admin-sidebar.php'; ?>
+                    <?php include 'layout/officer-sidebar.php'; ?>
 
                     <!-- Content Wrapper. Contains page content -->
                     <div class="content-wrapper">
@@ -78,7 +78,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                                     </div>
                                     <div class="col-sm-6 text-right">
                                         <a id="addNewSubjectBtn" class="btn btn-secondary"
-                                            href="admin-payment-view.php?payment_for_id=<?php echo $payment_for_id; ?>"><i
+                                            href="officer-payment-view.php?payment_for_id=<?php echo $payment_for_id; ?>"><i
                                                 class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Payment</a>
                                     </div>
                                 </div>
@@ -208,7 +208,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                                                         <?php
                                                         $current_url = $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
                                                         ?>
-                                                        <form method="POST" action="indexes/admin-payment-add-student-be.php">
+                                                        <form method="POST" action="indexes/officer-payment-add-student-be.php">
                                                             <input type="hidden" name="payment_for_id"
                                                                 value="<?php echo $payment_for_id; ?>">
                                                             <input type="hidden" name="account_number"

@@ -2,7 +2,7 @@
 <?php
 session_start();
 include "indexes/db_conn.php";
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the role is set and it's 'Admin'
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Officer'
   ?>
 
   <!DOCTYPE html>
@@ -11,7 +11,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Admin Payments Page</title>
+    <title>ITE Student Portal | Officer Payments Page</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -41,9 +41,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
     <div class="wrapper">
 
       <!-- Navbar -->
-      <?php include 'layout/admin-fixed-topnav.php'; ?>
+      <?php include 'layout/officer-fixed-topnav.php'; ?>
 
-      <?php include 'layout/admin-sidebar.php'; ?>
+      <?php include 'layout/officer-sidebar.php'; ?>
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
@@ -55,7 +55,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                 <h1>Payments</h1>
               </div>
               <div class="col-sm-6 text-right">
-                <a id="addNewPaymentBtn" class="btn btn-success" href="admin-payment-addnew.php"><i
+                <a id="addNewPaymentBtn" class="btn btn-success" href="officer-payment-addnew.php"><i
                     class="nav-icon fas fa-solid fa-plus"></i> Add Payment</a>
               </div>
             </div>
@@ -187,9 +187,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                         <?php echo $row['semester']; ?>
                       </td>
                       <td class="align-middle text-center">
-                        <a href='admin-payment-view.php?payment_for_id=<?php echo $row['payment_for_id']; ?>'
+                        <a href='officer-payment-view.php?payment_for_id=<?php echo $row['payment_for_id']; ?>'
                           class='btn btn-success btn-sm'><i class="nav-icon fas fa-solid fa-hand-pointer"></i> Select</a>
-                        <a href='admin-payment-delete.php?payment_for_id=<?php echo $row['payment_for_id']; ?>'
+                        <a href='officer-payment-delete.php?payment_for_id=<?php echo $row['payment_for_id']; ?>'
                           class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
                       </td>
                     </tr>

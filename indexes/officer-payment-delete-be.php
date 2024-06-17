@@ -26,10 +26,10 @@ if (isset($_POST['deletePayment'])) {
 
     // // Redirect based on the result of the SQL query
     if ($affected_rows > 0) {
-        header("Location: ../admin-payment.php?deletePaymentSuccess=Successfully deleted the event");
+        header("Location: ../officer-payment.php?deletePaymentSuccess=Successfully deleted the event");
         exit();
     } else {
-        header("Location: ../admin-payment.php?deletePaymentError=Failed to delete the event");
+        header("Location: ../officer-payment.php?deletePaymentError=Failed to delete the event");
         exit();
     }
 

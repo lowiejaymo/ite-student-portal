@@ -32,7 +32,7 @@
 <body>
     <section>
         <div class="container">
-           <h1 class="helloworld">Hala bat ka nag IT boang kaba?!</h1>
+           <h1 class="helloworld">Hala bat ka nag IT?! lala mo!</h1>
            <h2 class="helloworld">Stop this MADNESS!!! mag shift kana!</h2>
            <h2 class="helloworld">Please lang maawa ka sa sarili mo huhuhuhu</h2>
         </div>
