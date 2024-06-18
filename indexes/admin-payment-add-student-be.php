@@ -10,7 +10,7 @@ include "db_conn.php";
 
             // Prepare and bind
             $stmt = $conn->prepare("INSERT INTO payment (payment_for_id, account_number, remarks) VALUES (?, ?, ?)");
-            $remarks = 'Pending';
+            $remarks = 'Not Paid';
             $stmt->bind_param("iss", $payment_for_id, $account_number, $remarks);
 
             // Execute the statement
@@ -22,8 +22,6 @@ include "db_conn.php";
                 exit();
             }
 
-            // Close the statement
-            $stmt->close();
         }
     } else {
     // Redirect back to the event view page or wherever appropriate

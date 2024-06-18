@@ -152,24 +152,35 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                                         <div class="col-sm-2">
                                             <button class="btn btn-outline-secondary" type="submit" name="search">Submit
                                             </button>
-                                        </div>
-                                    </div>
                                 </form>
+                            </div>
+                            <div class="col-sm text-right">
+                                <!-- Add All Button -->
+                                <form method="POST" action="indexes/admin-payment-add-all-students-be.php">
+                                    <input type="hidden" name="payment_for_id" value="<?php echo $payment_for_id; ?>">
+                                    <input type="hidden" name="program"
+                                        value="<?php echo isset($_GET['program']) ? $_GET['program'] : 'all'; ?>">
+                                    <input type="hidden" name="year_level"
+                                        value="<?php echo isset($_GET['year_level']) ? $_GET['year_level'] : 'all'; ?>">
+                                    <button class="btn btn-outline-success" type="submit" name="add_all">Add All</button>
+                                </form>
+                            </div>
+                    </div>
 
-                                <!-- Students table -->
-                                <?php
-                                $conditions = [];
-                                if (isset($_GET['program']) && $_GET['program'] !== 'all') {
-                                    $program = validate($_GET['program']);
-                                    $conditions[] = "u.program = '$program'";
-                                }
-                                if (isset($_GET['year_level']) && $_GET['year_level'] !== 'all') {
-                                    $year_level = validate($_GET['year_level']);
-                                    $conditions[] = "u.year_level = '$year_level'";
-                                }
-                                $whereClause = count($conditions) > 0 ? 'AND ' . implode(' AND ', $conditions) : '';
+                    <!-- Students table -->
+                    <?php
+                    $conditions = [];
+                    if (isset($_GET['program']) && $_GET['program'] !== 'all') {
+                        $program = validate($_GET['program']);
+                        $conditions[] = "u.program = '$program'";
+                    }
+                    if (isset($_GET['year_level']) && $_GET['year_level'] !== 'all') {
+                        $year_level = validate($_GET['year_level']);
+                        $conditions[] = "u.year_level = '$year_level'";
+                    }
+                    $whereClause = count($conditions) > 0 ? 'AND ' . implode(' AND ', $conditions) : '';
 
-                                $studentsql = "SELECT u.account_number, u.last_name, u.first_name, u.middle_name, u.program, u.year_level
+                    $studentsql = "SELECT u.account_number, u.last_name, u.first_name, u.middle_name, u.program, u.year_level
                                FROM user u
                                INNER JOIN enrolled e ON u.account_number = e.account_number
                                LEFT JOIN payment p ON u.account_number = p.account_number AND p.payment_for_id = $payment_for_id
@@ -179,61 +190,61 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                                  AND p.account_number IS NULL
                                  $whereClause
                                ORDER BY u.account_number ASC";
-                                $result = $conn->query($studentsql);
-                                ?>
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th class="col-2">Student Number</th>
-                                            <th class="col-2">Last Name</th>
-                                            <th class="col-2">First Name</th>
-                                            <th class="col-2">Middle Name</th>
-                                            <th class="col-1">Program</th>
-                                            <th class="col-1">Year Level</th>
-                                            <th class="col-1 text-center">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        if (isset($result) && $result->num_rows > 0) {
-                                            while ($row = $result->fetch_assoc()) { ?>
-                                                <tr>
-                                                    <td class="align-middle"><?php echo $row['account_number']; ?></td>
-                                                    <td class="align-middle"><?php echo $row['last_name']; ?></td>
-                                                    <td class="align-middle"><?php echo $row['first_name']; ?></td>
-                                                    <td class="align-middle"><?php echo $row['middle_name']; ?></td>
-                                                    <td class="align-middle"><?php echo $row['program']; ?></td>
-                                                    <td class="align-middle"><?php echo $row['year_level']; ?></td>
-                                                    <td class="align-middle text-center">
-                                                        <?php
-                                                        $current_url = $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
-                                                        ?>
-                                                        <form method="POST" action="indexes/admin-payment-add-student-be.php">
-                                                            <input type="hidden" name="payment_for_id"
-                                                                value="<?php echo $payment_for_id; ?>">
-                                                            <input type="hidden" name="account_number"
-                                                                value="<?php echo $row['account_number']; ?>">
-                                                            <input type="hidden" name="previous_url" 
-                                                                value="<?php echo htmlspecialchars($current_url, ENT_QUOTES, 'UTF-8'); ?>">
-                                                            <button class="btn btn-success" type="submit" name="add_student">Add
-                                                            </button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            <?php }
-                                        } else { ?>
-                                            <tr>
-                                                <td colspan="7" class="text-center">No students found.
-                                                </td>
-                                            </tr>
-                                        <?php } ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </section>
-                        <!-- /.content -->
-                    </div>
-                    <!-- /.content-wrapper -->
+                    $result = $conn->query($studentsql);
+                    ?>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="col-2">Student Number</th>
+                                <th class="col-2">Last Name</th>
+                                <th class="col-2">First Name</th>
+                                <th class="col-2">Middle Name</th>
+                                <th class="col-1">Program</th>
+                                <th class="col-1">Year Level</th>
+                                <th class="col-1 text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            if (isset($result) && $result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) { ?>
+                                    <tr>
+                                        <td class="align-middle"><?php echo $row['account_number']; ?></td>
+                                        <td class="align-middle"><?php echo $row['last_name']; ?></td>
+                                        <td class="align-middle"><?php echo $row['first_name']; ?></td>
+                                        <td class="align-middle"><?php echo $row['middle_name']; ?></td>
+                                        <td class="align-middle"><?php echo $row['program']; ?></td>
+                                        <td class="align-middle"><?php echo $row['year_level']; ?></td>
+                                        <td class="align-middle text-center">
+                                            <?php
+                                            $current_url = $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
+                                            ?>
+                                            <form method="POST" action="indexes/admin-payment-add-student-be.php">
+                                                <input type="hidden" name="payment_for_id" value="<?php echo $payment_for_id; ?>">
+                                                <input type="hidden" name="account_number" value="<?php echo $row['account_number']; ?>">
+                                                <input type="hidden" name="previous_url"
+                                                    value="<?php echo htmlspecialchars($current_url, ENT_QUOTES, 'UTF-8'); ?>">
+                                                <button class="btn btn-success" type="submit" name="add_student">Add
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <?php }
+                            } else { ?>
+                                <tr>
+                                    <td colspan="7" class="text-center">No students found.
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+                </section>
+                <!-- /.content -->
+                </div>
+                <!-- /.content-wrapper -->
+
+                <?php include 'layout/fixed-footer.php'; ?>
                 </div>
                 <!-- ./wrapper -->
 
