@@ -1,4 +1,4 @@
- <!-- sidebar.php and sidebar of officer form.
+<!-- sidebar.php and sidebar of officer form.
 Author:
   Lowie Jay Orillo lowie.jaymier@gmail.com, 
   Caryl Mae Subaldo subaldomae29@gmail.com, 
@@ -51,6 +51,15 @@ Brief overview of the file's contents. -->
         </li>
 
         <li class="nav-item ">
+          <a href="announcement.php" class="nav-link">
+            <i class="nav-icon fas fa-solid fa-bullhorn"></i>
+            <p>
+              Announcements
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item ">
           <a href="myqrcode.php" class="nav-link">
             <i class="nav-icon fas fa-solid fa-qrcode"></i>
             <p>
@@ -60,10 +69,19 @@ Brief overview of the file's contents. -->
         </li>
 
         <li class="nav-item ">
-          <a href="announcement.php" class="nav-link">
-            <i class="nav-icon fas fa-solid fa-bullhorn"></i>
+          <a href="myattendance.php" class="nav-link">
+            <i class="nav-icon fas fa-solid fa-clipboard-check"></i>
             <p>
-              Announcements
+              My Attendance
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item ">
+          <a href="mypayment.php" class="nav-link">
+            <i class="nav-icon fas fa-solid fa-money-bill-wave"></i>
+            <p>
+              My Payment
             </p>
           </a>
         </li>

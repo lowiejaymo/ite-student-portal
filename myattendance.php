@@ -17,7 +17,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard | ITE Student Portal</title>
+    <title>My Attendance | ITE Student Portal</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -45,10 +45,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
 
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-      <!-- Preloader -->
-      <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" src="images/ite.png" alt="AdminLTELogo" height="60" width="60">
-      </div>
 
       <!-- Navbar -->
       <?php include 'layout/topnav.php'; ?>
@@ -62,7 +58,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1 class="m-0">Dashboard</h1>
+                <h1 class="m-0">My Attendance</h1>
               </div><!-- /.col -->
 
             </div><!-- /.row -->

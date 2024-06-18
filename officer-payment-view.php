@@ -143,7 +143,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                             <div class="card-header p-2">
                                 <ul class="nav nav-pills">
                                     <li class="nav-item"><a class="nav-link active" href="#all" data-toggle="tab">All</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#pending" data-toggle="tab">Pending</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#paid" data-toggle="tab">Paid</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#notpaid" data-toggle="tab">Not Paid</a>
                                     </li>
@@ -202,57 +201,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                         <?php } ?>
                                     </div>
 
-                                    <!-- Pending Students Tab -->
-                                    <div class="tab-pane" id="pending">
-                                        <?php
-                                        // Query to fetch pending students for the event
-                                        $studentsql = "SELECT user.account_number, user.username, user.first_name, user.last_name, user.middle_name, user.program, user.year_level, payment.remarks 
-                                            FROM payment 
-                                            JOIN user ON payment.account_number = user.account_number 
-                                            WHERE payment.payment_for_id = '$payment_for_id' AND remarks = 'Pending'
-                                            ORDER BY payment.account_number ASC";
-                                        $studentresult = $conn->query($studentsql);
-
-                                        if ($studentresult && $studentresult->num_rows > 0) { ?>
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="col-2">Student Number</th>
-                                                        <th class="col-1">User Name</th>
-                                                        <th class="col-2 text-center">Last Name</th>
-                                                        <th class="col-2 text-center">First Name</th>
-                                                        <th class="col-2 text-center">Middle Name</th>
-                                                        <th class="col-1 text-center">Program</th>
-                                                        <th class="col-1 text-center">Year Level</th>
-                                                        <th class="col-1 text-center">Remarks</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php while ($studentrow = $studentresult->fetch_assoc()) { ?>
-                                                        <tr>
-                                                            <td class="align-middle"><?php echo $studentrow['account_number']; ?>
-                                                            </td>
-                                                            <td class="align-middle"><?php echo $studentrow['username']; ?></td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['last_name']; ?></td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['first_name']; ?></td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['middle_name']; ?></td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['program']; ?></td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['year_level']; ?></td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['remarks']; ?></td>
-                                                        </tr>
-                                                    <?php } ?>
-                                                </tbody>
-                                            </table>
-                                        <?php } else { ?>
-                                            <p>No <strong>PENDING</strong> payment found.</p>
-                                        <?php } ?>
-                                    </div>
 
                                     <!-- Present Students Tab -->
                                     <div class="tab-pane" id="paid">

@@ -28,7 +28,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Student Home Page</title>
+    <title>Announcements | ITE Student Portal</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -93,6 +93,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
                   $announcement_id = $row['announcement_id'];
                   $heading = $row['heading'];
                   $content = $row['content'];
+                  $school_year = $row['school_year'];
+                  $semester = $row['semester'];
                   $posted_by = $row['account_number'];
 
                   $sqlPostedBy = "SELECT position FROM user WHERE account_number = '$posted_by'";
@@ -117,6 +119,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
                             </h3><br>
                             <p class="card-title text-center">
                               <?php echo $formatted_date; ?>
+                            </p><br>
+                            <p class="card-title text-center">
+                              S.Y. <?php echo $school_year; ?>
+                            </p>
+                            <p class="card-title text-center">
+                              <?php echo $semester; ?>
                             </p><br>
                             <hr>
 
@@ -190,8 +198,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
     <script src="AdminLTE-3.2.0/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- AdminLTE App -->
     <script src="AdminLTE-3.2.0/dist/js/adminlte.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="AdminLTE-3.2.0/dist/js/demo.js"></script>
   </body>
 
   </html>
