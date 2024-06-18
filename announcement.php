@@ -65,92 +65,179 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <div class="container-fluid">
+
+            <!-- Search Form -->
+            <form method="GET" action="">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label for="school_year" class="col-sm-4 col-form-label">School Year</label>
+                    <div class="col-sm-8">
+                      <?php
+                      $schoolYearQuery = "SELECT * FROM school_year";
+                      $result = mysqli_query($conn, $schoolYearQuery);
+                      $schoolYears = [];
+                      $defaultYear = '';
+
+                      if ($result && mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                          $schoolYears[] = $row;
+                          if ($row['dfault'] == 1) {
+                            $defaultYear = $row['school_year'];
+                          }
+                        }
+                      }
+                      ?>
+                      <select class="form-control" id="school_year" name="school_year">
+                        <option value="All" <?php if (isset($_GET['school_year']) && $_GET['school_year'] == 'All')
+                          echo 'selected'; ?>>All</option>
+                        <?php foreach ($schoolYears as $year) { ?>
+                          <option value="<?php echo $year['school_year']; ?>" <?php
+                             if (isset($_GET['school_year']) && $_GET['school_year'] == $year['school_year']) {
+                               echo 'selected';
+                             } elseif (!isset($_GET['school_year']) && $year['dfault'] == 1) {
+                               echo 'selected';
+                             }
+                             ?>>
+                            <?php echo $year['school_year']; ?>
+                          </option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label for="semester" class="col-sm-4 col-form-label">Semester</label>
+                    <div class="col-sm-8">
+                      <?php
+                      $query = "SELECT * FROM semester";
+                      $result = mysqli_query($conn, $query);
+                      $semesters = [];
+                      $defaultSemester = '';
+
+                      if ($result && mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                          $semesters[] = $row;
+                          if ($row['dfault'] == 1) {
+                            $defaultSemester = $row['semester'];
+                          }
+                        }
+                      }
+                      ?>
+                      <select class="form-control" id="semester" name="semester">
+                        <option value="All" <?php if (!isset($_GET['semester']) || $_GET['semester'] == 'All')
+                          echo 'selected'; ?>>All</option>
+                        <?php foreach ($semesters as $semester) { ?>
+                          <option value="<?php echo $semester['semester']; ?>" <?php
+                             if (isset($_GET['semester']) && $_GET['semester'] == $semester['semester']) {
+                               echo 'selected';
+                             } elseif (!isset($_GET['semester']) && $semester['dfault'] == 1) {
+                               echo 'selected';
+                             }
+                             ?>>
+                            <?php echo $semester['semester']; ?>
+                          </option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group row">
+                    <div class="col-sm-12">
+                      <button type="submit" class="btn btn-outline-secondary">Submit</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
             <div class="row mb-2 align-items-center">
               <div class="col-sm-6">
                 <h1>Announcements</h1>
               </div>
             </div>
             <?php
-            if ($enrolled) {
-              // Prepare the SQL query to fetch announcements for all enrolled semesters and school years
-              $conditions = [];
-              foreach ($semesters as $index => $semester) {
-                $school_year = $school_years[$index];
-                $conditions[] = "(semester = '$semester' AND school_year = '$school_year')";
-              }
-              $conditionString = implode(" OR ", $conditions);
-              $sql = "SELECT * FROM announcement WHERE $conditionString ORDER BY announcement_id DESC";
-              $result = mysqli_query($conn, $sql);
+            $searchSchoolYear = isset($_GET['school_year']) ? $_GET['school_year'] : 'All';
+            $searchSemester = isset($_GET['semester']) ? $_GET['semester'] : 'All';
 
-              if (!$result) {
-                // Error handling for SQL query execution
-                echo "Error: " . mysqli_error($conn);
-                exit();
-              }
+            $sql = "SELECT * FROM announcement WHERE 1=1";
+            if ($searchSchoolYear != 'All') {
+              $sql .= " AND school_year = '$searchSchoolYear'";
+            }
+            if ($searchSemester != 'All') {
+              $sql .= " AND semester = '$searchSemester'";
+            }
+            $sql .= " ORDER BY announcement_id DESC";
 
-              if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                  $announcement_id = $row['announcement_id'];
-                  $heading = $row['heading'];
-                  $content = $row['content'];
-                  $school_year = $row['school_year'];
-                  $semester = $row['semester'];
-                  $posted_by = $row['account_number'];
+            $result = mysqli_query($conn, $sql);
 
-                  $sqlPostedBy = "SELECT position FROM user WHERE account_number = '$posted_by'";
-                  $resultPostedBy = mysqli_query($conn, $sqlPostedBy);
-                  $position = '';
-                  if ($resultPostedBy && mysqli_num_rows($resultPostedBy) > 0) {
-                    $userRow = mysqli_fetch_assoc($resultPostedBy);
-                    $position = $userRow['position'];
-                  }
+            if (!$result) {
+              // Error handling for SQL query execution
+              echo "Error: " . mysqli_error($conn);
+              exit();
+            }
 
-                  $posted_on = $row['posted_on'];
-                  $paragraphs = explode("\n", $content);
-                  $formatted_date = date("F j, Y", strtotime($posted_on));
-                  ?>
-                  <div class="container">
-                    <div class="row justify-content-center">
-                      <div class="col-md-12">
-                        <div class="card card-primary card-outline bg-white" for="new-subject">
-                          <div class="card-header">
-                            <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
-                              <?php echo $position; ?>
-                            </h3><br>
-                            <p class="card-title text-center">
-                              <?php echo $formatted_date; ?>
+            if (mysqli_num_rows($result) > 0) {
+              while ($row = mysqli_fetch_assoc($result)) {
+                $announcement_id = $row['announcement_id'];
+                $heading = $row['heading'];
+                $content = $row['content'];
+                $posted_by = $row['account_number'];
+
+                $sqlPostedBy = "SELECT position FROM user WHERE account_number = '$posted_by'";
+                $resultPostedBy = mysqli_query($conn, $sqlPostedBy);
+                $position = '';
+                if ($resultPostedBy && mysqli_num_rows($resultPostedBy) > 0) {
+                  $userRow = mysqli_fetch_assoc($resultPostedBy);
+                  $position = $userRow['position'];
+                }
+
+                $posted_on = $row['posted_on'];
+                $paragraphs = explode("\n", $content);
+                $formatted_date = date("F j, Y", strtotime($posted_on));
+
+                ?>
+                <div class="container">
+                  <div class="row justify-content-center">
+                    <div class="col-md-12">
+                      <div class="card card-primary card-outline bg-white" for="new-subject">
+                        <div class="card-header">
+                          <!-- add New Subject -->
+
+                          <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
+                            <?php echo $position; ?>
+                          </h3><br>
+                          <p class="card-title text-center">
+                            <?php echo $formatted_date; ?>
+                          </p><br>
+                          <hr>
+
+                          <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
+                            <?php echo $heading; ?>
+                          </h3><br>
+
+                          <div class="card-body">
+                            <?php
+                            foreach ($paragraphs as $paragraph) {
+                              echo "<p class='card-text'>$paragraph</p>";
+                            }
+                            ?>
                             </p><br>
-                            <p class="card-title text-center">
-                              S.Y. <?php echo $school_year; ?>
-                            </p>
-                            <p class="card-title text-center">
-                              <?php echo $semester; ?>
-                            </p><br>
-                            <hr>
-
-                            <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
-                              <?php echo $heading; ?>
-                            </h3><br>
-
-                            <div class="card-body">
-                              <?php
-                              foreach ($paragraphs as $paragraph) {
-                                echo "<p class='card-text'>$paragraph</p>";
-                              }
-                              ?>
-                              </p><br>
-                            </div>
                           </div>
+
+
+                          <!-- /.card-footer -->
                         </div>
+                        <!-- /.card -->
                       </div>
                     </div>
-                    <?php
-                }
-              } else {
-                echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No posted announcement</strong></h2></div>";
+                  </div>
+
+                  <?php
               }
             } else {
-              echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>Hala di kapa enroll lala mo uy</strong></h2></div>";
+              echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No posted announcement</strong></h2></div>";
             }
             ?>
             </div>

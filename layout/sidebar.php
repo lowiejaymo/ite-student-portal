@@ -16,7 +16,36 @@ Brief overview of the file's contents. -->
     <span class="brand-text font-weight-light">ITE Student Portal</span>
   </a>
 
+  <?php
+  include "indexes/db_conn.php";
+  $query = "SELECT * FROM semester";
+  $result = mysqli_query($conn, $query);
+  $semesters = [];
+  $defaultSemester = '';
 
+  if ($result && mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+      $semesters[] = $row;
+      if ($row['dfault'] == 1) {
+        $defaultSemester = $row['semester'];
+      }
+    }
+  }
+
+  $schoolYearQuery = "SELECT * FROM school_year";
+  $result = mysqli_query($conn, $schoolYearQuery);
+  $schoolYears = [];
+  $defaultYear = '';
+
+  if ($result && mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+      $schoolYears[] = $row;
+      if ($row['dfault'] == 1) {
+        $defaultYear = $row['school_year'];
+      }
+    }
+  }
+  ?>
   <!-- Sidebar -->
   <div class="sidebar">
     <!-- Sidebar user (optional) -->
@@ -51,7 +80,7 @@ Brief overview of the file's contents. -->
         </li>
 
         <li class="nav-item ">
-          <a href="announcement.php" class="nav-link">
+          <a href="announcement.php?school_year=<?php echo $defaultYear; ?>&semester=<?php echo $defaultSemester; ?>" class="nav-link">
             <i class="nav-icon fas fa-solid fa-bullhorn"></i>
             <p>
               Announcements
@@ -68,8 +97,12 @@ Brief overview of the file's contents. -->
           </a>
         </li>
 
-        <li class="nav-item ">
-          <a href="myattendance.php" class="nav-link">
+
+
+
+        <li class="nav-item">
+          <a href="myattendance.php?school_year=<?php echo $defaultYear; ?>&semester=<?php echo $defaultSemester; ?>"
+            class="nav-link">
             <i class="nav-icon fas fa-solid fa-clipboard-check"></i>
             <p>
               My Attendance
@@ -78,7 +111,8 @@ Brief overview of the file's contents. -->
         </li>
 
         <li class="nav-item ">
-          <a href="mypayment.php" class="nav-link">
+          <a href="mypayment.php?school_year=<?php echo $defaultYear; ?>&semester=<?php echo $defaultSemester; ?>"
+            class="nav-link">
             <i class="nav-icon fas fa-solid fa-money-bill-wave"></i>
             <p>
               My Payment

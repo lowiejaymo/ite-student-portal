@@ -17,6 +17,40 @@ Brief overview of the file's contents. -->
   </a>
 
 
+
+
+  <?php
+  include "indexes/db_conn.php";
+  $query = "SELECT * FROM semester";
+  $result = mysqli_query($conn, $query);
+  $semesters = [];
+  $defaultSemester = '';
+
+  if ($result && mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+      $semesters[] = $row;
+      if ($row['dfault'] == 1) {
+        $defaultSemester = $row['semester'];
+      }
+    }
+  }
+
+  $schoolYearQuery = "SELECT * FROM school_year";
+  $result = mysqli_query($conn, $schoolYearQuery);
+  $schoolYears = [];
+  $defaultYear = '';
+
+  if ($result && mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+      $schoolYears[] = $row;
+      if ($row['dfault'] == 1) {
+        $defaultYear = $row['school_year'];
+      }
+    }
+  }
+  ?>
+
+  
   <!-- Sidebar -->
   <div class="sidebar">
     <!-- Sidebar user (optional) -->
