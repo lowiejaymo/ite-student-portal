@@ -118,6 +118,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                     <div class="col-md-auto ml-auto">
                                         <a href="admin-event-add-student.php?event_id=<?php echo $row['event_id']; ?>" class="btn btn-success btn-sm d-block mb-2"><i class="nav-icon fas fa-solid fa-plus"></i> Add Student</a>
                                         <a href="admin-event-edit.php?event_id=<?php echo $row['event_id']; ?>" class="btn btn-secondary btn-sm d-block mb-2"><i class="nav-icon fas fa-regular fa-pen-to-square"></i> Edit event</a>
+                                        <a href="admin-event-delete-student.php?event_id=<?php echo $row['event_id']; ?>" class="btn btn-danger btn-sm d-block mb-2"><i class="nav-icon fas fa-solid fa-minus"></i> Delete Student</a>
                                     </div>
                                     <?php
                                             } else {
@@ -510,10 +511,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
 <script src="AdminLTE-3.2.0/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="AdminLTE-3.2.0/dist/js/adminlte.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="AdminLTE-3.2.0/dist/js/demo.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="AdminLTE-3.2.0/dist/js/pages/dashboard.js"></script>
 </body>
 </html>
 <?php

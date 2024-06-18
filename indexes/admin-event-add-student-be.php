@@ -22,12 +22,10 @@ include "db_conn.php";
                 exit();
             }
 
-            // Close the statement
-            $stmt->close();
         }
     } else {
     // Redirect back to the event view page or wherever appropriate
-    header("Location: login.php");
+    header("Location: ../login.php");
     exit();
     }
 ?>

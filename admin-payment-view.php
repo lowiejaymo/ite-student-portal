@@ -210,7 +210,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                         $studentsql = "SELECT user.account_number, user.username, user.first_name, user.last_name, user.middle_name, user.program, user.year_level, payment.remarks 
                                             FROM payment 
                                             JOIN user ON payment.account_number = user.account_number 
-                                            WHERE payment.payment_for_id = '$payment_for_id' AND remarks = 'Present'
+                                            WHERE payment.payment_for_id = '$payment_for_id' AND remarks = 'Paid'
                                             ORDER BY payment.account_number ASC";
                                         $studentresult = $conn->query($studentsql);
 
@@ -262,7 +262,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                         $studentsql = "SELECT user.account_number, user.username, user.first_name, user.last_name, user.middle_name, user.program, user.year_level, payment.remarks 
                                             FROM payment 
                                             JOIN user ON payment.account_number = user.account_number 
-                                            WHERE payment.payment_for_id = '$payment_for_id' AND remarks = 'Absent'
+                                            WHERE payment.payment_for_id = '$payment_for_id' AND remarks = 'Not Paid'
                                             ORDER BY payment.account_number ASC";
                                         $studentresult = $conn->query($studentsql);
 

@@ -70,7 +70,7 @@
             <div class="container-fluid">
                 <div class="row mb-2 align-items-center">
                     <div class="col-sm-6">
-                        <h1>Adding Students to Event</h1>
+                        <h1>Deleting Students to Event</h1>
                     </div>
                     <div class="col-sm-6 text-right">
                         <a id="addNewSubjectBtn" class="btn btn-secondary"
@@ -138,11 +138,11 @@
 
                         <div class="col-sm text-right">
                             <!-- Add All Button -->
-                            <form method="POST" action="indexes/admin-event-add-all-students-be.php">
+                            <form method="POST" action="indexes/admin-event-delete-all-students-be.php">
                                 <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
                                 <input type="hidden" name="program" value="<?php echo isset($_GET['program']) ? $_GET['program'] : 'all'; ?>">
                                 <input type="hidden" name="year_level" value="<?php echo isset($_GET['year_level']) ? $_GET['year_level'] : 'all'; ?>">
-                                <button class="btn btn-outline-success" type="submit" name="add_all">Add All</button>
+                                <button class="btn btn-outline-danger" type="submit" name="add_all">Delete All</button>
                             </form>
                         </div>
 
@@ -164,16 +164,31 @@
                 }
                 $whereClause = count($conditions) > 0 ? 'AND ' . implode(' AND ', $conditions) : '';
 
-                $studentsql = "SELECT u.account_number, u.last_name, u.first_name, u.middle_name, u.program, u.year_level
-                               FROM user u
-                               INNER JOIN enrolled e ON u.account_number = e.account_number
-                               LEFT JOIN attendance a ON u.account_number = a.account_number AND a.event_id = $event_id
-                               WHERE e.school_year = '$school_year'
-                                 AND e.semester = '$semester'
-                                 AND u.role = 'Student'
-                                 AND a.account_number IS NULL
-                                 $whereClause
-                               ORDER BY u.account_number ASC";
+                $studentsql = "
+                    SELECT 
+                        u.account_number, 
+                        u.last_name, 
+                        u.first_name, 
+                        u.middle_name, 
+                        u.program, 
+                        u.year_level
+                    FROM 
+                        attendance a
+                    JOIN 
+                        enrolled e 
+                    ON 
+                        a.account_number = e.account_number
+                    LEFT JOIN 
+                        user u
+                    ON 
+                        u.account_number = a.account_number AND a.event_id = $event_id
+                    WHERE 
+                        e.school_year = '$school_year'
+                        AND e.semester = '$semester'
+                        AND u.role = 'Student'
+                        $whereClause
+                    ORDER BY 
+                        u.account_number ASC";
                 $result = $conn->query($studentsql);
                 ?>
                 <table class="table">
@@ -204,14 +219,14 @@
                                 $current_url = $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
                                 ?>
                                     <form method="POST"
-                                          action="indexes/admin-event-add-student-be.php">
+                                          action="indexes/admin-event-delete-student-be.php">
                                         <input type="hidden" name="event_id"
                                                value="<?php echo $event_id; ?>">
                                         <input type="hidden" name="account_number"
                                                value="<?php echo $row['account_number']; ?>">
                                         <input type="hidden" name="previous_url" value="<?php echo htmlspecialchars($current_url, ENT_QUOTES, 'UTF-8'); ?>">       
-                                        <button class="btn btn-success" type="submit"
-                                                name="enroll_student">Add
+                                        <button class="btn btn-danger" type="submit"
+                                                name="enroll_student">Delete
                                         </button>
                                     </form>
                                 </td>
@@ -230,7 +245,6 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <?php include 'layout/fixed-footer.php'; ?>
 </div>
 <!-- ./wrapper -->
 

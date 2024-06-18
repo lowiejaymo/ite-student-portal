@@ -9,8 +9,9 @@ include "db_conn.php";
             $previous_url = $_POST['previous_url'];
 
             // Prepare and bind
-            $stmt = $conn->prepare("INSERT INTO payment (payment_for_id, account_number) VALUES (?, ?)");
-            $stmt->bind_param("is", $payment_for_id, $account_number);
+            $stmt = $conn->prepare("INSERT INTO payment (payment_for_id, account_number, remarks) VALUES (?, ?, ?)");
+            $remarks = 'Not Paid';
+            $stmt->bind_param("iss", $payment_for_id, $account_number, $remarks);
 
             // Execute the statement
             if ($stmt->execute()) {
@@ -20,6 +21,7 @@ include "db_conn.php";
                 header("Location: " . $previous_url);
                 exit();
             }
+
         }
     } else {
     // Redirect back to the event view page or wherever appropriate
