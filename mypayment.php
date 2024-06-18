@@ -162,11 +162,11 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
             <table class="table">
               <thead>
                 <tr>
-                  <th class="col-4">Payment Description</th>
+                  <th class="col-3">Payment Description</th>
                   <th class="col-2 text-center">Date</th>
-                  <th class="col-2 text-center">Points</th>
                   <th class="col-2 text-center">School Year</th>
                   <th class="col-2 text-center">Semester</th>
+                  <th class="col-2 text-center">Amount</th>
                   <th class="col-2 text-center">Status</th>
                 </tr>
               </thead>
@@ -225,9 +225,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
                         <?php
                         $remarks = $row['remarks'];
                         if ($remarks == 'Paid') {
-                          echo '<button type="button" class="btn btn-success btn-sm" disabled>Paid</button>';
+                          echo '<button type="button" class="btn btn-success btn-sm" >Paid</button>';
                         } elseif ($remarks == 'Not Paid') {
-                          echo '<button type="button" class="btn btn-danger btn-sm" disabled>Not Paid</button>';
+                          echo '<button type="button" class="btn btn-danger btn-sm">Not Paid</button>';
                         }
                         ?>
                       </td>

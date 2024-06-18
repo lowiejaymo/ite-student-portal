@@ -162,7 +162,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
             <table class="table">
               <thead>
                 <tr>
-                  <th class="col-4">Event Name</th>
+                  <th class="col-3">Event Name</th>
                   <th class="col-2 text-center">Date</th>
                   <th class="col-2 text-center">School Year</th>
                   <th class="col-2 text-center">Semester</th>
@@ -225,13 +225,13 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
                         <?php
                         $remarks = $row['remarks'];
                         if ($remarks == 'Present') {
-                          echo '<button type="button" class="btn btn-success btn-sm" disabled>Present</button>';
+                          echo '<button type="button" class="btn btn-success btn-sm">Present</button>';
                         } elseif ($remarks == 'Absent') {
-                          echo '<button type="button" class="btn btn-danger btn-sm" disabled>Absent</button>';
+                          echo '<button type="button" class="btn btn-danger btn-sm">Absent</button>';
                         } elseif ($remarks == 'Pending') {
-                          echo '<button type="button" class="btn btn-secondary btn-sm" disabled>Pending</button>';
+                          echo '<button type="button" class="btn btn-secondary btn-sm">Pending</button>';
                         } elseif (in_array($remarks, ['Excused', 'Exempted', 'Working'])) {
-                          echo '<button type="button" class="btn btn-warning btn-sm" disabled>' . $remarks . '</button>';
+                          echo '<button type="button" class="btn btn-warning btn-sm">' . $remarks . '</button>';
                         }
                         ?>
                       </td>
