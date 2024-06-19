@@ -62,7 +62,7 @@
 
     <!-- Sidebar -->
     <?php include 'layout/officer-sidebar.php'; ?>
-
+ 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -133,9 +133,23 @@
                         <div class="col-sm-2">
                             <button class="btn btn-outline-secondary" type="submit" name="search">Submit
                             </button>
+                            </form>
                         </div>
+
+                        <div class="col-sm text-right">
+                            <!-- Add All Button -->
+                            <form method="POST" action="indexes/officer-event-add-all-students-be.php">
+                                <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
+                                <input type="hidden" name="program" value="<?php echo isset($_GET['program']) ? $_GET['program'] : 'all'; ?>">
+                                <input type="hidden" name="year_level" value="<?php echo isset($_GET['year_level']) ? $_GET['year_level'] : 'all'; ?>">
+                                <button class="btn btn-outline-success" type="submit" name="add_all">Add All</button>
+                            </form>
+                        </div>
+
+                        
                     </div>
-                </form>
+
+                    
 
                 <!-- Students table -->
                 <?php
@@ -216,6 +230,7 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+    <?php include 'layout/fixed-footer.php'; ?>
 </div>
 <!-- ./wrapper -->
 

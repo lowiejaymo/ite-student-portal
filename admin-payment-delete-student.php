@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Admin Event Page</title>
+    <title>ITE Student Portal | Admin Payment Page</title>
     <link rel="icon" type="image/png" href="favicon.ico"/>
 
     <!-- Google Font: Source Sans Pro -->
@@ -41,11 +41,11 @@
     }
 
     if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
-        if (isset($_GET['event_id'])) {
-            $event_id = intval($_GET['event_id']);
+        if (isset($_GET['payment_for_id'])) {
+            $payment_for_id = intval($_GET['payment_for_id']);
 
-            // Get the event details to extract the school year and semester
-            $sql = "SELECT school_year, semester FROM events WHERE event_id = $event_id";
+            // Get the payment details to extract the school year and semester
+            $sql = "SELECT school_year, semester FROM payment_for WHERE payment_for_id = $payment_for_id";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
@@ -70,12 +70,12 @@
             <div class="container-fluid">
                 <div class="row mb-2 align-items-center">
                     <div class="col-sm-6">
-                        <h1>Deleting Students to Event</h1>
+                        <h1>Deleting Students to Payment</h1>
                     </div>
                     <div class="col-sm-6 text-right">
                         <a id="addNewSubjectBtn" class="btn btn-secondary"
-                           href="admin-event-view.php?event_id=<?php echo $event_id; ?>"><i
-                                class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Event</a>
+                           href="admin-payment-view.php?payment_for_id=<?php echo $payment_for_id; ?>"><i
+                                class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Payment</a>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
@@ -88,7 +88,7 @@
 
                 <!-- Search Form -->
                 <form method="GET">
-                    <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
+                    <input type="hidden" name="payment_for_id" value="<?php echo $payment_for_id; ?>">
                     <div class="form-group row mb-3">
                         <div class="col-sm-3">
                             <select class="form-control" id="program" name="program">
@@ -138,8 +138,8 @@
 
                         <div class="col-sm text-right">
                             <!-- Add All Button -->
-                            <form method="POST" action="indexes/admin-event-delete-all-students-be.php">
-                                <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
+                            <form method="POST" action="indexes/admin-payment-delete-all-students-be.php">
+                                <input type="hidden" name="payment_for_id" value="<?php echo $payment_for_id; ?>">
                                 <input type="hidden" name="program" value="<?php echo isset($_GET['program']) ? $_GET['program'] : 'all'; ?>">
                                 <input type="hidden" name="year_level" value="<?php echo isset($_GET['year_level']) ? $_GET['year_level'] : 'all'; ?>">
                                 <button class="btn btn-outline-danger" type="submit" name="add_all">Delete All</button>
@@ -173,15 +173,15 @@
                         u.program, 
                         u.year_level
                     FROM 
-                        attendance a
+                        payment a
                     JOIN 
-                        enrolled e 
+                        payment_for e 
                     ON 
-                        a.account_number = e.account_number
+                        a.payment_for_id = e.payment_for_id
                     LEFT JOIN 
                         user u
                     ON 
-                        u.account_number = a.account_number AND a.event_id = $event_id
+                        u.account_number = a.account_number AND a.payment_for_id = $payment_for_id
                     WHERE 
                         e.school_year = '$school_year'
                         AND e.semester = '$semester'
@@ -219,9 +219,9 @@
                                 $current_url = $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
                                 ?>
                                     <form method="POST"
-                                          action="indexes/admin-event-delete-student-be.php">
-                                        <input type="hidden" name="event_id"
-                                               value="<?php echo $event_id; ?>">
+                                          action="indexes/admin-payment-delete-student-be.php">
+                                        <input type="hidden" name="payment_for_id"
+                                               value="<?php echo $payment_for_id; ?>">
                                         <input type="hidden" name="account_number"
                                                value="<?php echo $row['account_number']; ?>">
                                         <input type="hidden" name="previous_url" value="<?php echo htmlspecialchars($current_url, ENT_QUOTES, 'UTF-8'); ?>">       
@@ -244,7 +244,7 @@
         </section>
         <!-- /.content -->
     </div>
-    <?php include 'layout/fixed-footer.php'; ?>
+    <!-- /.content-wrapper -->
 </div>
 <!-- ./wrapper -->
 

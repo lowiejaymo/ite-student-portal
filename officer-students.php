@@ -1,4 +1,4 @@
-<!-- officer-student.php and to show the list of students enrolled in officer form.
+<!-- officer-student.php and to show the list of students enrolled in admin form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
@@ -6,11 +6,10 @@ Authors:
 Last Modified: May 28, 2024
 Brief overview of the file's contents. -->
 
-
 <?php
 session_start();
 include "indexes/db_conn.php";
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Officer'
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Admin'
   ?>
 
   <!DOCTYPE html>
@@ -19,7 +18,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Officer Student Page</title>
+    <title>ITE Student Portal | Admin Student Page</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -58,12 +57,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
         <!-- Content Header (Page header) -->
         <div class="content-header">
           <div class="container-fluid">
-          <div class="row mb-2 align-items-center">
+            <div class="row mb-2 align-items-center">
               <div class="col-sm-6">
                 <h1>Students</h1>
               </div>
               <div class="col-sm-6 text-right">
-                <a id="addNewOfficerBtn" class="btn btn-success" href="officer-student-addnew.php"><i
+                <a id="addNewStudentBtn" class="btn btn-success" href="officer-student-addnew.php"><i
                     class="nav-icon fas fa-solid fa-plus"></i> Add Student</a>
               </div>
             </div>
@@ -75,29 +74,23 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
         <section class="content">
           <div class="container-fluid">
 
-                    <?php if (isset($_GET['newStudentSuccess'])) { ?>
-                      <div class="alert alert-success">
-                        <?php echo $_GET['newStudentSuccess']; ?>
-                      </div>
-                    <?php } ?>
+            <?php if (isset($_GET['newStudentSuccess'])) { ?>
+              <div class="alert alert-success">
+                <?php echo $_GET['newStudentSuccess']; ?>
+              </div>
+            <?php } ?>
 
-                    <?php if (isset($_GET['editStudentSuccess'])) { ?>
-                      <div class="alert alert-success">
-                        <?php echo $_GET['editStudentSuccess']; ?>
-                      </div>
-                    <?php } ?>
+            <?php if (isset($_GET['deleteStudentSuccess'])) { ?>
+              <div class="alert alert-success">
+                <?php echo $_GET['deleteStudentSuccess']; ?>
+              </div>
+            <?php } ?>
 
-                    <?php if (isset($_GET['deleteStudentSuccess'])) { ?>
-                      <div class="alert alert-success">
-                        <?php echo $_GET['deleteStudentSuccess']; ?>
-                      </div>
-                    <?php } ?>
-
-                    <?php if (isset($_GET['deleteStudentError'])) { ?>
-                      <div class="alert alert-danger">
-                        <?php echo $_GET['deleteStudentError']; ?>
-                      </div>
-                    <?php } ?>
+            <?php if (isset($_GET['deleteStudentError'])) { ?>
+              <div class="alert alert-danger">
+                <?php echo $_GET['deleteStudentError']; ?>
+              </div>
+            <?php } ?>
 
             <!-- Search Form -->
             <form method="GET">
@@ -142,6 +135,37 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                 </div>
               </div>
             </form>
+
+            <?php
+            include "indexes/db_conn.php";
+            $query = "SELECT * FROM semester";
+            $result = mysqli_query($conn, $query);
+            $semesters = [];
+            $defaultSemester = '';
+
+            if ($result && mysqli_num_rows($result) > 0) {
+              while ($row = mysqli_fetch_assoc($result)) {
+                $semesters[] = $row;
+                if ($row['dfault'] == 1) {
+                  $defaultSemester = $row['semester'];
+                }
+              }
+            }
+
+            $schoolYearQuery = "SELECT * FROM school_year";
+            $result = mysqli_query($conn, $schoolYearQuery);
+            $schoolYears = [];
+            $defaultYear = '';
+
+            if ($result && mysqli_num_rows($result) > 0) {
+              while ($row = mysqli_fetch_assoc($result)) {
+                $schoolYears[] = $row;
+                if ($row['dfault'] == 1) {
+                  $defaultYear = $row['school_year'];
+                }
+              }
+            }
+            ?>
 
             <!-- subjects table -->
             <table class="table">
@@ -212,9 +236,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                         <?php echo $row['year_level']; ?>
                       </td>
                       <td class="align-middle text-center">
-                        <a href='officer-student-view.php?account_number=<?php echo $row['account_number']; ?>'
+                        <a href='officer-student-view.php?account_number=<?php echo $row['account_number']; ?>&school_year=<?php echo $defaultYear; ?>&semester=<?php echo $defaultSemester; ?>'
                           class='btn btn-success btn-sm'><i class="nav-icon fas fa-solid fa-hand-pointer"></i> Select</a>
-                        <a href='officer-student-delete.php?account_number=<?php echo $row['account_number']; ?>'
+                        <a href='officer-students-delete.php?account_number=<?php echo $row['account_number']; ?>'
                           class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
                       </td>
                     </tr>

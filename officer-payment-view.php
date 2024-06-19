@@ -10,7 +10,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>ITE Student Portal | Officer Event Page</title>
+        <title>ITE Student Portal | Officer Payment Page</title>
         <link rel="icon" type="image/png" href="favicon.ico" />
 
         <!-- Google Font: Source Sans Pro -->
@@ -52,7 +52,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                     <div class="container-fluid">
                         <div class="row mb-2 align-items-center">
                             <div class="col-sm-6">
-                                <h1>Event</h1>
+                                <h1>Payment</h1>
                             </div>
                             <div class="col-sm-6 text-right">
                                 <a id="addNewSubjectBtn" class="btn btn-secondary" href="officer-payment.php"><i
@@ -127,6 +127,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                 <a href="officer-payment-edit.php?payment_for_id=<?php echo $row['payment_for_id']; ?>"
                                                     class="btn btn-secondary btn-sm d-block mb-2"><i
                                                         class="nav-icon fas fa-regular fa-pen-to-square"></i> Edit Payment</a>
+                                                <a href="officer-payment-delete-student.php?payment_for_id=<?php echo $row['payment_for_id']; ?>"
+                                                    class="btn btn-danger btn-sm d-block mb-2"><i
+                                                        class="nav-icon fas fa-solid fa-minus"></i> Delete Student</a>
                                             </div>
                                             <?php
                                                     } else {
@@ -142,7 +145,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                         <div class="card card-primary card-outline bg-white mt-4">
                             <div class="card-header p-2">
                                 <ul class="nav nav-pills">
-                                    <li class="nav-item"><a class="nav-link active" href="#all" data-toggle="tab">All</a></li>
+                                    <li class="nav-item"><a class="nav-link active" href="#all" data-toggle="tab">All</a>
+                                    </li>
                                     <li class="nav-item"><a class="nav-link" href="#paid" data-toggle="tab">Paid</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#notpaid" data-toggle="tab">Not Paid</a>
                                     </li>
@@ -181,17 +185,23 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                             </td>
                                                             <td class="align-middle"><?php echo $studentrow['username']; ?></td>
                                                             <td class="align-middle text-center">
-                                                                <?php echo $studentrow['last_name']; ?></td>
+                                                                <?php echo $studentrow['last_name']; ?>
+                                                            </td>
                                                             <td class="align-middle text-center">
-                                                                <?php echo $studentrow['first_name']; ?></td>
+                                                                <?php echo $studentrow['first_name']; ?>
+                                                            </td>
                                                             <td class="align-middle text-center">
-                                                                <?php echo $studentrow['middle_name']; ?></td>
+                                                                <?php echo $studentrow['middle_name']; ?>
+                                                            </td>
                                                             <td class="align-middle text-center">
-                                                                <?php echo $studentrow['program']; ?></td>
+                                                                <?php echo $studentrow['program']; ?>
+                                                            </td>
                                                             <td class="align-middle text-center">
-                                                                <?php echo $studentrow['year_level']; ?></td>
+                                                                <?php echo $studentrow['year_level']; ?>
+                                                            </td>
                                                             <td class="align-middle text-center">
-                                                                <?php echo $studentrow['remarks']; ?></td>
+                                                                <?php echo $studentrow['remarks']; ?>
+                                                            </td>
                                                         </tr>
                                                     <?php } ?>
                                                 </tbody>
@@ -202,6 +212,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                     </div>
 
 
+
                                     <!-- Present Students Tab -->
                                     <div class="tab-pane" id="paid">
                                         <?php
@@ -209,7 +220,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                         $studentsql = "SELECT user.account_number, user.username, user.first_name, user.last_name, user.middle_name, user.program, user.year_level, payment.remarks 
                                             FROM payment 
                                             JOIN user ON payment.account_number = user.account_number 
-                                            WHERE payment.payment_for_id = '$payment_for_id' AND remarks = 'Present'
+                                            WHERE payment.payment_for_id = '$payment_for_id' AND remarks = 'Paid'
                                             ORDER BY payment.account_number ASC";
                                         $studentresult = $conn->query($studentsql);
 
@@ -234,17 +245,23 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                             </td>
                                                             <td class="align-middle"><?php echo $studentrow['username']; ?></td>
                                                             <td class="align-middle text-center">
-                                                                <?php echo $studentrow['last_name']; ?></td>
+                                                                <?php echo $studentrow['last_name']; ?>
+                                                            </td>
                                                             <td class="align-middle text-center">
-                                                                <?php echo $studentrow['first_name']; ?></td>
+                                                                <?php echo $studentrow['first_name']; ?>
+                                                            </td>
                                                             <td class="align-middle text-center">
-                                                                <?php echo $studentrow['middle_name']; ?></td>
+                                                                <?php echo $studentrow['middle_name']; ?>
+                                                            </td>
                                                             <td class="align-middle text-center">
-                                                                <?php echo $studentrow['program']; ?></td>
+                                                                <?php echo $studentrow['program']; ?>
+                                                            </td>
                                                             <td class="align-middle text-center">
-                                                                <?php echo $studentrow['year_level']; ?></td>
+                                                                <?php echo $studentrow['year_level']; ?>
+                                                            </td>
                                                             <td class="align-middle text-center">
-                                                                <?php echo $studentrow['remarks']; ?></td>
+                                                                <?php echo $studentrow['remarks']; ?>
+                                                            </td>
                                                         </tr>
                                                     <?php } ?>
                                                 </tbody>
@@ -261,7 +278,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                         $studentsql = "SELECT user.account_number, user.username, user.first_name, user.last_name, user.middle_name, user.program, user.year_level, payment.remarks 
                                             FROM payment 
                                             JOIN user ON payment.account_number = user.account_number 
-                                            WHERE payment.payment_for_id = '$payment_for_id' AND remarks = 'Absent'
+                                            WHERE payment.payment_for_id = '$payment_for_id' AND remarks = 'Not Paid'
                                             ORDER BY payment.account_number ASC";
                                         $studentresult = $conn->query($studentsql);
 
@@ -286,17 +303,23 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                             </td>
                                                             <td class="align-middle"><?php echo $studentrow['username']; ?></td>
                                                             <td class="align-middle text-center">
-                                                                <?php echo $studentrow['last_name']; ?></td>
+                                                                <?php echo $studentrow['last_name']; ?>
+                                                            </td>
                                                             <td class="align-middle text-center">
-                                                                <?php echo $studentrow['first_name']; ?></td>
+                                                                <?php echo $studentrow['first_name']; ?>
+                                                            </td>
                                                             <td class="align-middle text-center">
-                                                                <?php echo $studentrow['middle_name']; ?></td>
+                                                                <?php echo $studentrow['middle_name']; ?>
+                                                            </td>
                                                             <td class="align-middle text-center">
-                                                                <?php echo $studentrow['program']; ?></td>
+                                                                <?php echo $studentrow['program']; ?>
+                                                            </td>
                                                             <td class="align-middle text-center">
-                                                                <?php echo $studentrow['year_level']; ?></td>
+                                                                <?php echo $studentrow['year_level']; ?>
+                                                            </td>
                                                             <td class="align-middle text-center">
-                                                                <?php echo $studentrow['remarks']; ?></td>
+                                                                <?php echo $studentrow['remarks']; ?>
+                                                            </td>
                                                         </tr>
                                                     <?php } ?>
                                                 </tbody>

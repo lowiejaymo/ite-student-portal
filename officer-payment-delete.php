@@ -11,7 +11,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>ITE Student Portal | Officer Payments Page</title>
+        <title>ITE Student Portal | Officer Event Page</title>
         <link rel="icon" type="image/png" href="favicon.ico" />
 
         <!-- Google Font: Source Sans Pro -->
@@ -56,7 +56,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                             </div>
 
                             <div class="col-sm-6 text-right">
-                                <a id="addNewPaymentBtn" class="btn btn-secondary" href="admin-payment.php"><i
+                                <a id="addNewPaymentBtn" class="btn btn-secondary" href="officer-payment.php"><i
                                         class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Payment</a>
                             </div>
                         </div>

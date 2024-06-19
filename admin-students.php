@@ -57,7 +57,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
         <!-- Content Header (Page header) -->
         <div class="content-header">
           <div class="container-fluid">
-          <div class="row mb-2 align-items-center">
+            <div class="row mb-2 align-items-center">
               <div class="col-sm-6">
                 <h1>Students</h1>
               </div>
@@ -74,23 +74,23 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
         <section class="content">
           <div class="container-fluid">
 
-                    <?php if (isset($_GET['newStudentSuccess'])) { ?>
-                      <div class="alert alert-success">
-                        <?php echo $_GET['newStudentSuccess']; ?>
-                      </div>
-                    <?php } ?>
+            <?php if (isset($_GET['newStudentSuccess'])) { ?>
+              <div class="alert alert-success">
+                <?php echo $_GET['newStudentSuccess']; ?>
+              </div>
+            <?php } ?>
 
-                    <?php if (isset($_GET['deleteStudentSuccess'])) { ?>
-                      <div class="alert alert-success">
-                        <?php echo $_GET['deleteStudentSuccess']; ?>
-                      </div>
-                    <?php } ?>
+            <?php if (isset($_GET['deleteStudentSuccess'])) { ?>
+              <div class="alert alert-success">
+                <?php echo $_GET['deleteStudentSuccess']; ?>
+              </div>
+            <?php } ?>
 
-                    <?php if (isset($_GET['deleteStudentError'])) { ?>
-                      <div class="alert alert-danger">
-                        <?php echo $_GET['deleteStudentError']; ?>
-                      </div>
-                    <?php } ?>
+            <?php if (isset($_GET['deleteStudentError'])) { ?>
+              <div class="alert alert-danger">
+                <?php echo $_GET['deleteStudentError']; ?>
+              </div>
+            <?php } ?>
 
             <!-- Search Form -->
             <form method="GET">
@@ -135,6 +135,37 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                 </div>
               </div>
             </form>
+
+            <?php
+            include "indexes/db_conn.php";
+            $query = "SELECT * FROM semester";
+            $result = mysqli_query($conn, $query);
+            $semesters = [];
+            $defaultSemester = '';
+
+            if ($result && mysqli_num_rows($result) > 0) {
+              while ($row = mysqli_fetch_assoc($result)) {
+                $semesters[] = $row;
+                if ($row['dfault'] == 1) {
+                  $defaultSemester = $row['semester'];
+                }
+              }
+            }
+
+            $schoolYearQuery = "SELECT * FROM school_year";
+            $result = mysqli_query($conn, $schoolYearQuery);
+            $schoolYears = [];
+            $defaultYear = '';
+
+            if ($result && mysqli_num_rows($result) > 0) {
+              while ($row = mysqli_fetch_assoc($result)) {
+                $schoolYears[] = $row;
+                if ($row['dfault'] == 1) {
+                  $defaultYear = $row['school_year'];
+                }
+              }
+            }
+            ?>
 
             <!-- subjects table -->
             <table class="table">
@@ -205,7 +236,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                         <?php echo $row['year_level']; ?>
                       </td>
                       <td class="align-middle text-center">
-                        <a href='admin-student-view.php?account_number=<?php echo $row['account_number']; ?>'
+                        <a href='admin-student-view.php?account_number=<?php echo $row['account_number']; ?>&school_year=<?php echo $defaultYear; ?>&semester=<?php echo $defaultSemester; ?>'
                           class='btn btn-success btn-sm'><i class="nav-icon fas fa-solid fa-hand-pointer"></i> Select</a>
                         <a href='admin-students-delete.php?account_number=<?php echo $row['account_number']; ?>'
                           class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>

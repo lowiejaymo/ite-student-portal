@@ -44,11 +44,11 @@ function validate($data)
 }
 
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
-    if (isset($_GET['payment_for_id'])) {
-        $payment_for_id = intval($_GET['payment_for_id']);
+    if (isset($_GET['event_id'])) {
+        $event_id = intval($_GET['event_id']);
 
         // Get the event details to extract the school year and semester
-        $sql = "SELECT school_year, semester FROM payment_for WHERE payment_for_id = $payment_for_id";
+        $sql = "SELECT school_year, semester FROM events WHERE event_id = $event_id";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
@@ -74,12 +74,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
                             <div class="container-fluid">
                                 <div class="row mb-2 align-items-center">
                                     <div class="col-sm-6">
-                                        <h1>Adding Students to Payment</h1>
+                                        <h1>Deleting Students to Event</h1>
                                     </div>
                                     <div class="col-sm-6 text-right">
                                         <a id="addNewSubjectBtn" class="btn btn-secondary"
-                                            href="officer-payment-view.php?payment_for_id=<?php echo $payment_for_id; ?>"><i
-                                                class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Payment</a>
+                                            href="officer-event-view.php?event_id=<?php echo $event_id; ?>"><i
+                                                class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Event</a>
                                     </div>
                                 </div>
                             </div><!-- /.container-fluid -->
@@ -90,14 +90,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
                         <section class="content">
                             <div class="container-fluid">
 
-                                <?php if (isset($_GET['failedToAddStudent'])) { ?>
-                                    <div class="alert alert-danger">
-                                        <?php echo $_GET['failedToAddStudent']; ?>
-                                    </div>
-                                <?php } ?>
                                 <!-- Search Form -->
                                 <form method="GET">
-                                    <input type="hidden" name="payment_for_id" value="<?php echo $payment_for_id; ?>">
+                                    <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
                                     <div class="form-group row mb-3">
                                         <div class="col-sm-3">
                                             <select class="form-control" id="program" name="program">
@@ -154,18 +149,23 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
                                             </button>
                                 </form>
                             </div>
+
                             <div class="col-sm text-right">
                                 <!-- Add All Button -->
-                                <form method="POST" action="indexes/officer-payment-add-all-students-be.php">
-                                    <input type="hidden" name="payment_for_id" value="<?php echo $payment_for_id; ?>">
+                                <form method="POST" action="indexes/officer-event-delete-all-students-be.php">
+                                    <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
                                     <input type="hidden" name="program"
                                         value="<?php echo isset($_GET['program']) ? $_GET['program'] : 'all'; ?>">
                                     <input type="hidden" name="year_level"
                                         value="<?php echo isset($_GET['year_level']) ? $_GET['year_level'] : 'all'; ?>">
-                                    <button class="btn btn-outline-success" type="submit" name="add_all">Add All</button>
+                                    <button class="btn btn-outline-danger" type="submit" name="add_all">Delete All</button>
                                 </form>
                             </div>
+
+
                     </div>
+
+
 
                     <!-- Students table -->
                     <?php
@@ -180,16 +180,31 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
                     }
                     $whereClause = count($conditions) > 0 ? 'AND ' . implode(' AND ', $conditions) : '';
 
-                    $studentsql = "SELECT u.account_number, u.last_name, u.first_name, u.middle_name, u.program, u.year_level
-                               FROM user u
-                               INNER JOIN enrolled e ON u.account_number = e.account_number
-                               LEFT JOIN payment p ON u.account_number = p.account_number AND p.payment_for_id = $payment_for_id
-                               WHERE e.school_year = '$school_year'
-                                 AND e.semester = '$semester'
-                                 AND u.role = 'Student'
-                                 AND p.account_number IS NULL
-                                 $whereClause
-                               ORDER BY u.account_number ASC";
+                    $studentsql = "
+                    SELECT 
+                        u.account_number, 
+                        u.last_name, 
+                        u.first_name, 
+                        u.middle_name, 
+                        u.program, 
+                        u.year_level
+                    FROM 
+                        attendance a
+                    JOIN 
+                        enrolled e 
+                    ON 
+                        a.account_number = e.account_number
+                    LEFT JOIN 
+                        user u
+                    ON 
+                        u.account_number = a.account_number AND a.event_id = $event_id
+                    WHERE 
+                        e.school_year = '$school_year'
+                        AND e.semester = '$semester'
+                        AND u.role = 'Student'
+                        $whereClause
+                    ORDER BY 
+                        u.account_number ASC";
                     $result = $conn->query($studentsql);
                     ?>
                     <table class="table">
@@ -219,12 +234,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
                                             <?php
                                             $current_url = $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
                                             ?>
-                                            <form method="POST" action="indexes/officer-payment-add-student-be.php">
-                                                <input type="hidden" name="payment_for_id" value="<?php echo $payment_for_id; ?>">
+                                            <form method="POST" action="indexes/admin-event-delete-student-be.php">
+                                                <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
                                                 <input type="hidden" name="account_number" value="<?php echo $row['account_number']; ?>">
                                                 <input type="hidden" name="previous_url"
                                                     value="<?php echo htmlspecialchars($current_url, ENT_QUOTES, 'UTF-8'); ?>">
-                                                <button class="btn btn-success" type="submit" name="add_student">Add
+                                                <button class="btn btn-danger" type="submit" name="enroll_student">Delete
                                                 </button>
                                             </form>
                                         </td>
@@ -242,8 +257,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
                 </section>
                 <!-- /.content -->
                 </div>
-                <!-- /.content-wrapper -->
-
                 <?php include 'layout/fixed-footer.php'; ?>
                 </div>
                 <!-- ./wrapper -->
@@ -262,10 +275,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
 
             <?php
         } else {
-            echo "payment not found.";
+            echo "Event not found.";
         }
     } else {
-        echo "Payment for ID is not specified.";
+        echo "Event ID is not specified.";
     }
 } else {
     header("Location: login.php");
