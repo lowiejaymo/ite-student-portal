@@ -278,14 +278,14 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                                             data-account-number="' . $account_number . '" 
                                                                             data-payment-for-id="' . $payment_for_id . '"
                                                                             data-year-level="' . $year_level . '">Paid</button>';
-                                                            } elseif ($remarks == 'Not Paid') {
+                                                            } elseif ($remarks == 'Unpaid') {
                                                                 echo '<button type="button" class="btn btn-danger btn-sm mark-paid-btn" data-toggle="modal" data-target="#markPaidModal"
                                                                             data-student-name="' . $student_name . '" 
                                                                             data-received-by="' . $received_by . '" 
                                                                             data-program="' . $program . '" 
                                                                             data-account-number="' . $account_number . '" 
                                                                             data-payment-for-id="' . $payment_for_id . '"
-                                                                            data-year-level="' . $year_level . '">Not Paid</button>';
+                                                                            data-year-level="' . $year_level . '">Unpaid</button>';
                                                             }
                                                             ?>
                                                         </td>
@@ -449,43 +449,43 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                     var program = $(this).data('program');
                     var yearLevel = $(this).data('year-level');
                     $('#markPaidModal').find('.modal-body').html(`
-                                                Are you sure you want to mark ${studentName} as paid?
-                                                <table class="subject-info">
-                                                    <tr>
-                                                        <td class="col-md-5"><strong>Student Name:</strong></td>
-                                                        <td class="col-md-7">${studentName}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="col-md-5"><strong>Program:</strong></td>
-                                                        <td class="col-md-7">${program}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="col-md-5"><strong>Year Level:</strong></td>
-                                                        <td class="col-md-7">${yearLevel}</td>
-                                                    </tr><tr>
-                                                                <td class="col-md-5"><strong>Payment Description:</strong></td>
-                                                                <td class="col-md-7"><?php echo $row['payment_description']; ?></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="col-md-5"><strong>Amount:</strong></td>
-                                                                <td class="col-md-7"><?php echo $row['amount']; ?></td>
-                                                            </tr>
-                                                        </table>
-                                                        <form id="markPaidForm" method="POST" action="indexes/admin-payment-paid-be.php">
-                                                            <input type="hidden" name="payment_for_id" id="modalPaymentForId"
-                                                                value="${paymentforID}">
-                                                            <input type="hidden" name="account_number" id="modalAccountNumber"
-                                                                value="${accountnumber}">
-                                                            <input type="hidden" name="received_by" id="modalReceivedBy" 
-                                                                value="${receivedby}">
+                                                    Are you sure you want to mark ${studentName} as paid?
+                                                    <table class="subject-info">
+                                                        <tr>
+                                                            <td class="col-md-5"><strong>Student Name:</strong></td>
+                                                            <td class="col-md-7">${studentName}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-md-5"><strong>Program:</strong></td>
+                                                            <td class="col-md-7">${program}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-md-5"><strong>Year Level:</strong></td>
+                                                            <td class="col-md-7">${yearLevel}</td>
+                                                        </tr><tr>
+                                                                    <td class="col-md-5"><strong>Payment Description:</strong></td>
+                                                                    <td class="col-md-7"><?php echo $row['payment_description']; ?></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="col-md-5"><strong>Amount:</strong></td>
+                                                                    <td class="col-md-7"><?php echo $row['amount']; ?></td>
+                                                                </tr>
+                                                            </table>
+                                                            <form id="markPaidForm" method="POST" action="indexes/admin-payment-paid-be.php">
+                                                                <input type="hidden" name="payment_for_id" id="modalPaymentForId"
+                                                                    value="${paymentforID}">
+                                                                <input type="hidden" name="account_number" id="modalAccountNumber"
+                                                                    value="${accountnumber}">
+                                                                <input type="hidden" name="received_by" id="modalReceivedBy" 
+                                                                    value="${receivedby}">
 
-                                                            <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                                                <button type="submit" class="btn btn-primary" id="confirmMarkPaid" name="confirmMarkPaid">Yes</button>
-                                                            </div>
-                                                        </form>
-                                                </table>
-                                            `);
+                                                                <div class="modal-footer">
+                                                                    <button type="submit" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                                                    <button type="submit" class="btn btn-primary" id="confirmMarkPaid" name="confirmMarkPaid">Yes</button>
+                                                                </div>
+                                                            </form>
+                                                    </table>
+                                                `);
                 });
             });
         </script>
@@ -501,43 +501,43 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                     var program = $(this).data('program');
                     var yearLevel = $(this).data('year-level');
                     $('#markUnpaidModal').find('.modal-body').html(`
-                                                Are you sure you want to mark ${studentName} as unpaid?
-                                                <table class="subject-info">
-                                                    <tr>
-                                                        <td class="col-md-5"><strong>Student Name:</strong></td>
-                                                        <td class="col-md-7">${studentName}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="col-md-5"><strong>Program:</strong></td>
-                                                        <td class="col-md-7">${program}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="col-md-5"><strong>Year Level:</strong></td>
-                                                        <td class="col-md-7">${yearLevel}</td>
-                                                    </tr><tr>
-                                                                <td class="col-md-5"><strong>Payment Description:</strong></td>
-                                                                <td class="col-md-7"><?php echo $row['payment_description']; ?></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="col-md-5"><strong>Amount:</strong></td>
-                                                                <td class="col-md-7"><?php echo $row['amount']; ?></td>
-                                                            </tr>
-                                                        </table>
-                                                        <form id="markPaidForm" method="POST" action="indexes/admin-payment-unpaid-be.php">
-                                                            <input type="hidden" name="payment_for_id" id="modalPaymentForId"
-                                                                value="${paymentforID}">
-                                                            <input type="hidden" name="account_number" id="modalAccountNumber"
-                                                                value="${accountnumber}">
-                                                            <input type="hidden" name="received_by" id="modalReceivedBy" 
-                                                                value="${receivedby}">
+                                                    Are you sure you want to mark ${studentName} as unpaid?
+                                                    <table class="subject-info">
+                                                        <tr>
+                                                            <td class="col-md-5"><strong>Student Name:</strong></td>
+                                                            <td class="col-md-7">${studentName}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-md-5"><strong>Program:</strong></td>
+                                                            <td class="col-md-7">${program}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-md-5"><strong>Year Level:</strong></td>
+                                                            <td class="col-md-7">${yearLevel}</td>
+                                                        </tr><tr>
+                                                                    <td class="col-md-5"><strong>Payment Description:</strong></td>
+                                                                    <td class="col-md-7"><?php echo $row['payment_description']; ?></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="col-md-5"><strong>Amount:</strong></td>
+                                                                    <td class="col-md-7"><?php echo $row['amount']; ?></td>
+                                                                </tr>
+                                                            </table>
+                                                            <form id="markPaidForm" method="POST" action="indexes/admin-payment-unpaid-be.php">
+                                                                <input type="hidden" name="payment_for_id" id="modalPaymentForId"
+                                                                    value="${paymentforID}">
+                                                                <input type="hidden" name="account_number" id="modalAccountNumber"
+                                                                    value="${accountnumber}">
+                                                                <input type="hidden" name="received_by" id="modalReceivedBy" 
+                                                                    value="${receivedby}">
 
-                                                            <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                                                <button type="submit" class="btn btn-primary" id="confirmMarkPaid" name="confirmMarkUnpaid">Yes</button>
-                                                            </div>
-                                                        </form>
-                                                </table>
-                                            `);
+                                                                <div class="modal-footer">
+                                                                    <button type="submit" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                                                    <button type="submit" class="btn btn-primary" id="confirmMarkPaid" name="confirmMarkUnpaid">Yes</button>
+                                                                </div>
+                                                            </form>
+                                                    </table>
+                                                `);
                 });
             });
         </script>

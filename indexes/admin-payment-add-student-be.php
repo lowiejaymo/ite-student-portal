@@ -10,7 +10,7 @@ include "db_conn.php";
 
             // Prepare and bind
             $stmt = $conn->prepare("INSERT INTO payment (payment_for_id, account_number, remarks) VALUES (?, ?, ?)");
-            $remarks = 'Not Paid';
+            $remarks = 'Unpaid';
             $stmt->bind_param("iss", $payment_for_id, $account_number, $remarks);
 
             // Execute the statement

@@ -226,7 +226,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
                         $remarks = $row['remarks'];
                         if ($remarks == 'Paid') {
                           echo '<button type="button" class="btn btn-success btn-sm" >Paid</button>';
-                        } elseif ($remarks == 'Not Paid') {
+                        } elseif ($remarks == 'Unpaid') {
                           echo '<button type="button" class="btn btn-danger btn-sm">Not Paid</button>';
                         }
                         ?>
