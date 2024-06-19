@@ -141,213 +141,150 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                             </div>
                         </div>
 
-                        <!-- New Section for Students List -->
-                        <div class="card card-primary card-outline bg-white mt-4">
-                            <div class="card-header p-2">
-                                <ul class="nav nav-pills">
-                                    <li class="nav-item"><a class="nav-link active" href="#all" data-toggle="tab">All</a>
-                                    </li>
-                                    <li class="nav-item"><a class="nav-link" href="#paid" data-toggle="tab">Paid</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#notpaid" data-toggle="tab">Not Paid</a>
-                                    </li>
-                                </ul>
-                            </div><!-- /.card-header -->
-                            <div class="card-body">
-                                <div class="tab-content">
-                                    <div class="tab-pane active" id="all">
-                                        <?php
-                                        // Query to fetch all students for the event
-                                        $studentsql = "SELECT user.account_number, user.username, user.first_name, user.last_name, user.middle_name, user.program, user.year_level, payment.remarks 
-                                            FROM payment 
-                                            JOIN user ON payment.account_number = user.account_number 
-                                            WHERE payment.payment_for_id = '$payment_for_id'
-                                            ORDER BY payment.account_number ASC";
-                                        $studentresult = $conn->query($studentsql);
+                        <hr>
 
-                                        if ($studentresult && $studentresult->num_rows > 0) { ?>
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="col-2">Student Number</th>
-                                                        <th class="col-1">User Name</th>
-                                                        <th class="col-2 text-center">Last Name</th>
-                                                        <th class="col-2 text-center">First Name</th>
-                                                        <th class="col-2 text-center">Middle Name</th>
-                                                        <th class="col-1 text-center">Program</th>
-                                                        <th class="col-1 text-center">Year Level</th>
-                                                        <th class="col-1 text-center">Remarks</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php while ($studentrow = $studentresult->fetch_assoc()) { ?>
-                                                        <tr>
-                                                            <td class="align-middle"><?php echo $studentrow['account_number']; ?>
-                                                            </td>
-                                                            <td class="align-middle"><?php echo $studentrow['username']; ?></td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['last_name']; ?>
-                                                            </td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['first_name']; ?>
-                                                            </td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['middle_name']; ?>
-                                                            </td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['program']; ?>
-                                                            </td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['year_level']; ?>
-                                                            </td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['remarks']; ?>
-                                                            </td>
-                                                        </tr>
-                                                    <?php } ?>
-                                                </tbody>
-                                            </table>
-                                        <?php } else { ?>
-                                            <p>No students found for this payment.</p>
-                                        <?php } ?>
-                                    </div>
-
-
-
-                                    <!-- Present Students Tab -->
-                                    <div class="tab-pane" id="paid">
-                                        <?php
-                                        // Query to fetch present students for the event
-                                        $studentsql = "SELECT user.account_number, user.username, user.first_name, user.last_name, user.middle_name, user.program, user.year_level, payment.remarks 
-                                            FROM payment 
-                                            JOIN user ON payment.account_number = user.account_number 
-                                            WHERE payment.payment_for_id = '$payment_for_id' AND remarks = 'Paid'
-                                            ORDER BY payment.account_number ASC";
-                                        $studentresult = $conn->query($studentsql);
-
-                                        if ($studentresult && $studentresult->num_rows > 0) { ?>
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="col-2">Student Number</th>
-                                                        <th class="col-1">User Name</th>
-                                                        <th class="col-2 text-center">Last Name</th>
-                                                        <th class="col-2 text-center">First Name</th>
-                                                        <th class="col-2 text-center">Middle Name</th>
-                                                        <th class="col-1 text-center">Program</th>
-                                                        <th class="col-1 text-center">Year Level</th>
-                                                        <th class="col-1 text-center">Remarks</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php while ($studentrow = $studentresult->fetch_assoc()) { ?>
-                                                        <tr>
-                                                            <td class="align-middle"><?php echo $studentrow['account_number']; ?>
-                                                            </td>
-                                                            <td class="align-middle"><?php echo $studentrow['username']; ?></td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['last_name']; ?>
-                                                            </td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['first_name']; ?>
-                                                            </td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['middle_name']; ?>
-                                                            </td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['program']; ?>
-                                                            </td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['year_level']; ?>
-                                                            </td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['remarks']; ?>
-                                                            </td>
-                                                        </tr>
-                                                    <?php } ?>
-                                                </tbody>
-                                            </table>
-                                        <?php } else { ?>
-                                            <p>No <strong>PAID</strong> payment found.</p>
-                                        <?php } ?>
-                                    </div>
-
-                                    <!-- Absent Students Tab -->
-                                    <div class="tab-pane" id="notpaid">
-                                        <?php
-                                        // Query to fetch absent students for the event
-                                        $studentsql = "SELECT user.account_number, user.username, user.first_name, user.last_name, user.middle_name, user.program, user.year_level, payment.remarks 
-                                            FROM payment 
-                                            JOIN user ON payment.account_number = user.account_number 
-                                            WHERE payment.payment_for_id = '$payment_for_id' AND remarks = 'Not Paid'
-                                            ORDER BY payment.account_number ASC";
-                                        $studentresult = $conn->query($studentsql);
-
-                                        if ($studentresult && $studentresult->num_rows > 0) { ?>
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="col-2">Student Number</th>
-                                                        <th class="col-1">User Name</th>
-                                                        <th class="col-2 text-center">Last Name</th>
-                                                        <th class="col-2 text-center">First Name</th>
-                                                        <th class="col-2 text-center">Middle Name</th>
-                                                        <th class="col-1 text-center">Program</th>
-                                                        <th class="col-1 text-center">Year Level</th>
-                                                        <th class="col-1 text-center">Remarks</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php while ($studentrow = $studentresult->fetch_assoc()) { ?>
-                                                        <tr>
-                                                            <td class="align-middle"><?php echo $studentrow['account_number']; ?>
-                                                            </td>
-                                                            <td class="align-middle"><?php echo $studentrow['username']; ?></td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['last_name']; ?>
-                                                            </td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['first_name']; ?>
-                                                            </td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['middle_name']; ?>
-                                                            </td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['program']; ?>
-                                                            </td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['year_level']; ?>
-                                                            </td>
-                                                            <td class="align-middle text-center">
-                                                                <?php echo $studentrow['remarks']; ?>
-                                                            </td>
-                                                        </tr>
-                                                    <?php } ?>
-                                                </tbody>
-                                            </table>
-                                        <?php } else { ?>
-                                            <p>No <strong>NOT PAID</strong> payment found.</p>
-                                        <?php } ?>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <!-- /.card -->
-
-                    </div><!-- /.container-fluid -->
-                </section>
-                <!-- /.content -->
+                        <form method="GET">
+        <input type="hidden" name="payment_for_id" value="<?php echo isset($_GET['payment_for_id']) ? $_GET['payment_for_id'] : ''; ?>">
+        <div class="input-group mb-3">
+            <input type="text" name="search_input" class="form-control col-5" placeholder="Search...">
+            <div class="input-group-prepend col-2">
+                <select name="column" class="form-control">
+                    <option value="account_number">Student Number</option>
+                    <option value="username">User Name</option>
+                    <option value="last_name">Last Name</option>
+                    <option value="first_name">First Name</option>
+                    <option value="middle_name">Middle Name</option>
+                    <option value="year_level">Year Level</option>
+                    <option value="program">Program</option>
+                </select>
             </div>
-            <!-- /.content-wrapper -->
+            <div class="input-group-prepend col-2">
+                <select name="year_level" class="form-control">
+                    <option value="">Year Level</option>
+                    <option value="">All</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+            <div class="input-group-prepend col-2">
+                <select name="program" class="form-control">
+                    <option value="">Program</option>
+                    <option value="">All</option>
+                    <option value="BSIT">BSIT</option>
+                    <option value="BSCS">BSCS</option>
+                    <option value="BLIS">BLIS</option>
+                    <option value="ACT">ACT</option>
+                </select>
+            </div>
+            <div class="input-group-append col-1">
+                <button class="btn btn-outline-secondary" type="submit" name="search">Search</button>
+            </div>
+        </div>
+    </form>
 
-            <?php include 'layout/fixed-footer.php'; ?>
+    <?php
+    include "indexes/db_conn.php";
 
-            <!-- Control Sidebar -->
-            <aside class="control-sidebar control-sidebar-dark">
-                <!-- Control sidebar content goes here -->
-            </aside>
-            <!-- /.control-sidebar -->
+    $payment_for_id = isset($_GET['payment_for_id']) ? $_GET['payment_for_id'] : '';
+    $search_input = isset($_GET['search_input']) ? $_GET['search_input'] : '';
+    $column = isset($_GET['column']) ? $_GET['column'] : '';
+    $year_level = isset($_GET['year_level']) ? $_GET['year_level'] : '';
+    $program = isset($_GET['program']) ? $_GET['program'] : '';
+
+    // Initialize the query with table aliases to avoid ambiguity
+    $query = "SELECT user.account_number, user.username, user.first_name, user.last_name, user.middle_name, user.program, user.year_level, payment.remarks, payment.date_paid, payment.received_by 
+              FROM payment 
+              JOIN user ON payment.account_number = user.account_number 
+              WHERE payment.payment_for_id = '$payment_for_id'";
+
+    // Apply search filters
+    $filters = [];
+    if ($search_input && $column) {
+        $filters[] = "user.$column LIKE '%$search_input%'";
+    }
+    if ($year_level) {
+        $filters[] = "user.year_level = '$year_level'";
+    }
+    if ($program) {
+        $filters[] = "user.program = '$program'";
+    }
+
+    // Add filters to the query if any
+    if (!empty($filters)) {
+        $query .= " AND " . implode(" AND ", $filters);
+    }
+
+    $query .= ' ORDER BY user.account_number ASC';
+    $studentresult = $conn->query($query);
+    ?>
+
+    <!-- New Section for Students List -->
+    <div class="card card-primary card-outline bg-white mt-4">
+        <div class="card-body">
+            <div class="tab-pane active" id="all">
+                <?php if ($studentresult && $studentresult->num_rows > 0) { ?>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="col-2">Student Number</th>
+                                <th class="col-1">User Name</th>
+                                <th class="col-2 text-center">Last Name</th>
+                                <th class="col-2 text-center">First Name</th>
+                                <th class="col-1 text-center">Program</th>
+                                <th class="col-1 text-center">Year Level</th>
+                                <th class="col-1 text-center">Date Paid</th>
+                                <th class="col-1 text-center">Received By</th>
+                                <th class="col-1 text-center">Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($studentrow = $studentresult->fetch_assoc()) { ?>
+                                <tr>
+                                    <td class="align-middle"><?php echo $studentrow['account_number']; ?></td>
+                                    <td class="align-middle"><?php echo $studentrow['username']; ?></td>
+                                    <td class="align-middle text-center"><?php echo $studentrow['last_name']; ?></td>
+                                    <td class="align-middle text-center"><?php echo $studentrow['first_name']; ?></td>
+                                    <td class="align-middle text-center"><?php echo $studentrow['program']; ?></td>
+                                    <td class="align-middle text-center"><?php echo $studentrow['year_level']; ?></td>
+                                    <td class="align-middle text-center"><?php echo $studentrow['date_paid'] == '0000-00-00' ? '' : $studentrow['date_paid']; ?></td>
+                                    <td class="align-middle text-center"><?php echo $studentrow['received_by']; ?></td>
+                                    <td class="align-middle text-center">
+                                        <?php
+                                        $remarks = $studentrow['remarks'];
+                                        if ($remarks == 'Paid') {
+                                            echo '<button type="button" class="btn btn-success btn-sm">Paid</button>';
+                                        } elseif ($remarks == 'Not Paid') {
+                                            echo '<button type="button" class="btn btn-danger btn-sm">Not Paid</button>';
+                                        }
+                                        ?>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                <?php } else { ?>
+                    <p>No students found.</p>
+                <?php } ?>
+            </div>
+        </div>
+    </div><!-- /.card-body -->
+                    </div>
+
+            </div><!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <?php include 'layout/fixed-footer.php'; ?>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
         </div>
         <!-- ./wrapper -->
 
