@@ -152,6 +152,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
                 </div>
               </div>
             </form>
+
+            
             <div class="row mb-2 align-items-center">
               <div class="col-sm-6">
                 <h1>Announcements</h1>
@@ -237,7 +239,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
                   <?php
               }
             } else {
-              echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No posted announcement</strong></h2></div>";
+              echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No posted announcement or you are not enrolled to this school year and semester</strong></h2></div>";
             }
             ?>
             </div>

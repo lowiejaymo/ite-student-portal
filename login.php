@@ -5,6 +5,9 @@ Authors:
   - Brian Angelo Bognot (c09651052069@gmail.com)
 Last Modified: May 15, 2024
 Brief overview of the file's contents. -->
+<?php
+require_once 'googleconfig.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +38,7 @@ Brief overview of the file's contents. -->
         <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
             <div class="row justify-content-center">
                 <div class="col-12 col-xxl-11">
-                    <div class="card border-danger shadow-sm">
+                    <div class  ="card border-danger shadow-sm">
                         <div class="row g-0">
                             <div class="col-12 col-md-6">
                                 <img class="login-image img-fluid rounded-start w-100 h-100 object-fit-cover"
@@ -126,7 +129,7 @@ Brief overview of the file's contents. -->
                                         <div class="col-12">
                                             <p class="text-center mt-3 mb-2">Or sign in with</p>
                                             <div class="d-flex gap-3 flex-column">
-                                                <a href="#" class="btn btn-lg btn-outline-dark mt-2">
+                                                <a href="<?php echo $client->createAuthUrl(); ?>" class="btn btn-lg btn-outline-dark mt-2">
                                                     <img src="images/google_icon.png" alt="Google Icon"
                                                         class="google-icon me-2 fs-6" style="width: 1em; height: 1em;">
                                                     <span class="fs-6 mt-0">Log in with Google</span>

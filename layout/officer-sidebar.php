@@ -87,7 +87,7 @@ Brief overview of the file's contents. -->
         </li>
 
         <li class="nav-item ">
-          <a href="officer-announcement.php" class="nav-link">
+          <a href="officer-announcement.php?school_year=<?php echo $defaultYear; ?>&semester=<?php echo $defaultSemester; ?>" class="nav-link">
             <i class="nav-icon fas fa-solid fa-bullhorn"></i>
             <p>
               Announcements

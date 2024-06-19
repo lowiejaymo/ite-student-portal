@@ -48,6 +48,93 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <div class="container-fluid">
+            <!-- Search Form -->
+            <form method="GET" action="">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label for="school_year" class="col-sm-4 col-form-label">School Year</label>
+                    <div class="col-sm-8">
+                      <?php
+                      $schoolYearQuery = "SELECT * FROM school_year";
+                      $result = mysqli_query($conn, $schoolYearQuery);
+                      $schoolYears = [];
+                      $defaultYear = '';
+
+                      if ($result && mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                          $schoolYears[] = $row;
+                          if ($row['dfault'] == 1) {
+                            $defaultYear = $row['school_year'];
+                          }
+                        }
+                      }
+                      ?>
+                      <select class="form-control" id="school_year" name="school_year">
+                        <option value="All" <?php if (isset($_GET['school_year']) && $_GET['school_year'] == 'All')
+                          echo 'selected'; ?>>All</option>
+                        <?php foreach ($schoolYears as $year) { ?>
+                          <option value="<?php echo $year['school_year']; ?>" <?php
+                             if (isset($_GET['school_year']) && $_GET['school_year'] == $year['school_year']) {
+                               echo 'selected';
+                             } elseif (!isset($_GET['school_year']) && $year['dfault'] == 1) {
+                               echo 'selected';
+                             }
+                             ?>>
+                      <?php echo $year['school_year']; ?>
+                          </option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label for="semester" class="col-sm-4 col-form-label">Semester</label>
+                    <div class="col-sm-8">
+                      <?php
+                      $query = "SELECT * FROM semester";
+                      $result = mysqli_query($conn, $query);
+                      $semesters = [];
+                      $defaultSemester = '';
+
+                      if ($result && mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                          $semesters[] = $row;
+                          if ($row['dfault'] == 1) {
+                            $defaultSemester = $row['semester'];
+                          }
+                        }
+                      }
+                      ?>
+                      <select class="form-control" id="semester" name="semester">
+                        <option value="All" <?php if (!isset($_GET['semester']) || $_GET['semester'] == 'All')
+                          echo 'selected'; ?>>All</option>
+                        <?php foreach ($semesters as $semester) { ?>
+                          <option value="<?php echo $semester['semester']; ?>" <?php
+                             if (isset($_GET['semester']) && $_GET['semester'] == $semester['semester']) {
+                               echo 'selected';
+                             } elseif (!isset($_GET['semester']) && $semester['dfault'] == 1) {
+                               echo 'selected';
+                             }
+                             ?>>
+                        <?php echo $semester['semester']; ?>
+                          </option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group row">
+                    <div class="col-sm-12">
+                      <button type="submit" class="btn btn-outline-secondary">Submit</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+
             <div class="row mb-2 align-items-center">
               <div class="col-sm-6">
                 <h1>Announcements</h1>
@@ -72,7 +159,24 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
           </div>
 
           <?php
-          $sql = "SELECT * FROM announcement ORDER BY announcement_id DESC";
+          $schoolYearFilter = isset($_GET['school_year']) && $_GET['school_year'] !== 'All' ? $_GET['school_year'] : '';
+          $semesterFilter = isset($_GET['semester']) && $_GET['semester'] !== 'All' ? $_GET['semester'] : '';
+
+          $sql = "SELECT * FROM announcement";
+          $conditions = [];
+
+          if ($schoolYearFilter) {
+            $conditions[] = "school_year = '" . mysqli_real_escape_string($conn, $schoolYearFilter) . "'";
+          }
+          if ($semesterFilter) {
+            $conditions[] = "semester = '" . mysqli_real_escape_string($conn, $semesterFilter) . "'";
+          }
+
+          if (!empty($conditions)) {
+            $sql .= " WHERE " . implode(" AND ", $conditions);
+          }
+
+          $sql .= " ORDER BY announcement_id DESC";
           $result = mysqli_query($conn, $sql);
 
           if (!$result) {
@@ -88,8 +192,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
               $announcement_id = $row['announcement_id'];
               $heading = $row['heading'];
               $content = $row['content'];
-              $school_year = $row['school_year'];
-              $semester = $row['semester'];
               $posted_by = $row['account_number'];
 
               $sqlPostedBy = "SELECT position FROM user WHERE account_number = '$posted_by'";
@@ -103,7 +205,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
               $posted_on = $row['posted_on'];
               $paragraphs = explode("\n", $content);
               $formatted_date = date("F j, Y", strtotime($posted_on));
-              
+
               ?>
               <div class="container">
                 <div class="row justify-content-center">
@@ -111,18 +213,11 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                     <div class="card card-primary card-outline bg-white" for="new-subject">
                       <div class="card-header">
                         <!-- add New Subject -->
-                        
                         <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
                           <?php echo $position; ?>
                         </h3><br>
                         <p class="card-title text-center">
                           <?php echo $formatted_date; ?>
-                        </p><br>
-                        <p class="card-title text-center">
-                        S.Y. <?php echo $school_year; ?>
-                        </p> 
-                        <p class="card-title text-center">
-                          <?php echo $semester; ?>
                         </p><br>
                         <hr>
 
@@ -142,19 +237,16 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                         <div class="card-footer d-flex justify-content-end">
                           <!-- Your other content goes here -->
                           <?php if ($_SESSION['account_number'] === $posted_by) { ?>
-                          <a href='officer-announcement-delete.php?announcement_id=<?php echo $row['announcement_id']; ?>'
-                            class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
-                            <?php } ?>
+                            <a href='officer-announcement-delete.php?announcement_id=<?php echo $row['announcement_id']; ?>'
+                              class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
+                          <?php } ?>
                         </div>
-
-
                         <!-- /.card-footer -->
                       </div>
                       <!-- /.card -->
                     </div>
                   </div>
                 </div>
-
                 <?php
             }
           } else {
@@ -163,6 +255,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
           ?>
           </div>
         </section>
+
 
         <!-- /.content -->
       </div>
