@@ -217,7 +217,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                             $query .= " AND " . implode(" AND ", $filters);
                         }
 
-                        $query .= ' ORDER BY user.account_number ASC';
+                        $query .= ' ORDER BY user.program ASC, user.year_level ASC, user.last_name ASC';
                         $studentresult = $conn->query($query);
                         ?>
 

@@ -65,16 +65,15 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
             <div class="row mb-2">
               <div class="col-sm-6">
                 <h1 class="m-0">Dashboard</h1>
-              </div><!-- /.col -->
-            </div><!-- /.row -->
+              </div>
+            </div>
           </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
 
         <!-- Main content -->
-        <section class="content">
+        <!-- <section class="content">
           <div class="container-fluid">
-            <!-- Small boxes (Stat box) -->
             <div class="row">
               <?php
               $officerquery = "SELECT COUNT(*) AS count FROM user WHERE role = 'Officer'";
@@ -85,7 +84,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
               ?>
 
               <div class="col-lg-3 col-6">
-                <!-- small box -->
                 <div class="small-box bg-info">
                   <div class="inner">
                     <h1 style="font-size: 50px;"><strong><?php echo $officercount; ?></strong></h1>
@@ -108,7 +106,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
               ?>
 
               <div class="col-lg-3 col-6">
-                <!-- small box -->
                 <div class="small-box bg-success">
                   <div class="inner">
                     <h1 style="font-size: 50px;"><strong><?php echo $studentcount; ?></strong></h1>
@@ -137,14 +134,11 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                     <h5 class="card-title">Department Demographics </h5>
                   </div>
 
-                  <!-- /.card-header -->
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-8">
 
-                        <!-- /.chart-responsive -->
                       </div>
-                      <!-- /.col -->
                       <div class="col-md-12">
                         <div class="progress-group">
                           <span class="progress-text">BSIT | Bachelor of Science in Information Technology</span>
@@ -163,7 +157,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                             <div class="progress-bar bg-primary" style="width: <?php echo $BSITpercentage; ?>%"></div>
                           </div>
                         </div>
-                        <!-- /.progress-group -->
 
                         <div class="progress-group">
                           <span class="progress-text">BSCS | Bachelor of Science in Computer Science</span>
@@ -183,7 +176,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                           </div>
                         </div>
 
-                        <!-- /.progress-group -->
                         <div class="progress-group">
                           <span class="progress-text">BLIS | Bachelor of Library and Information Science</span>
                           <?php
@@ -202,7 +194,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                           </div>
                         </div>
 
-                        <!-- /.progress-group -->
                         <div class="progress-group">
                           <span class="progress-text">ACT | Associate in Computer Technology</span>
                           <?php
@@ -220,13 +211,11 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                             <div class="progress-bar bg-danger" style="width: <?php echo $ACTpercentage; ?>%"></div>
                           </div>
                         </div>
-                        <!-- /.progress-group -->
                       </div>
-                      <!-- /.col -->
                     </div>
-                    <!-- /.row -->
+                    
                   </div>
-                  <!-- ./card-body -->
+                  
                   <div class="card-footer">
                     <div class="row">
                       <?php
@@ -253,9 +242,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                           <h5 class="description-header"><?php echo $firstYearcount; ?> Students</h5>
                           <span class="description-text">1st Year</span>
                         </div>
-                        <!-- /.description-block -->
+                        
                       </div>
-                      <!-- /.col -->
+                      
                       <div class="col-sm-3 col-6">
                         <div class="description-block border-right">
                           <?php
@@ -272,9 +261,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                           <h5 class="description-header"><?php echo $secondYearcount; ?> Students</h5>
                           <span class="description-text">2nd Year</span>
                         </div>
-                        <!-- /.description-block -->
+                        
                       </div>
-                      <!-- /.col -->
+                      
                       <div class="col-sm-3 col-6">
                         <div class="description-block border-right">
                           <?php
@@ -292,9 +281,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                           <h5 class="description-header"><?php echo $thirdYearcount; ?> Students</h5>
                           <span class="description-text">3rd Year</span>
                         </div>
-                        <!-- /.description-block -->
+                        
                       </div>
-                      <!-- /.col -->
+                      
                       <div class="col-sm-3 col-6">
                         <div class="description-block ">
                           <?php
@@ -311,21 +300,17 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                           <h5 class="description-header"><?php echo $fourthYearcount; ?>  Students</h5>
                           <span class="description-text">4th Year</span>
                         </div>
-                        <!-- /.description-block -->
+                        
                       </div>
                     </div>
-                    <!-- /.row -->
+                    
                   </div>
-                  <!-- /.card-footer -->
                 </div>
-                <!-- /.card -->
               </div>
-              <!-- /.col -->
+              
             </div>
-            <!-- /.row -->
-          </div><!-- /.container-fluid -->
-        </section>
-        <!-- /.content -->
+            
+        </section> -->
       </div>
       <!-- /.content-wrapper -->
       <?php include 'layout/fixed-footer.php'; ?>

@@ -204,7 +204,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
                         AND u.role = 'Student'
                         $whereClause
                     ORDER BY 
-                        u.account_number ASC";
+                        u.program ASC, u.year_level ASC, u.last_name ASC";
                     $result = $conn->query($studentsql);
                     ?>
                     <table class="table">

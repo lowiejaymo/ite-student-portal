@@ -116,14 +116,14 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
             
               $studentsql = "SELECT u.account_number, u.last_name, u.first_name, u.middle_name, u.program, u.year_level, 
                                     e.account_number AS enrolled
-                            FROM user u 
-                            LEFT JOIN enrolled e 
-                            ON u.account_number = e.account_number 
-                            AND e.school_year = '" . htmlspecialchars($_GET['school_year']) . "' 
-                            AND e.semester = '" . htmlspecialchars($_GET['semester']) . "' 
-                            WHERE u.role = 'Student' $whereClause 
-                            AND e.account_number IS NULL
-                            ORDER BY u.account_number ASC";
+                                FROM user u 
+                                LEFT JOIN enrolled e 
+                                ON u.account_number = e.account_number 
+                                AND e.school_year = '" . htmlspecialchars($_GET['school_year']) . "' 
+                                AND e.semester = '" . htmlspecialchars($_GET['semester']) . "' 
+                                WHERE u.role = 'Student' $whereClause 
+                                AND e.account_number IS NULL
+                                ORDER BY u.program ASC, u.year_level ASC, u.last_name ASC";
               $result = $conn->query($studentsql);
             } else {
               $studentsql = "SELECT u.account_number, u.last_name, u.first_name, u.middle_name, u.program, u.year_level, 
@@ -135,7 +135,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                             AND e.semester = '" . htmlspecialchars($_GET['semester']) . "' 
                             WHERE u.role = 'Student' 
                             AND e.account_number IS NULL
-                            ORDER BY u.account_number ASC";
+                            ORDER BY u.program ASC, u.year_level ASC, u.last_name ASC";
               $result = $conn->query($studentsql);
             }            
             ?>

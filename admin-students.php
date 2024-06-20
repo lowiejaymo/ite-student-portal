@@ -202,12 +202,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                   $condition_string = implode(" AND ", $conditions);
 
                   if (!empty($condition_string)) {
-                    $studentssql = "SELECT * FROM user WHERE $condition_string AND $column LIKE '%$search_input%' AND role = 'Student'";
+                    $studentssql = "SELECT * FROM user WHERE $condition_string AND $column LIKE '%$search_input%' AND role = 'Student' ORDER BY program ASC, year_level ASC, last_name ASC";
                   } else {
-                    $studentssql = "SELECT * FROM user WHERE $column LIKE '%$search_input%' AND role = 'Student'";
+                    $studentssql = "SELECT * FROM user WHERE $column LIKE '%$search_input%' AND role = 'Student' ORDER BY program ASC, year_level ASC, last_name ASC";
                   }
                 } else {
-                  $studentssql = "SELECT * FROM user WHERE role = 'Student'";
+                  $studentssql = "SELECT * FROM user WHERE role = 'Student' ORDER BY program ASC, year_level ASC, last_name ASC";
                 }
                 $result = $conn->query($studentssql);
                 if ($result->num_rows > 0) {

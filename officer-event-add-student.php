@@ -173,7 +173,7 @@
                                  AND u.role = 'Student'
                                  AND a.account_number IS NULL
                                  $whereClause
-                               ORDER BY u.account_number ASC";
+                               ORDER BY u.program ASC, u.year_level ASC, u.last_name ASC";
                 $result = $conn->query($studentsql);
                 ?>
                 <table class="table">
