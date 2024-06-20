@@ -64,7 +64,7 @@ if (isset($_POST['add_all'])) {
             while ($row = $result->fetch_assoc()) {
                 $account_number = $row['account_number'];
                 $insertSql = "INSERT INTO payment (payment_for_id, account_number, remarks) VALUES (?, ?, ?)";
-                $remarks = 'Not Paid';
+                $remarks = 'Unpaid';
                 $stmtInsert = mysqli_prepare($conn, $insertSql);
                 mysqli_stmt_bind_param($stmtInsert, "iss", $payment_for_id, $account_number, $remarks);
                 if (!mysqli_stmt_execute($stmtInsert)) {
