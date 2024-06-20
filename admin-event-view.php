@@ -137,6 +137,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                 <a href="admin-event-present-student-bulk.php?event_id=<?php echo $row['event_id']; ?>"
                                                     class="btn btn-primary btn-sm d-block mb-2"><i
                                                         class="nav-icon fas fa-solid fa-check"></i> Mark Bulk Student</a>
+                                                <a href="admin-event-present-qrcode.php?event_id=<?php echo $row['event_id']; ?>"
+                                                    class="btn btn-warning btn-sm d-block mb-2"><i
+                                                        class="nav-icon fas fa-solid fa-qrcode"></i> Scan QR Code</a>
                                             </div>
                                             <?php
                                                     } else {
