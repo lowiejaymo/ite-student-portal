@@ -23,10 +23,10 @@ if (isset($_POST['deleteAnnouncement'])) {
     }
 
     $announcement_id = validate($_POST['announcement_id']);
-    $current_user = $_SESSION['account_number']; 
+    $current_user = $_SESSION['position']; 
 
     // Check if the user is the owner of the announcement or if they are an admin
-    $check_owner_query = "SELECT account_number FROM announcement WHERE announcement_id = ?";
+    $check_owner_query = "SELECT position FROM announcement WHERE announcement_id = ?";
     $check_owner_stmt = mysqli_prepare($conn, $check_owner_query);
     mysqli_stmt_bind_param($check_owner_stmt, "i", $announcement_id);
     mysqli_stmt_execute($check_owner_stmt);

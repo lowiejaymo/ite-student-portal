@@ -91,7 +91,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                             method="post">
                                             <?php
                                             $announcement_id = $_GET['announcement_id'];
-                                            $sql = "SELECT a.*, u.position FROM announcement a JOIN user u ON a.account_number = u.account_number WHERE a.announcement_id = $announcement_id";
+                                            $sql = "SELECT a.*, u.position FROM announcement a JOIN user u ON a.position = u.position WHERE a.announcement_id = $announcement_id";
                                             $result = mysqli_query($conn, $sql);
 
                                             if (mysqli_num_rows($result) > 0) {

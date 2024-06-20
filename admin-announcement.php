@@ -202,9 +202,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
               $announcement_id = $row['announcement_id'];
               $heading = $row['heading'];
               $content = $row['content'];
-              $posted_by = $row['account_number'];
+              $posted_by = $row['position'];
 
-              $sqlPostedBy = "SELECT position FROM user WHERE account_number = '$posted_by'";
+              $sqlPostedBy = "SELECT position FROM user WHERE position = '$posted_by'";
               $resultPostedBy = mysqli_query($conn, $sqlPostedBy);
               $position = '';
               if ($resultPostedBy && mysqli_num_rows($resultPostedBy) > 0) {
@@ -222,9 +222,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                   <div class="col-md-12">
                     <div class="card card-primary card-outline bg-white" for="new-subject">
                       <div class="card-header">
-                        <!-- add New Subject -->
                         <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
-                          <?php echo $position; ?>
+                          <?php echo $posted_by; ?>
                         </h3><br>
                         <p class="card-title text-center">
                           <?php echo $formatted_date; ?>

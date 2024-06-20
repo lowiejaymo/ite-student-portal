@@ -192,9 +192,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
               $announcement_id = $row['announcement_id'];
               $heading = $row['heading'];
               $content = $row['content'];
-              $posted_by = $row['account_number'];
+              $posted_by = $row['position'];
 
-              $sqlPostedBy = "SELECT position FROM user WHERE account_number = '$posted_by'";
+              $sqlPostedBy = "SELECT position FROM user WHERE role = '$posted_by'";
               $resultPostedBy = mysqli_query($conn, $sqlPostedBy);
               $position = '';
               if ($resultPostedBy && mysqli_num_rows($resultPostedBy) > 0) {
@@ -214,7 +214,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                       <div class="card-header">
                         <!-- add New Subject -->
                         <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
-                          <?php echo $position; ?>
+                          <?php echo $posted_by; ?>
                         </h3><br>
                         <p class="card-title text-center">
                           <?php echo $formatted_date; ?>
@@ -236,7 +236,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                         <!-- /.card-header -->
                         <div class="card-footer d-flex justify-content-end">
                           <!-- Your other content goes here -->
-                          <?php if ($_SESSION['account_number'] === $posted_by) { ?>
+                          <?php if ($_SESSION['position'] === $posted_by) { ?>
                             <a href='officer-announcement-delete.php?announcement_id=<?php echo $row['announcement_id']; ?>'
                               class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
                           <?php } ?>

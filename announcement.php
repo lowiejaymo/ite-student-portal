@@ -185,9 +185,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
                 $announcement_id = $row['announcement_id'];
                 $heading = $row['heading'];
                 $content = $row['content'];
-                $posted_by = $row['account_number'];
+                $posted_by = $row['position'];
 
-                $sqlPostedBy = "SELECT position FROM user WHERE account_number = '$posted_by'";
+                $sqlPostedBy = "SELECT position FROM user WHERE position = '$posted_by'";
                 $resultPostedBy = mysqli_query($conn, $sqlPostedBy);
                 $position = '';
                 if ($resultPostedBy && mysqli_num_rows($resultPostedBy) > 0) {

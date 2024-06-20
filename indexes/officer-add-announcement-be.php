@@ -30,7 +30,7 @@ if (isset($_POST['addAnnouncement'])) {
     $semester = validate($_POST['semester']);
 
     // Get the user role from the session
-    $postedBy = $_SESSION['account_number'] ;
+    $postedBy = $_SESSION['position'] ;
 
     // Set the default timezone and the current date and time
     date_default_timezone_set('Asia/Manila');
@@ -63,7 +63,7 @@ if (isset($_POST['addAnnouncement'])) {
         exit();
     } else {
         // Insert new announcement
-        $sql_newAnnouncement_query = "INSERT INTO announcement(heading, content, account_number, posted_on, school_year, semester)
+        $sql_newAnnouncement_query = "INSERT INTO announcement(heading, content, position, posted_on, school_year, semester)
         VALUES(?, ?, ?, ?, ?, ?)";
         $stmt_newoAnnouncement_query = mysqli_prepare($conn, $sql_newAnnouncement_query);
         mysqli_stmt_bind_param($stmt_newoAnnouncement_query, "ssssss", $heading, $content, $postedBy, $time, $school_year, $semester);
