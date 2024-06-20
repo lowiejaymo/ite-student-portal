@@ -134,6 +134,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                 <a href="admin-event-delete-student.php?event_id=<?php echo $row['event_id']; ?>"
                                                     class="btn btn-danger btn-sm d-block mb-2"><i
                                                         class="nav-icon fas fa-solid fa-minus"></i> Delete Student</a>
+                                                <a href="admin-event-present-student-bulk.php?event_id=<?php echo $row['event_id']; ?>"
+                                                    class="btn btn-primary btn-sm d-block mb-2"><i
+                                                        class="nav-icon fas fa-solid fa-check"></i> Mark Bulk Student</a>
                                             </div>
                                             <?php
                                                     } else {

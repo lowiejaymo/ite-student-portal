@@ -134,6 +134,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                 <a href="officer-event-delete-student.php?event_id=<?php echo $row['event_id']; ?>"
                                                     class="btn btn-danger btn-sm d-block mb-2"><i
                                                         class="nav-icon fas fa-solid fa-minus"></i> Delete Student</a>
+                                                <a href="officer-event-present-student-bulk.php?event_id=<?php echo $row['event_id']; ?>"
+                                                    class="btn btn-primary btn-sm d-block mb-2"><i
+                                                        class="nav-icon fas fa-solid fa-check"></i> Mark Bulk Student</a>
                                             </div>
                                             <?php
                                                     } else {
