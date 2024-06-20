@@ -78,7 +78,7 @@ Brief overview of the file's contents. -->
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
         <li class="nav-item">
-          <a href="officer-dashboard.php" class="nav-link">
+          <a href="officer-dashboard.php?school_year=<?php echo $defaultYear; ?>&semester=<?php echo $defaultSemester; ?>" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Dashboard

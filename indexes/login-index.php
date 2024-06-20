@@ -42,6 +42,35 @@ if (isset($_POST['login'])) {
         exit();
     } else {
 
+        $query = "SELECT * FROM semester";
+        $result = mysqli_query($conn, $query);
+        $semesters = [];
+        $defaultSemester = '';
+      
+        if ($result && mysqli_num_rows($result) > 0) {
+          while ($row = mysqli_fetch_assoc($result)) {
+            $semesters[] = $row;
+            if ($row['dfault'] == 1) {
+              $defaultSemester = $row['semester'];
+            }
+          }
+        }
+      
+        $schoolYearQuery = "SELECT * FROM school_year";
+        $result = mysqli_query($conn, $schoolYearQuery);
+        $schoolYears = [];
+        $defaultYear = '';
+      
+        if ($result && mysqli_num_rows($result) > 0) {
+          while ($row = mysqli_fetch_assoc($result)) {
+            $schoolYears[] = $row;
+            if ($row['dfault'] == 1) {
+              $defaultYear = $row['school_year'];
+            }
+          }
+        }
+        
+
         // Select account based on account number and role
         $sql = "SELECT * FROM user WHERE account_number=? AND role=?";
         $stmt = mysqli_prepare($conn, $sql);
@@ -83,13 +112,13 @@ if (isset($_POST['login'])) {
 
                 // Redirect based on user role
                 if ($role == "Admin") {
-                    header("Location: ../admin-dashboard.php");
+                    header("Location: ../admin-dashboard.php?school_year=$defaultYear&semester=$defaultSemester");
                     exit;
                 } elseif ($role == "Officer") {
-                    header("Location: ../officer-dashboard.php");
+                    header("Location: ../officer-dashboard.php?school_year=$defaultYear&semester=$defaultSemester");
                     exit;
                 } elseif ($role == "Student") {
-                    header("Location: ../dashboard.php");
+                    header("Location: ../dashboard.php?school_year=$defaultYear&semester=$defaultSemester");
                     exit;
                 }
             } else {

@@ -1,4 +1,4 @@
- <!-- officer-dashboard.php and ---- in officer form.
+<!-- officer-dashboard.php and ---- in officer form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
@@ -46,9 +46,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
       <!-- Preloader -->
-      <div class="preloader flex-column justify-content-center align-items-center">
+      <!-- <div class="preloader flex-column justify-content-center align-items-center">
         <img class="animation__shake" src="images/ite.png" alt="AdminLTELogo" height="60" width="60">
-      </div>
+      </div> -->
 
       <!-- Navbar -->
       <?php include 'layout/topnav.php'; ?>
@@ -71,7 +71,186 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
         <!-- /.content-header -->
 
 
-        
+
+
+        <!-- Main content -->
+        <section class="content">
+
+          <div class="container-fluid">
+
+            <!-- Search Form -->
+            <form method="GET" action="">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label for="school_year" class="col-sm-4 col-form-label">School Year</label>
+                    <div class="col-sm-8">
+                      <?php
+                      $schoolYearQuery = "SELECT * FROM school_year";
+                      $result = mysqli_query($conn, $schoolYearQuery);
+                      $schoolYears = [];
+                      $defaultYear = '';
+
+                      if ($result && mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                          $schoolYears[] = $row;
+                          if ($row['dfault'] == 1) {
+                            $defaultYear = $row['school_year'];
+                          }
+                        }
+                      }
+                      ?>
+                      <select class="form-control" id="school_year" name="school_year">
+                        <option value="All" <?php if (isset($_GET['school_year']) && $_GET['school_year'] == 'All')
+                          echo 'selected'; ?>>All</option>
+                        <?php foreach ($schoolYears as $year) { ?>
+                          <option value="<?php echo $year['school_year']; ?>" <?php
+                             if (isset($_GET['school_year']) && $_GET['school_year'] == $year['school_year']) {
+                               echo 'selected';
+                             } elseif (!isset($_GET['school_year']) && $year['dfault'] == 1) {
+                               echo 'selected';
+                             }
+                             ?>>
+                            <?php echo $year['school_year']; ?>
+                          </option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label for="semester" class="col-sm-4 col-form-label">Semester</label>
+                    <div class="col-sm-8">
+                      <?php
+                      $query = "SELECT * FROM semester";
+                      $result = mysqli_query($conn, $query);
+                      $semesters = [];
+                      $defaultSemester = '';
+
+                      if ($result && mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                          $semesters[] = $row;
+                          if ($row['dfault'] == 1) {
+                            $defaultSemester = $row['semester'];
+                          }
+                        }
+                      }
+                      ?>
+                      <select class="form-control" id="semester" name="semester">
+                        <option value="" <?php if (!isset($_GET['semester']))
+                          echo 'selected'; ?>>All</option>
+                        <?php foreach ($semesters as $semester) { ?>
+                          <option value="<?php echo $semester['semester']; ?>" <?php
+                             if (isset($_GET['semester']) && $_GET['semester'] == $semester['semester']) {
+                               echo 'selected';
+                             } elseif (!isset($_GET['semester']) && $semester['dfault'] == 1) {
+                               echo 'selected';
+                             }
+                             ?>>
+                            <?php echo $semester['semester']; ?>
+                          </option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group row">
+                    <div class="col-sm-12">
+                      <button type="submit" class="btn btn-outline-secondary">Search</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+
+            <!-- For number of officers -->
+            <div class="row">
+
+
+              <!-- for number of events -->
+              <?php
+
+              $schoolYear = isset($_GET['school_year']) ? mysqli_real_escape_string($conn, $_GET['school_year']) : '';
+              $semester = isset($_GET['semester']) ? mysqli_real_escape_string($conn, $_GET['semester']) : '';
+              $account_number = $_SESSION['account_number'];
+
+              $eventsquery = "SELECT COUNT(*) AS count
+                              FROM events
+                              JOIN attendance ON events.event_id = attendance.event_id
+                              WHERE events.school_year = '$schoolYear'
+                                AND events.semester = '$semester'
+                                AND attendance.account_number = $account_number";
+              $eventsresult = mysqli_query($conn, $eventsquery);
+
+              if ($eventsresult) {
+                $eventsrow = mysqli_fetch_assoc($eventsresult);
+                $eventscount = $eventsrow['count'];
+              } else {
+                $eventscount = 0;
+              }
+              ?>
+
+              <div class="col-lg-3 col-6">
+                <div class="small-box bg-secondary">
+                  <div class="inner">
+                    <h1 style="font-size: 50px;"><strong><?php echo $eventscount; ?></strong></h1>
+                    <p>Event/s</p>
+                  </div>
+                  <div class="icon">
+                    <i class="nav-icon fas fa-solid fa-calendar-check"></i>
+                  </div>
+                  <a href="myattendance.php?school_year=<?php echo urlencode($schoolYear); ?>&semester=<?php echo urlencode($semester); ?>"
+                    class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+
+              <!-- for number of payments -->
+              <?php
+
+              $schoolYear = isset($_GET['school_year']) ? mysqli_real_escape_string($conn, $_GET['school_year']) : '';
+              $semester = isset($_GET['semester']) ? mysqli_real_escape_string($conn, $_GET['semester']) : '';
+              $account_number = $_SESSION['account_number'];
+
+              $paymentforquery = "SELECT COUNT(*) AS count
+                              FROM payment_for
+                              JOIN payment ON payment_for.payment_for_id = payment.payment_for_id
+                              WHERE payment_for.school_year = '$schoolYear'
+                                AND payment_for.semester = '$semester'
+                                AND payment.account_number = $account_number ";
+              $paymentforresult = mysqli_query($conn, $paymentforquery);
+
+              if ($paymentforresult) {
+                $paymentforrow = mysqli_fetch_assoc($paymentforresult);
+                $paymentforcount = $paymentforrow['count'];
+              } else {
+                $paymentforcount = 0;
+              }
+              ?>
+
+              <div class="col-lg-3 col-6">
+                <div class="small-box bg-warning">
+                  <div class="inner">
+                    <h1 style="font-size: 50px;"><strong><?php echo $paymentforcount; ?></strong></h1>
+                    <p>Payment/s</p>
+                  </div>
+                  <div class="icon">
+                    <i class="nav-icon fas fa-solid fa-money-bill-wave"></i>
+                  </div>
+                  <a href="mypayment.php?school_year=<?php echo urlencode($schoolYear); ?>&semester=<?php echo urlencode($semester); ?>"
+                    class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+
+
+
+
+            </div>
+
+
+        </section>
 
 
       </div>

@@ -76,7 +76,7 @@ Brief overview of the file's contents. -->
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
         <li class="nav-item ">
-          <a href="admin-dashboard.php" class="nav-link">
+          <a href="admin-dashboard.php?school_year=<?php echo $defaultYear; ?>&semester=<?php echo $defaultSemester; ?>" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Dashboard
