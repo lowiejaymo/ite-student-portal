@@ -173,8 +173,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                       <td class="align-middle">
                         <?php echo $row['payment_description']; ?>
                       </td>
-                      <td class="align-middle">
-                        <?php echo $row['amount']; ?>
+                      <td class="align-middle">₱
+                        <?php echo $row['amount']; ?> 
                       </td>
                       <td class="align-middle">
                         <?php echo $row['date']; ?>

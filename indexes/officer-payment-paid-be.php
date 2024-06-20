@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('db_conn.php');
+require ('db_conn.php');
 
 if (isset($_POST['confirmMarkPaid'])) {
     function validate($data)
@@ -14,6 +14,7 @@ if (isset($_POST['confirmMarkPaid'])) {
     $payment_for_id = validate($_POST['payment_for_id']);
     $account_number = validate($_POST['account_number']);
     $remarks = "Paid";
+    date_default_timezone_set('Asia/Manila');
     $date_paid = date('Y-m-d');
     $received_by = validate($_POST['received_by']);
 

@@ -18,6 +18,12 @@ if (isset($_POST['deletePayment'])) {
     $payment_for_id = validate($_POST['payment_for_id']);
 
     // Delete the payment
+    $delete_event_query = "DELETE FROM payment WHERE payment_for_id = ?";
+    $delete_event_stmt = mysqli_prepare($conn, $delete_event_query);
+    mysqli_stmt_bind_param($delete_event_stmt, "s", $payment_for_id);
+    mysqli_stmt_execute($delete_event_stmt);
+
+    // Delete the payment_for
     $delete_event_query = "DELETE FROM payment_for WHERE payment_for_id = ?";
     $delete_event_stmt = mysqli_prepare($conn, $delete_event_query);
     mysqli_stmt_bind_param($delete_event_stmt, "s", $payment_for_id);

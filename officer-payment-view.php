@@ -41,9 +41,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
         <div class="wrapper">
 
             <!-- Navbar -->
-            <?php include 'layout/admin-fixed-topnav.php'; ?>
+            <?php include 'layout/officer-fixed-topnav.php'; ?>
 
-            <?php include 'layout/admin-sidebar.php'; ?>
+            <?php include 'layout/officer-sidebar.php'; ?>
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
@@ -55,7 +55,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                 <h1>Payment</h1>
                             </div>
                             <div class="col-sm-6 text-right">
-                                <a id="addNewSubjectBtn" class="btn btn-secondary" href="admin-payment.php"><i
+                                <a id="addNewSubjectBtn" class="btn btn-secondary" href="officer-payment.php"><i
                                         class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Payments</a>
                             </div>
                         </div>
@@ -113,7 +113,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                             </tr>
                                                             <tr>
                                                                 <td class="col-md-3"><strong>Amount:</strong></td>
-                                                                <td class="col-md-9"><?php echo $row['amount']; ?></td>
+                                                                <td class="col-md-9">₱<?php echo $row['amount']; ?></td>
                                                             </tr>
                                                         </table>
                                                     </table>
@@ -121,13 +121,13 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                             </div>
                                             <!-- Add Student button -->
                                             <div class="col-md-auto ml-auto">
-                                                <a href="admin-payment-add-student.php?payment_for_id=<?php echo $row['payment_for_id']; ?>"
+                                                <a href="officer-payment-add-student.php?payment_for_id=<?php echo $row['payment_for_id']; ?>"
                                                     class="btn btn-success btn-sm d-block mb-2"><i
                                                         class="nav-icon fas fa-solid fa-plus"></i> Add Student</a>
-                                                <a href="admin-payment-edit.php?payment_for_id=<?php echo $row['payment_for_id']; ?>"
+                                                <a href="officer-payment-edit.php?payment_for_id=<?php echo $row['payment_for_id']; ?>"
                                                     class="btn btn-secondary btn-sm d-block mb-2"><i
                                                         class="nav-icon fas fa-regular fa-pen-to-square"></i> Edit Payment</a>
-                                                <a href="admin-payment-delete-student.php?payment_for_id=<?php echo $row['payment_for_id']; ?>"
+                                                <a href="officer-payment-delete-student.php?payment_for_id=<?php echo $row['payment_for_id']; ?>"
                                                     class="btn btn-danger btn-sm d-block mb-2"><i
                                                         class="nav-icon fas fa-solid fa-minus"></i> Delete Student</a>
                                             </div>
@@ -256,7 +256,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                             <?php echo $studentrow['year_level']; ?>
                                                         </td>
                                                         <td class="align-middle text-center">
-                                                            <?php echo $studentrow['date_paid'] == '0000-00-00' ? '' : $studentrow['date_paid']; ?>
+                                                            <?php echo $studentrow['date_paid'] == '0000-00-00' ? '' : date('F j, Y', strtotime($studentrow['date_paid']));?>
                                                         </td>
                                                         <td class="align-middle text-center">
                                                             <?php echo $studentrow['received_by']; ?>

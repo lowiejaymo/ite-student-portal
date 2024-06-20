@@ -113,7 +113,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                             </tr>
                                                             <tr>
                                                                 <td class="col-md-3"><strong>Amount:</strong></td>
-                                                                <td class="col-md-9"><?php echo $row['amount']; ?></td>
+                                                                <td class="col-md-9">₱<?php echo $row['amount']; ?></td>
                                                             </tr>
                                                         </table>
                                                     </table>
@@ -256,7 +256,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                             <?php echo $studentrow['year_level']; ?>
                                                         </td>
                                                         <td class="align-middle text-center">
-                                                            <?php echo $studentrow['date_paid'] == '0000-00-00' ? '' : $studentrow['date_paid']; ?>
+                                                            <?php echo $studentrow['date_paid'] == '0000-00-00' ? '' : date('F j, Y', strtotime($studentrow['date_paid']));?>
                                                         </td>
                                                         <td class="align-middle text-center">
                                                             <?php echo $studentrow['received_by']; ?>

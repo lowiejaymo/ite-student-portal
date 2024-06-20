@@ -173,7 +173,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                       <td class="align-middle">
                         <?php echo $row['payment_description']; ?>
                       </td>
-                      <td class="align-middle">
+                      <td class="align-middle"> ₱
                         <?php echo $row['amount']; ?>
                       </td>
                       <td class="align-middle">

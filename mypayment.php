@@ -162,12 +162,14 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
             <table class="table">
               <thead>
                 <tr>
-                  <th class="col-3">Payment Description</th>
-                  <th class="col-2 text-center">Date</th>
-                  <th class="col-2 text-center">School Year</th>
+                  <th class="col-2">Payment Description</th>
+                  <th class="col-1 text-center">Date</th>
+                  <th class="col-1 text-center">School Year</th>
                   <th class="col-2 text-center">Semester</th>
-                  <th class="col-2 text-center">Amount</th>
-                  <th class="col-2 text-center">Status</th>
+                  <th class="col-1 text-center">Amount</th>
+                  <th class="col-2 text-center">Date Paid</th>
+                  <th class="col-2 text-center">Recieved By</th>
+                  <th class="col-1 text-center">Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -191,6 +193,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
                       p.school_year, 
                       p.semester, 
                       p.amount, 
+                      a.date_paid, 
+                      a.received_by, 
                       a.remarks
                   FROM 
                       payment_for p
@@ -218,8 +222,14 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
                       <td class="align-middle text-center">
                         <?php echo $row['semester']; ?>
                       </td>
-                      <td class="align-middle text-center">
+                      <td class="align-middle text-center">₱
                         <?php echo $row['amount']; ?>
+                      </td>
+                      <td class="align-middle text-center">
+                        <?php echo $row['date_paid'] == '0000-00-00' ? '' : date('F j, Y', strtotime($row['date_paid'])); ?>
+                      </td>
+                      <td class="align-middle text-center">
+                        <?php echo $row['received_by']; ?>
                       </td>
                       <td class="align-middle text-center">
                         <?php
@@ -227,7 +237,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
                         if ($remarks == 'Paid') {
                           echo '<button type="button" class="btn btn-success btn-sm" >Paid</button>';
                         } elseif ($remarks == 'Unpaid') {
-                          echo '<button type="button" class="btn btn-danger btn-sm">Not Paid</button>';
+                          echo '<button type="button" class="btn btn-danger btn-sm">Unpaid</button>';
                         }
                         ?>
                       </td>

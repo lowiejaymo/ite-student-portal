@@ -441,12 +441,14 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                     <table class="table">
                       <thead>
                         <tr>
-                          <th class="col-3">Payment Description</th>
-                          <th class="col-2 text-center">Date</th>
-                          <th class="col-2 text-center">School Year</th>
+                          <th class="col-2">Payment Description</th>
+                          <th class="col-1 text-center">Date</th>
+                          <th class="col-1 text-center">School Year</th>
                           <th class="col-2 text-center">Semester</th>
-                          <th class="col-2 text-center">Amount</th>
-                          <th class="col-2 text-center">Status</th>
+                          <th class="col-1 text-center">Amount</th>
+                          <th class="col-2 text-center">Date Paid</th>
+                          <th class="col-2 text-center">Recieved By</th>
+                          <th class="col-1 text-center">Status</th>
                       </thead>
                       <tbody>
                         <?php
@@ -468,20 +470,22 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
 
 
                         $query = "SELECT 
-                      e.payment_description, 
-                      e.date, 
-                      e.school_year, 
-                      e.semester, 
-                      e.amount, 
-                      a.remarks
-                  FROM 
-                      payment_for e
-                  JOIN 
-                      payment a ON e.payment_for_id = a.payment_for_id
-                  WHERE 
-                      a.account_number = '$account_number' 
-                      $semester_condition 
-                      $school_year_condition";
+                                      e.payment_description, 
+                                      e.date, 
+                                      e.school_year, 
+                                      e.semester, 
+                                      e.amount, 
+                                      a.date_paid, 
+                                      a.received_by, 
+                                      a.remarks
+                                  FROM 
+                                      payment_for e
+                                  JOIN 
+                                      payment a ON e.payment_for_id = a.payment_for_id
+                                  WHERE 
+                                      a.account_number = '$account_number' 
+                                      $semester_condition 
+                                      $school_year_condition";
 
                         $result = $conn->query($query);
                         if ($result->num_rows > 0) {
@@ -500,16 +504,22 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                               <td class="align-middle text-center">
                                 <?php echo $row['semester']; ?>
                               </td>
-                              <td class="align-middle text-center">
+                              <td class="align-middle text-center"> ₱
                                 <?php echo $row['amount']; ?>
+                              </td>
+                              <td class="align-middle text-center">
+                                <?php echo $row['date_paid']; ?>
+                              </td>
+                              <td class="align-middle text-center">
+                                <?php echo $row['received_by']; ?>
                               </td>
                               <td class="align-middle text-center">
                                 <?php
                                 $remarks = $row['remarks'];
                                 if ($remarks == 'Paid') {
                                   echo '<button type="button" class="btn btn-success btn-sm">Paid</button>';
-                                } elseif ($remarks == 'Not Paid') {
-                                  echo '<button type="button" class="btn btn-danger btn-sm">Not Paid</button>';
+                                } elseif ($remarks == 'Unpaid') {
+                                  echo '<button type="button" class="btn btn-danger btn-sm">Unpaid</button>';
                                 }
                                 ?>
                               </td>
