@@ -62,8 +62,13 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                 <h1>Enrolled Student</h1>
               </div>
               <div class="col-sm-6 text-right">
-                <a id="addNewSubjectBtn" class="btn btn-secondary" href="officer-enrolled-students.php"><i
-                    class="nav-icon fas fa-solid fa-chevron-left"></i> Back to School Year and Semester</a>
+                <a id="addNewSubjectBtn" class="btn btn-secondary" href="officer-enrolled-students.php">
+                  <i class="nav-icon fas fa-solid fa-chevron-left"></i> Back to School Year and Semester
+                </a>
+                <a id="exportDataBtn" class="btn btn-primary"
+                  href="indexes/officer-ernolled-student-export.php?school_year=<?php echo $_GET['school_year']; ?>&semester=<?php echo $_GET['semester']; ?>">
+                  <i class="fas fa-file-export"></i> Export Data to Spreadsheet
+                </a>
               </div>
             </div>
           </div><!-- /.container-fluid -->

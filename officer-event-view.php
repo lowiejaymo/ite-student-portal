@@ -57,6 +57,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                             <div class="col-sm-6 text-right">
                                 <a id="addNewSubjectBtn" class="btn btn-secondary" href="officer-events.php"><i
                                         class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Events</a>
+                                <a href="indexes/officer-event-view-export.php?event_id=<?php echo $_GET['event_id']; ?>"
+                                    class="btn btn-primary">
+                                    <i class="nav-icon fas fa-file-export"></i> Export to Excel
+                                </a>
                             </div>
                         </div>
                     </div><!-- /.container-fluid -->
@@ -246,11 +250,13 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                         <td class="align-middle text-center"><?php echo $studentrow['last_name']; ?>
                                                         </td>
                                                         <td class="align-middle text-center">
-                                                            <?php echo $studentrow['first_name']; ?></td>
+                                                            <?php echo $studentrow['first_name']; ?>
+                                                        </td>
                                                         <td class="align-middle text-center"><?php echo $studentrow['program']; ?>
                                                         </td>
                                                         <td class="align-middle text-center">
-                                                            <?php echo $studentrow['year_level']; ?></td>
+                                                            <?php echo $studentrow['year_level']; ?>
+                                                        </td>
                                                         <td class="align-middle text-center">
                                                             <form method="POST" action="indexes/officer-event-checking-be.php">
                                                                 <?php
