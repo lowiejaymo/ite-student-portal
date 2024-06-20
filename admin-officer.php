@@ -66,6 +66,18 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
               </div>
             </div>
 
+            <?php if (isset($_GET['resetPasswordSuccess'])) { ?>
+              <div class="alert alert-success">
+                <?php echo $_GET['resetPasswordSuccess']; ?>
+              </div>
+            <?php } ?>
+
+            <?php if (isset($_GET['resetPasswordFailed'])) { ?>
+              <div class="alert alert-danger">
+                <?php echo $_GET['resetPasswordFailed']; ?>
+              </div>
+            <?php } ?>
+
             <?php if (isset($_GET['newOfficerSuccess'])) { ?>
               <div class="alert alert-success">
                 <?php echo $_GET['newOfficerSuccess']; ?>
@@ -114,7 +126,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                   $profile_picture = $row['profile_picture'];
                   $phone_number = $row['phone_number'];
                   ?>
-                  <div class="col-md-2">
+                  <div class="col-md-3">
                     <div class="card">
                       <br>
                       <div class="text-center"> <!-- Center the column content -->
@@ -137,6 +149,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                           <a href='admin-officer-edit.php?account_number=<?php echo $row['account_number']; ?>'
                             class='btn btn-success btn-sm mx-2'>
                             <i class="nav-icon fas fa-solid fa-user-pen"></i> Edit
+                          </a>
+                          <a href='indexes/admin-officer-reset-password.php?account_number=<?php echo $row['account_number']; ?>'
+                            class='btn btn-primary btn-sm mx-2'>
+                            <i class="nav-icon fas fa-solid fa-rotate-right"></i> Reset Password
                           </a>
                           <a href='admin-officer-delete.php?account_number=<?php echo $row['account_number']; ?>'
                             class='btn btn-danger btn-sm mx-2'>
