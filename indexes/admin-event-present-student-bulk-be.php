@@ -58,7 +58,7 @@ if (isset($_POST['save_excel_data'])) {
                 $code = validate($row[0]);
 
                 // Extract the account number from the string using regex
-                preg_match('/ - (\d{8}) - /', $code, $matches);
+                preg_match('/ - (\d{10}) - /', $code, $matches);
                 if (isset($matches[1])) {
                     $account_number = $matches[1];
 
