@@ -18,7 +18,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Admin Officer Page</title>
+    <title>Admin Offers | ITE Student Portal</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -48,12 +48,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
     <div class="wrapper">
 
       <?php include 'layout/admin-fixed-topnav.php'; ?>
-
       <?php include 'layout/admin-sidebar.php'; ?>
 
-      <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <section class="content-header">
           <div class="container-fluid">
             <div class="row mb-2 align-items-center">
@@ -109,7 +106,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
               $result = mysqli_query($conn, $sql);
 
               if (!$result) {
-                // Error handling for SQL query execution
                 echo "Error: " . mysqli_error($conn);
                 exit();
               }
@@ -129,8 +125,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                   <div class="col-md-3">
                     <div class="card">
                       <br>
-                      <div class="text-center"> <!-- Center the column content -->
-                        <!-- displaying the profile picture -->
+                      <div class="text-center"> 
                         <img class="profile-picture img-fluid"
                           style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover;"
                           src="profile-pictures/<?php echo $profile_picture; ?>?<?php echo time(); ?>"
@@ -166,30 +161,19 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                   <?php
                 }
               } else {
-                // Handle the case when no officers are found
                 echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No officers found</strong></h2></div>";
               }
               ?>
             </div>
-          </div><!-- /.container-fluid -->
+          </div>
         </section>
 
-
-
-
-
-        <!-- /.content -->
       </div>
-      <!-- /.content-wrapper -->
       <?php include 'layout/fixed-footer.php'; ?>
 
-      <!-- Control Sidebar -->
       <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
       </aside>
-      <!-- /.control-sidebar -->
     </div>
-    <!-- ./wrapper -->
 
     <!-- jQuery -->
     <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

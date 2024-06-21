@@ -1,11 +1,3 @@
-<!-- admin-officer.php and to show the list of officers in admin form.
-Authors:
-  - Lowie Jay Orillo (lowie.jaymier@gmail.com)
-  - Caryl Mae Subaldo (subaldomae29@gmail.com)
-  - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
-Brief overview of the file's contents. -->
-
 <?php
 session_start();
 include "indexes/db_conn.php";
@@ -21,8 +13,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') { // Check if t
     <title>My QR Code | ITE Student Portal</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
     <link rel="stylesheet" type="text/css" href="qr-code.css">
-
-
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -49,28 +39,27 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') { // Check if t
 
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-      <!-- Header and Sidebar included here -->
       <?php include 'layout/topnav.php'; ?>
       <?php include 'layout/sidebar.php'; ?>
-      <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <div class="content-header">
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
                 <h1 class="m-0">My QR Code / e-Attendance Card</h1>
-              </div><!-- /.col -->
-            </div><!-- /.row -->
-          </div><!-- /.container-fluid -->
-        </div><!-- /.content-header -->
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Main content -->
         <section class="content">
           <div class="container">
             <div class="row justify-content-center">
               <div class="col-md-6">
                 <div class="card-wrapper">
-                  <div class="card card-danger card-outline bg-white background-card custom-height" for="schoolyear">
+                  <div class="card card-danger card-outline bg-white background-card custom-height" id="card-content"
+                    for="schoolyear">
                     <div class="card-body">
                       <img src="qrCodeImages/<?php echo $_SESSION['code']; ?>?<?php echo time(); ?>" alt="QR Code"
                         class="qr-code">
@@ -82,10 +71,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') { // Check if t
                           <tr>
                             <th>
                               <?php
-                              $last_name = strtoupper($_SESSION['last_name']); // Convert last name to uppercase
-                              $first_name = strtoupper($_SESSION['first_name']); // Convert first name to uppercase
-                              $middle_name = strtoupper($_SESSION['middle_name']); // Convert middle name to uppercase
-                              $middle_initial = strtoupper(substr($middle_name, 0, 1)); // Get the first letter of the middle name and convert it to uppercase
+                              $last_name = strtoupper($_SESSION['last_name']);
+                              $first_name = strtoupper($_SESSION['first_name']);
+                              $middle_name = strtoupper($_SESSION['middle_name']);
+                              $middle_initial = strtoupper(substr($middle_name, 0, 1));
                               echo $last_name . ', ' . $first_name . ' ' . $middle_initial . '.';
                               ?>
                             </th>
@@ -106,20 +95,17 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') { // Check if t
                       </div>
                     </div>
                   </div>
+                  <button id="download-btn" class="btn btn-primary">Download</button>
                 </div>
               </div>
             </div>
           </div>
         </section>
       </div>
-      <!-- /.content-wrapper -->
       <?php include 'layout/fixed-footer.php'; ?>
       <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
       </aside>
-      <!-- /.control-sidebar -->
     </div>
-    <!-- ./wrapper -->
 
     <!-- jQuery -->
     <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
@@ -151,8 +137,38 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') { // Check if t
     <script src="AdminLTE-3.2.0/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- AdminLTE App -->
     <script src="AdminLTE-3.2.0/dist/js/adminlte.js"></script>
-    </head>
+    <!-- HTML2Canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
+    <?php
+    $last_name = $_SESSION['last_name'];
+    $first_name = $_SESSION['first_name'];
+    $account_number = $_SESSION['account_number'];
+    ?>
+
+    <script>
+      document.getElementById('download-btn').addEventListener('click', function () {
+        const cardContent = document.getElementById('card-content');
+        html2canvas(cardContent, {
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: null 
+        }).then(function (canvas) {
+          const link = document.createElement('a');
+          link.href = canvas.toDataURL('image/png');
+
+          const lastName = '<?php echo $last_name; ?>';
+          const firstName = '<?php echo $first_name; ?>';
+          const accountNumber = '<?php echo $account_number; ?>';
+
+          link.download = `${lastName} - ${firstName} - ${accountNumber} - QR_Code.png`;
+
+          link.click();
+        });
+      });
+    </script>
+
+  </body>
 
   </html>
   <?php

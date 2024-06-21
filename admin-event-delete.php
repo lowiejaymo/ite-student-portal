@@ -18,7 +18,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>ITE Student Portal | Admin Event Page</title>
+        <title>Admin Delete Event | ITE Student Portal </title>
         <link rel="icon" type="image/png" href="favicon.ico" />
 
         <!-- Google Font: Source Sans Pro -->
@@ -52,7 +52,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
             <?php include 'layout/admin-fixed-topnav.php'; ?>
             <?php include 'layout/admin-sidebar.php'; ?>
 
-            <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <div class="content-header">
@@ -64,9 +63,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                         </div>
                     </div>
                 </div>
-                <!-- /.content-header -->
 
-                <!-- Main content -->
                 <section class="content">
                     <div class="container">
                         <div class="row justify-content-center">
@@ -159,26 +156,20 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                     <?php
                                                 }
                                             } else {
-                                                // Handle the case when no events are found
                                                 echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No posted event</strong></h2></div>";
                                             }
                                             ?>
                                         </form>
 
                                     </div>
-                                    <!-- /.card-body -->
                                 </div>
-                                <!-- /.card -->
                             </div>
                         </div>
                     </div>
                 </section>
-                <!-- /.content -->
             </div>
-            <!-- /.content-wrapper -->
             <?php include 'layout/fixed-footer.php'; ?>
         </div>
-        <!-- ./wrapper -->
 
         <!-- jQuery -->
         <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

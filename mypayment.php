@@ -47,25 +47,20 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-      <!-- Navbar -->
       <?php include 'layout/topnav.php'; ?>
-
       <?php include 'layout/sidebar.php'; ?>
 
-      <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <div class="content-header">
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
                 <h1 class="m-0">My Payments</h1>
-              </div><!-- /.col -->
+              </div>
 
-            </div><!-- /.row -->
-          </div><!-- /.container-fluid -->
+            </div>
+          </div>
         </div>
-        <!-- /.content-header -->
 
 
         <section class="content">
@@ -158,7 +153,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
               </div>
             </form>
 
-            <!-- Events table -->
+            <!-- Payments table -->
             <table class="table">
               <thead>
                 <tr>
@@ -245,28 +240,22 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
                     <?php
                   }
                 } else {
-                  echo "<tr><td colspan='6'>No data found.</td></tr>"; // Updated colspan to 6
+                  echo "<tr><td colspan='8'>No data found.</td></tr>"; 
                 }
                 ?>
               </tbody>
             </table>
-            <!-- /.row -->
-          </div><!-- /.container-fluid -->
+          </div>
         </section>
 
 
 
       </div>
-      <!-- /.content-wrapper -->
       <?php include 'layout/fixed-footer.php'; ?>
 
-      <!-- Control Sidebar -->
       <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
       </aside>
-      <!-- /.control-sidebar -->
     </div>
-    <!-- ./wrapper -->
 
     <!-- jQuery -->
     <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

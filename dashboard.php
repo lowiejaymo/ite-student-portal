@@ -45,35 +45,28 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
 
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-      <!-- Preloader -->
-      <!-- <div class="preloader flex-column justify-content-center align-items-center">
+      <div class="preloader flex-column justify-content-center align-items-center">
         <img class="animation__shake" src="images/ite.png" alt="AdminLTELogo" height="60" width="60">
-      </div> -->
+      </div>
 
-      <!-- Navbar -->
       <?php include 'layout/topnav.php'; ?>
-
       <?php include 'layout/sidebar.php'; ?>
 
-      <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <div class="content-header">
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
                 <h1 class="m-0">Dashboard</h1>
-              </div><!-- /.col -->
+              </div>
 
-            </div><!-- /.row -->
-          </div><!-- /.container-fluid -->
+            </div>
+          </div>
         </div>
-        <!-- /.content-header -->
 
 
 
 
-        <!-- Main content -->
         <section class="content">
 
           <div class="container-fluid">
@@ -166,13 +159,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
             </form>
 
 
-            <!-- For number of officers -->
             <div class="row">
-
-
               <!-- for number of events -->
               <?php
-
               $schoolYear = isset($_GET['school_year']) ? mysqli_real_escape_string($conn, $_GET['school_year']) : '';
               $semester = isset($_GET['semester']) ? mysqli_real_escape_string($conn, $_GET['semester']) : '';
               $account_number = $_SESSION['account_number'];
@@ -254,16 +243,11 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
 
 
       </div>
-      <!-- /.content-wrapper -->
       <?php include 'layout/fixed-footer.php'; ?>
 
-      <!-- Control Sidebar -->
       <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
       </aside>
-      <!-- /.control-sidebar -->
     </div>
-    <!-- ./wrapper -->
 
     <!-- jQuery -->
     <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

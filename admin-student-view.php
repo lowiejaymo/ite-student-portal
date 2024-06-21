@@ -10,7 +10,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Admin Student Page</title>
+    <title>Admin Student View | ITE Student Portal </title>
     <link rel="icon" type="image/png" href="favicon.ico" />
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -38,11 +38,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-      <!-- Navbar -->
       <?php include 'layout/admin-fixed-topnav.php'; ?>
       <?php include 'layout/admin-sidebar.php'; ?>
 
-      <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
@@ -57,11 +55,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                 </a>
               </div>
             </div>
-          </div><!-- /.container-fluid -->
+          </div>
         </div>
-        <!-- /.content-header -->
 
-        <!-- Main content -->
         <section class="content">
           <div class="container-fluid">
             <?php if (isset($_GET['resetSuccess'])) { ?>
@@ -98,7 +94,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                     $result = $conn->query($studentsql);
 
                     if ($result && $result->num_rows > 0) {
-                      $row = $result->fetch_assoc(); // Fetching row as associative array
+                      $row = $result->fetch_assoc(); 
                       ?>
                       <!-- Image column -->
                       <div class="col-md-auto">
@@ -106,7 +102,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                           style="height: 10rem; width: 10rem; border-radius: 50%; object-fit: cover;">
                       </div>
 
-                      <!-- Subject information column -->
+                      <!-- Student information column -->
                       <div class="col-md">
                         <div class="table-responsive">
                           <table class="subject-info">
@@ -164,7 +160,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                           <i class="fa-solid fa-pen-to-square"></i> View QR Code
                         </a>
 
-                        <!-- Modal Structure -->
+                        <!-- Modal For Student QR Code -->
                         <div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog"
                           aria-labelledby="qrCodeModalLabel" aria-hidden="true">
                           <div class="modal-dialog modal-dialog-centered" role="document">
@@ -341,7 +337,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
               <div class="card-body">
                 <div class="tab-content">
 
-                  <!-- Present Students Tab -->
+                  <!-- Attendance Tab -->
                   <div class="tab-pane active" id="attendance">
                     <table class="table">
                       <thead>
@@ -427,7 +423,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                             <?php
                           }
                         } else {
-                          echo "<tr><td colspan='6'>No data found.</td></tr>"; // Updated colspan to 6
+                          echo "<tr><td colspan='6'>No data found.</td></tr>"; 
                         }
                         ?>
                       </tbody>
@@ -436,7 +432,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                     </table>
                   </div>
 
-                  <!-- Absent Students Tab -->
+                  <!-- Payment Students Tab -->
                   <div class="tab-pane" id="payment">
                     <table class="table">
                       <thead>
@@ -527,7 +523,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                             <?php
                           }
                         } else {
-                          echo "<tr><td colspan='6'>No data found.</td></tr>"; // Updated colspan to 6
+                          echo "<tr><td colspan='6'>No data found.</td></tr>"; 
                         }
                         ?>
                       </tbody>
@@ -536,18 +532,11 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                     </table>
                   </div>
         </section>
-        <!-- /.content-wrapper -->
-
-        <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
-          <!-- Control sidebar content goes here -->
         </aside>
-        <!-- /.control-sidebar -->
       </div>
       <?php include 'layout/fixed-footer.php'; ?>
-      <!-- ./wrapper -->
 
-      <!-- Include jQuery -->
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
       <!-- Script for QR Code -->
@@ -556,22 +545,18 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
           $('#viewQRCodeBtn').click(function () {
             var accountNumber = $(this).data('account-number');
 
-            // Perform AJAX request to fetch student data
             $.ajax({
               url: 'fetch_student_data.php',
               type: 'POST',
               data: { account_number: accountNumber },
               success: function (response) {
-                // Parse JSON response
                 var data = JSON.parse(response);
 
-                // Update modal content
                 $('#qrCodeImage').attr('src', 'qrCodeImages/' + data.code + '?' + new Date().getTime());
                 $('#studentName').text(data.last_name.toUpperCase() + ', ' + data.first_name.toUpperCase() + ' ' + data.middle_name.charAt(0).toUpperCase() + '.');
                 $('#studentProgram').text(data.program);
                 $('#studentNumber').text(data.account_number);
 
-                // Show the modal
                 $('#qrCodeModal').modal('show');
               },
               error: function () {

@@ -10,7 +10,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>ITE Student Portal | Admin Event Page</title>
+        <title>Admin Event View | ITE Student Portal </title>
         <link rel="icon" type="image/png" href="favicon.ico" />
 
         <!-- Google Font: Source Sans Pro -->
@@ -40,14 +40,11 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
     <body class="hold-transition sidebar-mini layout-fixed">
         <div class="wrapper">
 
-            <!-- Navbar -->
             <?php include 'layout/admin-fixed-topnav.php'; ?>
 
             <?php include 'layout/admin-sidebar.php'; ?>
 
-            <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
                 <div class="content-header">
                     <div class="container-fluid">
                         <div class="row mb-2 align-items-center">
@@ -63,11 +60,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                 </a>
                             </div>
                         </div>
-                    </div><!-- /.container-fluid -->
+                    </div>
                 </div>
-                <!-- /.content-header -->
 
-                <!-- Main content -->
                 <section class="content">
                     <div class="container-fluid">
                         <?php if (isset($_GET['updateEventSuccess'])) { ?>
@@ -79,13 +74,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                         <div class="card card-primary card-outline bg-white" for="update-profilepicture">
                             <div class="card-header">
                                 <div class="row align-items-center">
-                                    <!-- Image column -->
                                     <div class="col-md-auto">
                                         <img src="images/calendar_avatar.webp" alt="View event avatar"
                                             style="width: 150px; height: auto;">
                                     </div>
 
-                                    <!-- Subject information column -->
+                                    <!-- Event information column -->
                                     <div class="col-md">
                                         <div class="table-responsive">
                                             <table class="subject-info">
@@ -123,7 +117,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                     </table>
                                                 </div>
                                             </div>
-                                            <!-- Add Student button -->
                                             <div class="col-md-auto ml-auto">
                                                 <a href="admin-event-add-student.php?event_id=<?php echo $row['event_id']; ?>"
                                                     class="btn btn-success btn-sm d-block mb-2"><i
@@ -204,13 +197,11 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                         $year_level = isset($_GET['year_level']) ? $_GET['year_level'] : '';
                         $program = isset($_GET['program']) ? $_GET['program'] : '';
 
-                        // Initialize the query with table aliases to avoid ambiguity
                         $query = "SELECT user.account_number, user.username, user.first_name, user.last_name, user.middle_name, user.program, user.year_level, attendance.remarks
                         FROM attendance 
                         JOIN user ON attendance.account_number = user.account_number 
                         WHERE attendance.event_id = '$event_id'";
 
-                        // Apply search filters
                         $filters = [];
                         if ($search_input && $column) {
                             $filters[] = "user.$column LIKE '%$search_input%'";
@@ -222,7 +213,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                             $filters[] = "user.program = '$program'";
                         }
 
-                        // Add filters to the query if any
                         if (!empty($filters)) {
                             $query .= " AND " . implode(" AND ", $filters);
                         }
@@ -231,7 +221,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                         $studentresult = $conn->query($query);
                         ?>
 
-                        <!-- New Section for Students List -->
                         <div class="card card-primary card-outline bg-white mt-4">
                             <div class="card-body">
                                 <div class="tab-pane active" id="all">
@@ -300,23 +289,16 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                 </div>
                             </div>
                         </div>
-                        <!-- /.card -->
 
-                    </div><!-- /.container-fluid -->
+                    </div>
                 </section>
-                <!-- /.content -->
             </div>
-            <!-- /.content-wrapper -->
 
             <?php include 'layout/fixed-footer.php'; ?>
 
-            <!-- Control Sidebar -->
             <aside class="control-sidebar control-sidebar-dark">
-                <!-- Control sidebar content goes here -->
             </aside>
-            <!-- /.control-sidebar -->
         </div>
-        <!-- ./wrapper -->
 
         <!-- jQuery -->
         <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

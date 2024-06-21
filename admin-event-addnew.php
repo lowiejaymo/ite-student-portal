@@ -18,7 +18,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Admin Event Page</title>
+    <title>Admin Create New Event Page | ITE Student Portal</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -47,14 +47,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-      <!-- Navbar -->
       <?php include 'layout/admin-fixed-topnav.php'; ?>
-
       <?php include 'layout/admin-sidebar.php'; ?>
 
-      <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <div class="content-header">
           <div class="container-fluid">
             <div class="row mb-2 align-items-center">
@@ -62,20 +58,15 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                 <h1>Add New Event</h1>
               </div>
             </div>
-          </div><!-- /.container-fluid -->
-        </div><!-- /.container-fluid -->
+          </div>
+        </div>
 
-        <!-- /.content-header -->
-
-        <!-- Main content -->
-        <!-- Main content -->
         <section class="content">
           <div class="container">
             <div class="row justify-content-center">
               <div class="col-md-8">
                 <div class="card card-primary card-outline bg-white" for="new-subject">
                   <div class="card-header">
-                    <!-- add New Subject -->
                     <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
                       New Event</h3><br>
 
@@ -215,25 +206,17 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
 
                     </form>
                   </div>
-                  <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
               </div>
             </div>
           </div>
         </section>
-        <!-- /.content -->
       </div>
-      <!-- /.content-wrapper -->
       <?php include 'layout/fixed-footer.php'; ?>
 
-      <!-- Control Sidebar -->
       <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
       </aside>
-      <!-- /.control-sidebar -->
     </div>
-    <!-- ./wrapper -->
 
     <!-- jQuery -->
     <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

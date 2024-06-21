@@ -18,7 +18,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>ITE Student Portal | Admin Student Page</title>
+        <title>Admin Edit Student | ITE Student Portal </title>
         <link rel="icon" type="image/png" href="favicon.ico" />
 
         <!-- Google Font: Source Sans Pro -->
@@ -48,27 +48,20 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
     <body class="hold-transition sidebar-mini layout-fixed">
         <div class="wrapper">
 
-            <!-- Navbar -->
             <?php include 'layout/admin-fixed-topnav.php'; ?>
-
             <?php include 'layout/admin-sidebar.php'; ?>
 
-            <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
                 <div class="content-header">
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
                                 <h1 class="m-0">Editing Student</h1>
-                            </div><!-- /.col -->
-                        </div><!-- /.row -->
-                    </div><!-- /.container-fluid -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- /.content-header -->
-
-                <!-- Main content -->
-                <!-- Main content -->
+                
                 <section class="content">
                     <div class="container">
 
@@ -84,7 +77,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                 <?php } ?>
                                 <div class="card card-primary card-outline bg-white" for="new-subject">
                                     <div class="card-header">
-                                        <!-- add New Subject -->
                                         <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
                                             Editing student</h3><br>
                                         <p class="text-muted">Note: Do what makes you happy.
@@ -129,8 +121,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                     $displayedphone_number = $phone_number;
                                                     ?>
 
-                                                    <div class="text-center"> <!-- Center the column content -->
-                                                        <!-- displaying the profile picture -->
+                                                    <div class="text-center"> 
                                                         <img class="profile-picture img-fluid rounded-circle"
                                                             style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover;"
                                                             src="profile-pictures/<?php echo $profile_picture; ?>?<?php echo time(); ?>"
@@ -253,25 +244,16 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
 
                                         </form>
                                     </div>
-                                    <!-- /.card-body -->
                                 </div>
-                                <!-- /.card -->
                             </div>
                         </div>
                     </div>
                 </section>
-                <!-- /.content -->
             </div>
-            <!-- /.content-wrapper -->
             <?php include 'layout/fixed-footer.php'; ?>
-
-            <!-- Control Sidebar -->
             <aside class="control-sidebar control-sidebar-dark">
-                <!-- Control sidebar content goes here -->
             </aside>
-            <!-- /.control-sidebar -->
         </div>
-        <!-- ./wrapper -->
 
         <!-- jQuery -->
         <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

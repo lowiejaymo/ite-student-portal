@@ -18,7 +18,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>ITE Student Portal | Admin Announcement Page</title>
+        <title>Admin Announcement Page | ITE Student Portal</title>
         <link rel="icon" type="image/png" href="favicon.ico" />
 
         <!-- Google Font: Source Sans Pro -->
@@ -48,34 +48,26 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
     <body class="hold-transition sidebar-mini layout-fixed">
         <div class="wrapper">
 
-            <!-- Navbar -->
             <?php include 'layout/admin-fixed-topnav.php'; ?>
-
             <?php include 'layout/admin-sidebar.php'; ?>
 
-            <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
                 <div class="content-header">
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
                                 <h1 class="m-0">New Announcement</h1>
-                            </div><!-- /.col -->
-                        </div><!-- /.row -->
-                    </div><!-- /.container-fluid -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- /.content-header -->
 
-                <!-- Main content -->
-                <!-- Main content -->
                 <section class="content">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-md-12">
                                 <div class="card card-primary card-outline bg-white" for="new-subject">
                                     <div class="card-header">
-                                        <!-- add New Subject -->
                                         <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
                                             Announcement Form</h3><br>
                                         <p class="text-muted">Note: Please be reminded that you are not able to edit the
@@ -93,7 +85,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                         <form style="width: 100%" action="indexes/admin-add-announcement-be.php"
                                             method="post">
 
-                                            <!-- Account Number input -->
                                             <label for="Announcement Heading"
                                                 class="col-sm-4 col-form-label">Heading</label>
                                             <div class="form-group row">
@@ -109,7 +100,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                             </div>
 
 
-                                            <!-- Last Name input -->
                                             <label for="announcement content"
                                                 class="col-sm-4 col-form-label">Content</label>
                                             <div class="form-group row">
@@ -129,11 +119,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
                                                     <?php
-                                                    // Assuming you have a database connection already established
                                                     $schoolYearQuery = "SELECT * FROM school_year";
                                                     $result = mysqli_query($conn, $schoolYearQuery);
 
-                                                    // Fetch all school years
                                                     $schoolYears = [];
                                                     $defaultYear = '';
 
@@ -170,12 +158,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
                                                     <?php
-                                                    // Assuming you have a database connection already established
                                                     $query = "SELECT * FROM semester";
                                                     $result = mysqli_query($conn, $query);
 
-                                                    // Fetch all semesters
-                                                    $semesters = []; // Renamed to $semesters
+                                                    $semesters = []; 
                                                     $defaultsemester = '';
 
                                                     if ($result && mysqli_num_rows($result) > 0) {
@@ -190,7 +176,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                     
                                                     <select class="form-control" id="semester" name="semester">
                                                         <option value="" disabled <?php if (!isset($_GET['semester'])) echo 'selected'; ?>>(Required)</option>
-                                                        <?php foreach ($semesters as $semester) { ?> <!-- Changed $semester to $semesters -->
+                                                        <?php foreach ($semesters as $semester) { ?> 
                                                             <option value="<?php echo $semester['semester']; ?>" 
                                                                 <?php 
                                                                     if (isset($_GET['semester']) && $_GET['semester'] == $semester['semester']) {
@@ -214,30 +200,20 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                 <a type="button" name="cancel" class="btn btn-secondary"
                                                     href="admin-announcement.php">Cancel</a>
                                             </div>
-
                                         </form>
                                     </div>
-                                    <!-- /.card-body -->
                                 </div>
-                                <!-- /.card -->
                             </div>
                         </div>
                     </div>
                 </section>
-                <!-- /.content -->
             </div>
-            <!-- /.content-wrapper -->
             
             
             <?php include 'layout/fixed-footer.php'; ?>
-
-            <!-- Control Sidebar -->
             <aside class="control-sidebar control-sidebar-dark">
-                <!-- Control sidebar content goes here -->
             </aside>
-            <!-- /.control-sidebar -->
         </div>
-        <!-- ./wrapper -->
 
         <!-- jQuery -->
         <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

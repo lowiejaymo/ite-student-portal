@@ -10,7 +10,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Admin paymentfor Page</title>
+    <title>Admin Edit Payment | ITE Student Portal </title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -39,14 +39,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-        <!-- Navbar -->
         <?php include 'layout/admin-fixed-topnav.php'; ?>
-
         <?php include 'layout/admin-sidebar.php'; ?>
 
-        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2 align-items-center">
@@ -54,8 +50,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                             <h1>Edit Payment Information</h1>
                         </div>
                     </div>
-                </div><!-- /.container-fluid -->
-            </div><!-- /.content-header -->
+                </div>
+            </div>
 
             <!-- Main content -->
             <section class="content">
@@ -64,7 +60,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                         <div class="col-md-8">
                             <div class="card card-primary card-outline bg-white" for="new-subject">
                                 <div class="card-header">
-                                    <!-- add New Subject -->
                                     <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
                                         Edit Payment</h3><br>
                                     <hr>
@@ -74,7 +69,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                         <?php
                                         $payment_for_id = $_GET['payment_for_id'];
 
-                                        // Retrieve paymentfor details from the database
                                         $query = "SELECT * FROM payment_for WHERE payment_for_id = ?";
                                         $stmt = $conn->prepare($query);
                                         $stmt->bind_param("i", $payment_for_id);
@@ -158,25 +152,17 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
 
                                     </form>
                                 </div>
-                                <!-- /.card-body -->
                             </div>
-                            <!-- /.card -->
                         </div>
                     </div>
                 </div>
             </section>
-            <!-- /.content -->
         </div>
-        <!-- /.content-wrapper -->
         <?php include 'layout/fixed-footer.php'; ?>
 
-        <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
         </aside>
-        <!-- /.control-sidebar -->
     </div>
-    <!-- ./wrapper -->
 
     <!-- jQuery -->
     <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

@@ -19,7 +19,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Admin Home Page</title>
+    <title>Admin Dashboard | ITE Student Portal </title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -52,14 +52,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
         <img class="animation__shake" src="images/ite.png" alt="AdminLTELogo" height="60" width="60">
       </div>
 
-      <!-- Navbar -->
       <?php include 'layout/admin-fixed-topnav.php'; ?>
-
       <?php include 'layout/admin-sidebar.php'; ?>
 
-      <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <div class="content-header">
           <div class="container-fluid">
             <div class="row mb-2">
@@ -67,15 +63,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                 <h1 class="m-0">Dashboard</h1>
               </div>
             </div>
-          </div><!-- /.container-fluid -->
+          </div>
         </div>
-        <!-- /.content-header -->
 
 
 
-        <!-- Main content -->
         <section class="content">
-
           <div class="container-fluid">
 
             <!-- Search Form -->
@@ -342,7 +335,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                     <canvas id="yearLevelChart"
                       style="min-height: 250px; height: 500; max-height: 250px; max-width: 100%;"></canvas>
                   </div>
-                  <!-- /.card-body -->
                 </div>
               </div>
 
@@ -394,9 +386,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
 
     <!-- for program population -->
     <?php
-    // Assuming $conn is your mysqli connection
   
-    // Sanitize and validate input parameters
     $schoolYear = isset($_GET['school_year']) ? mysqli_real_escape_string($conn, $_GET['school_year']) : '';
     $semester = isset($_GET['semester']) ? mysqli_real_escape_string($conn, $_GET['semester']) : '';
 
@@ -472,10 +462,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
     <!-- for program population -->
     <script>
       $(function () {
-        /* ChartJS
-         * -------
-         * Here we will create a few charts using ChartJS
-         */
 
         //-------------
         //- DONUT CHART -
@@ -590,10 +576,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
     <!-- for year level population -->
     <script>
       $(function () {
-        /* ChartJS
-         * -------
-         * Here we will create a few charts using ChartJS
-         */
 
         //-------------
         //- DONUT CHART -

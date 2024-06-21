@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Admin Event Page</title>
+    <title>Admin Add Student | ITE Student Portal </title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -47,7 +47,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
     if (isset($_GET['payment_for_id'])) {
         $payment_for_id = intval($_GET['payment_for_id']);
 
-        // Get the event details to extract the school year and semester
         $sql = "SELECT school_year, semester FROM payment_for WHERE payment_for_id = $payment_for_id";
         $result = $conn->query($sql);
 
@@ -61,15 +60,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
             <body class="hold-transition sidebar-mini layout-fixed">
                 <div class="wrapper">
 
-                    <!-- Navbar -->
                     <?php include 'layout/admin-fixed-topnav.php'; ?>
-
-                    <!-- Sidebar -->
                     <?php include 'layout/admin-sidebar.php'; ?>
 
-                    <!-- Content Wrapper. Contains page content -->
                     <div class="content-wrapper">
-                        <!-- Content Header (Page header) -->
                         <div class="content-header">
                             <div class="container-fluid">
                                 <div class="row mb-2 align-items-center">
@@ -82,11 +76,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                                                 class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Payment</a>
                                     </div>
                                 </div>
-                            </div><!-- /.container-fluid -->
+                            </div>
                         </div>
-                        <!-- /.content-header -->
-
-                        <!-- Main content -->
+                        
                         <section class="content">
                             <div class="container-fluid">
 
@@ -155,7 +147,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                                 </form>
                             </div>
                             <div class="col-sm text-right">
-                                <!-- Add All Button -->
                                 <form method="POST" action="indexes/admin-payment-add-all-students-be.php">
                                     <input type="hidden" name="payment_for_id" value="<?php echo $payment_for_id; ?>">
                                     <input type="hidden" name="program"
@@ -240,13 +231,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
                     </table>
                 </div>
                 </section>
-                <!-- /.content -->
                 </div>
-                <!-- /.content-wrapper -->
 
                 <?php include 'layout/fixed-footer.php'; ?>
                 </div>
-                <!-- ./wrapper -->
 
                 <!-- jQuery -->
                 <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

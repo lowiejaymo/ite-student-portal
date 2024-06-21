@@ -18,7 +18,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Admin Announcement Page</title>
+    <title>Admin Announcement Page | ITE Student Portal </title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -48,12 +48,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
     <div class="wrapper">
 
       <?php include 'layout/admin-fixed-topnav.php'; ?>
-
       <?php include 'layout/admin-sidebar.php'; ?>
-
-      <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <section class="content-header">
           <div class="container-fluid">
 
@@ -169,7 +165,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
           </div>
 
           <?php
-          // Apply search filter to the query
           $school_year_filter = isset($_GET['school_year']) && $_GET['school_year'] != 'All' ? $_GET['school_year'] : '';
           $semester_filter = isset($_GET['semester']) && $_GET['semester'] != 'All' ? $_GET['semester'] : '';
 
@@ -190,7 +185,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
           $result = mysqli_query($conn, $sql);
 
           if (!$result) {
-            // Error handling for SQL query execution
             echo "Error: " . mysqli_error($conn);
             exit();
           }
@@ -240,15 +234,11 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                           ?>
                           </p><br>
                         </div>
-                        <!-- /.card-header -->
                         <div class="card-footer d-flex justify-content-end">
-                          <!-- Your other content goes here -->
                           <a href='admin-announcement-delete.php?announcement_id=<?php echo $row['announcement_id']; ?>'
                             class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
                         </div>
-                        <!-- /.card-footer -->
                       </div>
-                      <!-- /.card -->
                     </div>
                   </div>
                 </div>
@@ -263,18 +253,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
       </section>
 
 
-      <!-- /.content -->
     </div>
-    <!-- /.content-wrapper -->
     <?php include 'layout/fixed-footer.php'; ?>
 
-    <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
-      <!-- Control sidebar content goes here -->
     </aside>
-    <!-- /.control-sidebar -->
     </div>
-    <!-- ./wrapper -->
 
     <!-- jQuery -->
     <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

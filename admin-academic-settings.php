@@ -18,7 +18,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Admin Academic Setting Page</title>
+    <title>Admin Academic Setting Page | ITE Student Portal</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -46,21 +46,18 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
 
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-      <!-- Header and Sidebar included here -->
       <?php include 'layout/admin-fixed-topnav.php'; ?>
       <?php include 'layout/admin-sidebar.php'; ?>
-      <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <div class="content-header">
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
                 <h1 class="m-0">Academic Settings</h1>
-              </div><!-- /.col -->
-            </div><!-- /.row -->
-          </div><!-- /.container-fluid -->
-        </div><!-- /.content-header -->
+              </div>
+            </div>
+          </div>
+        </div>
         <!-- Main content -->
         <section class="content">
           <div class="container">
@@ -68,7 +65,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
               <div class="col-md-6">
                 <div class="card card-primary card-outline bg-white" for="schoolyear">
                   <div class="card-header">
-                    <!-- add New Subject -->
                     <div class="card-header d-flex justify-content-center align-items-center">
                       <h2 class="card-title" style="font-size: 2rem; font-weight: bold;">School Year</h2>
                     </div>
@@ -124,7 +120,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
               <div class="col-md-6">
                 <div class="card card-primary card-outline bg-white" for="semester">
                   <div class="card-header">
-                    <!-- add New Subject -->
                     <div class="card-header d-flex justify-content-center align-items-center">
                       <h2 class="card-title" style="font-size: 2rem; font-weight: bold;">Semester</h2>
                     </div>
@@ -170,23 +165,16 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                       </tbody>
                     </table>
                   </div>
-                  <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
               </div>
             </div>
           </div>
         </section>
       </div>
-      <!-- /.content-wrapper -->
       <?php include 'layout/fixed-footer.php'; ?>
       <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
       </aside>
-      <!-- /.control-sidebar -->
     </div>
-    <!-- ./wrapper -->
-
     <!-- jQuery -->
     <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
