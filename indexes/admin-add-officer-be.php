@@ -1,14 +1,14 @@
 <?php
 /*
-admin-add-officer-be.php and officer addition process in admin
+admin-add-officer-be.php and processes the addition of new officers by admin, including input validation and database insertion.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
-Overview: This file handles the addition of new officers, 
-    validating admin input and inserting the officer into the database.
+Last Modified: June 8, 2024
+Overview: This file handles the addition of new officers, validating admin input and inserting the officer into the database.
 */
+
 
 session_start();
 require ('db_conn.php');

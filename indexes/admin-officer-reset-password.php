@@ -1,13 +1,14 @@
 <?php
 /*
-changepassword-be.php and password change process in officer
+admin-officer-reset-password.php for resetting officer passwords
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
-Overview: This file handles the change of password for officer accounts, validating input and updating the password in the database.
+Last Modified: June 15, 2024
+Overview: This file handles the resetting of an officer's password to a default value.
 */
+
 session_start();
 
 include "db_conn.php";

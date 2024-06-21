@@ -5,7 +5,7 @@ Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
+Last Modified: June 8, 2024
 Overview: This file handles the update of profile pictures for officer accounts, 
     validating input and updating the database with the new profile picture.
 */

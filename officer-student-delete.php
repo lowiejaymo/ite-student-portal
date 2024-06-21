@@ -1,15 +1,15 @@
-<!-- officer-students-delete.php and to delete student in officer form.
+<!-- officer-student-delete.php and to delete student in officer form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: June 2, 2024
+Last Modified: June 13, 2024
 Brief overview of the file's contents. -->
 
 <?php
 session_start();
 include "indexes/db_conn.php";
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Admin'
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Officer'
     ?>
 
     <!DOCTYPE html>

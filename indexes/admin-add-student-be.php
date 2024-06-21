@@ -1,13 +1,14 @@
 <?php
 /*
-admin-add-student-be.php and student addition process in admin
+admin-add-student-be.php and rocesses the addition of new students by admin, including input validation and database insertion.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 28, 2024
+Last Modified: June 21, 2024
 Overview: This file handles the addition of new students, validating admin input and inserting the student into the database.
 */
+
 session_start();
 require('db_conn.php');
 require "../vendor/autoload.php";
@@ -42,8 +43,51 @@ if (isset($_POST['addStudent'])) {
     $firstname = ucwords(strtolower($firstnameNotProper));
     $middlename = ucwords(strtolower($middlenameNotProper));
 
+        // Construct user data string
+        $user_data = 'accountnumber=' . $accountnumber .
+        '&lastname=' . $lastname .
+        '&firstname=' . $firstname .
+        '&middlename=' . $middlename .
+        '&program=' . $program .
+        '&yearlevel=' . $yearlevel .
+        '&gender=' . $gender .
+        '&phonenumber=' . $phonenumber;
+
+    // Validate account number length
+    if (!preg_match('/^\d{10}$/', $accountnumber)) {
+        $error_message = urlencode("Account Number must be exactly 10 digits");
+        header("Location: ../admin-student-addnew.php?newStudentError=$error_message&$user_data");
+        exit();
+    } // Validate account number if empty
+    else if (empty($accountnumber)) {
+        header("Location: ../admin-student-addnew.php?newStudentError=Account Number is required&$user_data");
+        exit();
+    } // Validate last name if empty
+    elseif (empty($lastname)) {
+        header("Location: ../admin-student-addnew.php?newStudentError=Last Name is required&$user_data");
+        exit();
+    } // Validate first name if empty
+    elseif (empty($firstname)) {
+        header("Location: ../admin-student-addnew.php?newStudentError=First Name is required&$user_data");
+        exit();
+    } // Validate program if empty
+    elseif (empty($program)) {
+        header("Location: ../admin-student-addnew.php?newStudentError=Program is required&$user_data");
+        exit();
+    } // Validate year level if empty
+    elseif (empty($yearlevel)) {
+        header("Location: ../admin-student-addnew.php?newStudentError=Year level is required&$user_data");
+        exit();
+    } // Validate gender if empty
+    elseif (empty($gender)) {
+        header("Location: ../admin-student-addnew.php?newStudentError=Gender is required&$user_data");
+        exit();
+    } else {
+        
     // Remove the spaces of the last name
     $lastnameremovespace = str_replace(' ', '', $lastname);
+
+    
 
     // Set the password and hash it
     $defaultpassword = $lastnameremovespace . $accountnumber;
@@ -81,46 +125,7 @@ if (isset($_POST['addStudent'])) {
 
     $qrcodeImage = $code . ".png";
 
-    // Construct user data string
-    $user_data = 'accountnumber=' . $accountnumber .
-        '&lastname=' . $lastname .
-        '&firstname=' . $firstname .
-        '&middlename=' . $middlename .
-        '&program=' . $program .
-        '&yearlevel=' . $yearlevel .
-        '&gender=' . $gender .
-        '&phonenumber=' . $phonenumber;
 
-    // Validate account number length
-    if (strlen($accountnumber) > 10) {
-        $error_message = urlencode("Account Number must be 10 characters or less");
-        header("Location: ../admin-student-addnew.php?newStudentError=$error_message");
-        exit();
-    } // Validate account number if empty
-    else if (empty($accountnumber)) {
-        header("Location: ../admin-student-addnew.php?newStudentError=Account Number is required&$user_data");
-        exit();
-    } // Validate last name if empty
-    elseif (empty($lastname)) {
-        header("Location: ../admin-student-addnew.php?newStudentError=Last Name is required&$user_data");
-        exit();
-    } // Validate first name if empty
-    elseif (empty($firstname)) {
-        header("Location: ../admin-student-addnew.php?newStudentError=First Name is required&$user_data");
-        exit();
-    } // Validate program if empty
-    elseif (empty($program)) {
-        header("Location: ../admin-student-addnew.php?newStudentError=Program is required&$user_data");
-        exit();
-    } // Validate year level if empty
-    elseif (empty($yearlevel)) {
-        header("Location: ../admin-student-addnew.php?newStudentError=Year level is required&$user_data");
-        exit();
-    } // Validate gender if empty
-    elseif (empty($gender)) {
-        header("Location: ../admin-student-addnew.php?newStudentError=Gender is required&$user_data");
-        exit();
-    } else {
         // Check if account number already exists
         $sql_check_existing = "SELECT * FROM user WHERE account_number=?";
         $stmt_check_existing = mysqli_prepare($conn, $sql_check_existing);
@@ -142,7 +147,7 @@ if (isset($_POST['addStudent'])) {
 
             // Redirect based on the result of the SQL query
             if ($result_newstudent_query) {
-                header("Location: ../admin-students.php?newStudentSuccess=New Student enrolled successfully");
+                header("Location: ../admin-students.php?newStudentSuccess=New Student account created successfully");
                 exit();
             } else {
                 header("Location: ../admin-student-addnew.php?newStudentError=Failed to add new student account&$user_data");

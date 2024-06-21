@@ -1,10 +1,21 @@
 <?php
+/*
+admin-unenroll.php
+Authors:
+  - Lowie Jay Orillo (lowie.jaymier@gmail.com)
+  - Caryl Mae Subaldo (subaldomae29@gmail.com)
+  - Brian Angelo Bognot (c09651052069@gmail.com)
+Last Modified: June 20, 2024
+Overview: Handles the unenrollment of a student from a specific school year and semester combination.
+*/
+
 session_start();
 include 'db_conn.php';
 
 if (isset($_POST['account_number'], $_POST['school_year'], $_POST['semester'], $_POST['program'], $_POST['year_level'], $_POST['previous_url'])) {
 
-  function validate($data) {
+  function validate($data)
+  {
     $data = trim($data); // Remove whitespace from the beginning and end of string
     $data = stripslashes($data); // Remove backslashes
     $data = htmlspecialchars($data); // Convert special characters to HTML entities

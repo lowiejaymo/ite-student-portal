@@ -1,12 +1,12 @@
 <?php
 /*
-changepassword-be.php and password change process in officer
+changepassword-be.php and password change process
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
-Overview: This file handles the change of password for officer accounts, validating input and updating the password in the database.
+Last Modified: June 15, 2024
+Overview: This file handles the change of password for accounts, validating input and updating the password in the database.
 */
 session_start();
 

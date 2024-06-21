@@ -1,9 +1,9 @@
-<!-- admin-student.php and to show the list of students enrolled in admin form.
+<!-- admin-student.php and to show the list of students registered in webpage in admin form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 28, 2024
+Last Modified: June 19, 2024
 Brief overview of the file's contents. -->
 
 <?php

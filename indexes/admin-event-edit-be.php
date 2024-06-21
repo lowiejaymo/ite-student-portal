@@ -1,12 +1,12 @@
 <?php
 /*
-admin-add-event-be.php and event addition process in admin
+admin-add-event-be.php
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
-Overview: This file handles the addition of new events, validating admin input and inserting the event into the database.
+Last Modified: June 12, 2024
+Overview: This file handles the editing events, validating admin input and inserting the event into the database.
 */
 
 session_start();

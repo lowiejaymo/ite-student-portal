@@ -1,3 +1,11 @@
+<!-- admin-payment-delete-student.php and to delete student in that payment in admin form.
+Authors:
+  - Lowie Jay Orillo (lowie.jaymier@gmail.com)
+  - Caryl Mae Subaldo (subaldomae29@gmail.com)
+  - Brian Angelo Bognot (c09651052069@gmail.com)
+Last Modified: June 19, 2024
+Brief overview of the file's contents. -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,22 +66,31 @@
 
     <?php include 'layout/admin-fixed-topnav.php'; ?>
     <?php include 'layout/admin-sidebar.php'; ?>
- 
-    <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2 align-items-center">
-                    <div class="col-sm-6">
-                        <h1>Deleting Students to Payment</h1>
-                    </div>
-                    <div class="col-sm-6 text-right">
-                        <a id="addNewSubjectBtn" class="btn btn-secondary"
-                           href="admin-payment-view.php?payment_for_id=<?php echo $payment_for_id; ?>"><i
-                                class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Payment</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <?php
+                $payment_for_id = $_GET['payment_for_id'];
+                $stmt = $conn->prepare("SELECT payment_description FROM payment_for WHERE payment_for_id = ?");
+                $stmt->bind_param("i", $payment_for_id);
+                $stmt->execute();
+                $stmt->bind_result($payment_name);
+                $stmt->fetch();
+                $stmt->close();
+                ?>
+                    <div class="content-wrapper">
+                        <div class="content-header">
+                            <div class="container-fluid">
+                                <div class="row mb-2 align-items-center">
+                                    <div class="col-sm-6">
+                                        <h1>Deleting Students to Payment: <?php echo htmlspecialchars($payment_name); ?></h1>
+                                    </div>
+                                    <div class="col-sm-6 text-right">
+                                        <a id="addNewSubjectBtn" class="btn btn-secondary"
+                                            href="admin-payment-view.php?payment_for_id=<?php echo $payment_for_id; ?>"><i
+                                                class="nav-icon fas fa-solid fa-chevron-left"></i> Back to <?php echo htmlspecialchars($payment_name); ?></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
         
         <section class="content">
             <div class="container-fluid">

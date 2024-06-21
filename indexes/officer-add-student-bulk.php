@@ -5,7 +5,7 @@ Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 28, 2024
+Last Modified: June 17, 2024
 Overview: This file handles the import of student data from an Excel file, validates the data, and inserts it into the database.
 */
 
@@ -56,6 +56,11 @@ if (isset($_POST['save_excel_data'])) {
 
                 // Sanitize and extract data from each row
                 $accountnumber = validate($row[0]);
+
+                if (!preg_match('/^\d{10}$/', $accountnumber)) {
+                    continue; // Skip this row if account number is not exactly 10 digits
+                }
+                
                 $lastnameNotProper = validate($row[1]);
                 $firstnameNotProper = validate($row[2]);
                 $middlenameNotProper = validate($row[3]);
@@ -103,7 +108,7 @@ if (isset($_POST['save_excel_data'])) {
                 // Set role to Student
                 $role = "Student";
                 
-                // Get the username of the admin who enrolled the student
+                // Get the username of the officer who enrolled the student
                 $enrolled_by = $_SESSION['username'];
 
                 // Check if the account number already exists

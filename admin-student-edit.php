@@ -1,9 +1,9 @@
-<!-- officer-students-delete.php and to delete student in officer form.
+<!-- admin-student-edit.php and to edit student in admin form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: June 2, 2024
+Last Modified: June 13, 2024
 Brief overview of the file's contents. -->
 
 <?php

@@ -1,15 +1,15 @@
-<!-- officer-profile.php and to see your profile account in officer form.
+<!-- profile.php and to see your profile account in student form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
+Last Modified: June 21, 2024
 Brief overview of the file's contents. -->
 
 <?php
 session_start();
 include "indexes/db_conn.php";
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') { // Check if the role is set and it's 'Officer'
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') { // Check if the role is set and it's 'student'
     ?>
     <!DOCTYPE html>
     <html lang="en">

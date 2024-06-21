@@ -1,9 +1,9 @@
-<!-- sidebar.php and sidebar of officer form.
+<!-- sidebar.php and sidebar of student form.
 Author:
   Lowie Jay Orillo lowie.jaymier@gmail.com, 
   Caryl Mae Subaldo subaldomae29@gmail.com, 
   Brian Angelo Bognot c09651052069@gmail.com.
-Last Modified: May 15, 2024
+Last Modified: June 15, 2024
 Brief overview of the file's contents. -->
 
 <!-- Main Sidebar Container -->

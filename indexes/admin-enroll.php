@@ -1,4 +1,14 @@
 <?php
+/*
+admin-enroll.php handles the process of enrolling a single student.
+Authors:
+  - Lowie Jay Orillo (lowie.jaymier@gmail.com)
+  - Caryl Mae Subaldo (subaldomae29@gmail.com)
+  - Brian Angelo Bognot (c09651052069@gmail.com)
+Last Modified: June 9, 2024
+Overview: This file allows administrators to enroll a single student in a specific school year, semester, program, and year level.
+*/
+
 session_start();
 include 'db_conn.php';
 
@@ -16,22 +26,20 @@ if (isset($_POST['account_number'], $_POST['school_year'], $_POST['semester'], $
   $semester = validate($_POST['semester']);
   $program = validate($_POST['program']);
   $year_level = validate($_POST['year_level']);
-  $previous_url = $_POST['previous_url']; // No need to re-validate as it was already escaped before sending
+  $previous_url = $_POST['previous_url'];
 
   $query = "INSERT INTO enrolled (account_number, school_year, semester) 
             VALUES ('$account_number', '$school_year', '$semester')";
   if ($conn->query($query) === TRUE) {
-    // Redirect the user back to the previous page
     header("Location: " . $previous_url);
     exit();
   } else {
-    // Redirect the user back to the previous page with error message
     header("Location: " . $previous_url);
     exit();
   }
 } else {
-  // Redirect the user to login page with error message
-  header("Location: login.php");
+
+  header("Location: ../login.php");
   exit();
 }
 ?>

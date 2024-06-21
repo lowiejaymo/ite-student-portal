@@ -1,13 +1,14 @@
 <?php
 /*
-officer-add-student-bulk.php and student addition in bulk using Excel file in officer
+admin-event-present-student-bulk-be.php for making students present in bulk using an Excel file
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 28, 2024
+Last Modified: June 20, 2024
 Overview: This file handles the import of student data from an Excel file, validates the data, and inserts it into the database.
 */
+
 
 session_start();
 require('db_conn.php');

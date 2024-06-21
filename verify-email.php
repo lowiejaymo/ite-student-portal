@@ -1,9 +1,9 @@
-<!-- login.php and to login in ITE Student Portal.
+<!-- verifyforgotpassword.php and to verify email in ITE Student Portal.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 15, 2024
+Last Modified: June 21, 2024
 Brief overview of the file's contents. -->
 
 <?php

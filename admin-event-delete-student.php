@@ -1,3 +1,11 @@
+<!-- admin-event-delete-student.php and to delete student in that event in admin form.
+Authors:
+  - Lowie Jay Orillo (lowie.jaymier@gmail.com)
+  - Caryl Mae Subaldo (subaldomae29@gmail.com)
+  - Brian Angelo Bognot (c09651052069@gmail.com)
+Last Modified: June 19, 2024
+Brief overview of the file's contents. -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,18 +66,26 @@
 
     <?php include 'layout/admin-fixed-topnav.php'; ?>
     <?php include 'layout/admin-sidebar.php'; ?>
- 
+    <?php
+                $eventid = $_GET['event_id'];
+                $stmt = $conn->prepare("SELECT event_name FROM events WHERE event_id = ?");
+                $stmt->bind_param("i", $eventid);
+                $stmt->execute();
+                $stmt->bind_result($event_name);
+                $stmt->fetch();
+                $stmt->close();
+                ?>            
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2 align-items-center">
                     <div class="col-sm-6">
-                        <h1>Deleting Students to Event</h1>
+                        <h1>Deleting Students to <?php echo htmlspecialchars($event_name); ?></h1>
                     </div>
                     <div class="col-sm-6 text-right">
                         <a id="addNewSubjectBtn" class="btn btn-secondary"
                            href="admin-event-view.php?event_id=<?php echo $event_id; ?>"><i
-                                class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Event</a>
+                                class="nav-icon fas fa-solid fa-chevron-left"></i> Back to <?php echo htmlspecialchars($event_name); ?></a>
                     </div>
                 </div>
             </div>

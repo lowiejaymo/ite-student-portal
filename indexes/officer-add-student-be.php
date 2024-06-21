@@ -5,7 +5,7 @@ Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: May 28, 2024
+Last Modified: June 10, 2024
 Overview: This file handles the addition of new students, validating officer input and inserting the student into the database.
 */
 session_start();
@@ -41,47 +41,8 @@ if (isset($_POST['addStudent'])) {
     $firstname = ucwords(strtolower($firstnameNotProper));
     $middlename = ucwords(strtolower($middlenameNotProper));
 
-    // Remove the spaces of the last name
-    $lastnameremovespace = str_replace(' ', '', $lastname);
-
-    // Set the password and hash it
-    $defaultpassword = $lastnameremovespace . $accountnumber;
-    $defaulthashed_pass = password_hash($defaultpassword, PASSWORD_BCRYPT);
-
-    // Get the first letter of the first name
-    $first_letter = substr($firstname, 0, 1);
-
-    // Get the first letter of the middle name
-    $first_letter_middlename = substr($middlename, 0, 1);
-
-    // Generate the code
-    $code = strtoupper($lastname . " , " . $firstname . " " . $first_letter_middlename . ". - " . $accountnumber . " - " . $program);
-
-    // Generate the QR code
-    $qr_code = QrCode::create($code);
-
-    $writer = new PngWriter;
-    $result = $writer->write($qr_code);
-
-    // Define the file path for the QR code
-    $filePath = "../qrCodeImages/". $code . ".png";
-    $result->saveToFile($filePath);
-
-    $qrcode = $code . ".png";
-
-    // Generate the username
-    $username = strtolower($first_letter) . strtolower($lastnameremovespace);
-
-    // Set the role to "Student"
-    $role = "Student";
-
-    // Get the username of the admin who enrolled the student
-    $enrolled_by = $_SESSION['username'];
-
-    $qrcodeImage = $code . ".png";
-
-    // Construct user data string
-    $user_data = 'accountnumber=' . $accountnumber .
+        // Construct user data string
+        $user_data = 'accountnumber=' . $accountnumber .
         '&lastname=' . $lastname .
         '&firstname=' . $firstname .
         '&middlename=' . $middlename .
@@ -91,9 +52,9 @@ if (isset($_POST['addStudent'])) {
         '&phonenumber=' . $phonenumber;
 
     // Validate account number length
-    if (strlen($accountnumber) > 10) {
-        $error_message = urlencode("Account Number must be 10 characters or less");
-        header("Location: ../officer-student-addnew.php?newStudentError=$error_message");
+    if (!preg_match('/^\d{10}$/', $accountnumber)) {
+        $error_message = urlencode("Account Number must be exactly 10 digits");
+        header("Location: ../officer-student-addnew.php?newStudentError=$error_message&$user_data");
         exit();
     } // Validate account number if empty
     else if (empty($accountnumber)) {
@@ -120,6 +81,48 @@ if (isset($_POST['addStudent'])) {
         header("Location: ../officer-student-addnew.php?newStudentError=Gender is required&$user_data");
         exit();
     } else {
+        
+    // Remove the spaces of the last name
+    $lastnameremovespace = str_replace(' ', '', $lastname);
+
+    // Set the password and hash it
+    $defaultpassword = $lastnameremovespace . $accountnumber;
+    $defaulthashed_pass = password_hash($defaultpassword, PASSWORD_BCRYPT);
+
+    // Get the first letter of the first name
+    $first_letter = substr($firstname, 0, 1);
+
+    // Get the first letter of the middle name
+    $first_letter_middlename = substr($middlename, 0, 1);
+
+    // Generate the code
+    $code = strtoupper($lastname . " , " . $firstname . " " . $first_letter_middlename . ". - " . $accountnumber . " - " . $program);
+
+
+    // Generate the QR code
+    $qr_code = QrCode::create($code);
+
+    $writer = new PngWriter;
+    $result = $writer->write($qr_code);
+                                
+
+    // Define the file path for the QR code
+    $filePath = "../qrCodeImages/". $code . ".png";
+    $result->saveToFile($filePath);
+
+    $qrcode = $code . ".png";
+
+    // Generate the username
+    $username = strtolower($first_letter) . strtolower($lastnameremovespace);
+
+    // Set the role to "Student"
+    $role = "Student";
+
+    // Get the username of the officer who enrolled the student
+    $enrolled_by = $_SESSION['username'];
+
+    $qrcodeImage = $code . ".png";
+
         // Check if account number already exists
         $sql_check_existing = "SELECT * FROM user WHERE account_number=?";
         $stmt_check_existing = mysqli_prepare($conn, $sql_check_existing);
@@ -141,7 +144,7 @@ if (isset($_POST['addStudent'])) {
 
             // Redirect based on the result of the SQL query
             if ($result_newstudent_query) {
-                header("Location: ../officer-students.php?newStudentSuccess=New Student enrolled successfully");
+                header("Location: ../officer-students.php?newStudentSuccess=New Student account created successfully");
                 exit();
             } else {
                 header("Location: ../officer-student-addnew.php?newStudentError=Failed to add new student account&$user_data");

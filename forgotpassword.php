@@ -1,3 +1,11 @@
+<!-- forgotpassword.php if you forget your password.
+Authors:
+  - Lowie Jay Orillo (lowie.jaymier@gmail.com)
+  - Caryl Mae Subaldo (subaldomae29@gmail.com)
+  - Brian Angelo Bognot (c09651052069@gmail.com)
+Last Modified: June 17, 2024
+Brief overview of the file's contents. -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +14,7 @@
     <link rel="icon" type="image/png" href="favicon.ico" />
         <!-- Font Awesome -->
     <link rel="stylesheet" href="AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
-    <title>ITE Student Portal | Forgot Password</title>
+    <title>Forgot Password | ITE Student Portal</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" type="text/css" href="AdminLTE-3.2.0/dist/css/bootstrap.css">
     <style>

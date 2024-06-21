@@ -1,10 +1,9 @@
-<!-- admin-dashboard.php and to see the total numbers of student and officer, 
-  population of every department and each year level in admin form.
+ <!-- admin-dashboard.php and to see the data and the population of the student and officer in admin form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
   - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: June 15, 2024
+Last Modified: June 20, 2024
 Brief overview of the file's contents. -->
 
 <?php
