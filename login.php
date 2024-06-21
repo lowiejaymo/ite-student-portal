@@ -15,7 +15,7 @@ require_once 'googleconfig.php';
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="favicon.ico" />
-    <title>ITE Student Portal | Log In Page</title>
+    <title>ITE Student Portal</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" type="text/css" href="AdminLTE-3.2.0/dist/css/bootstrap.css">
     <style>

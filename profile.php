@@ -1,4 +1,4 @@
- <!-- officer-profile.php and to see your profile account in officer form.
+<!-- officer-profile.php and to see your profile account in officer form.
 Authors:
   - Lowie Jay Orillo (lowie.jaymier@gmail.com)
   - Caryl Mae Subaldo (subaldomae29@gmail.com)
@@ -17,7 +17,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') { // Check if t
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>AdminLTE 3 | User Profile</title>
+        <title>Profile | ITE Student Portal</title>
         <link rel="icon" type="image/ico" href="favicon.ico">
 
         <!-- Google Font: Source Sans Pro -->
@@ -37,9 +37,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') { // Check if t
 
             <?php include 'layout/sidebar.php'; ?>
 
-            <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <div class="container-fluid">
                         <div class="container-fluid">
@@ -67,7 +65,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') { // Check if t
                                     <?php echo $_GET['success']; ?>
                                 </div>
                             <?php } ?>
-                        </div><!-- /.container-fluid -->
+                        </div>
                 </section>
 
                 <!-- Main content -->
@@ -78,9 +76,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') { // Check if t
                                 <div class="card card-primary card-outline">
                                     <div class="card-body box-profile">
                                         <div class="row justify-content-center">
-                                            <div class="text-center"> <!-- Center the column content -->
-                                                <!-- displaying the profile picture -->
-                                                <img class="profile-picture img-fluid rounded-circle" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;"
+                                            <div class="text-center">
+                                                <img class="profile-picture img-fluid rounded-circle"
+                                                    style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;"
                                                     src="profile-pictures/<?php echo $_SESSION['profile_picture']; ?>?<?php echo time(); ?>"
                                                     alt="User profile picture">
                                             </div>
@@ -143,27 +141,17 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') { // Check if t
 
                                         </ul>
                                     </div>
-                                    <!-- /.card-body -->
                                 </div>
-                                <!-- /.card -->
                             </div>
                         </div>
-                        <!-- /.row -->
-                    </div><!-- /.container-fluid -->
+                    </div>
                 </section>
-                <!-- /.content -->
 
             </div>
-            <!-- /.content-wrapper -->
             <?php include 'layout/fixed-footer.php'; ?>
-
-            <!-- Control Sidebar -->
             <aside class="control-sidebar control-sidebar-dark">
-                <!-- Control sidebar content goes here -->
             </aside>
-            <!-- /.control-sidebar -->
         </div>
-        <!-- ./wrapper -->
 
 
 

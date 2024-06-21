@@ -10,7 +10,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Officer Announcement Page</title>
+    <title>Officer Announcement | ITE Student Portal</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -40,12 +40,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
     <div class="wrapper">
 
       <?php include 'layout/officer-fixed-topnav.php'; ?>
-
       <?php include 'layout/officer-sidebar.php'; ?>
 
-      <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <section class="content-header">
           <div class="container-fluid">
             <!-- Search Form -->
@@ -81,7 +78,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                echo 'selected';
                              }
                              ?>>
-                      <?php echo $year['school_year']; ?>
+                            <?php echo $year['school_year']; ?>
                           </option>
                         <?php } ?>
                       </select>
@@ -118,7 +115,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                echo 'selected';
                              }
                              ?>>
-                        <?php echo $semester['semester']; ?>
+                            <?php echo $semester['semester']; ?>
                           </option>
                         <?php } ?>
                       </select>
@@ -180,7 +177,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
           $result = mysqli_query($conn, $sql);
 
           if (!$result) {
-            // Error handling for SQL query execution
             echo "Error: " . mysqli_error($conn);
             exit();
           }
@@ -212,7 +208,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                   <div class="col-md-12">
                     <div class="card card-primary card-outline bg-white" for="new-subject">
                       <div class="card-header">
-                        <!-- add New Subject -->
                         <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
                           <?php echo $posted_by; ?>
                         </h3><br>
@@ -233,17 +228,13 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                           ?>
                           </p><br>
                         </div>
-                        <!-- /.card-header -->
                         <div class="card-footer d-flex justify-content-end">
-                          <!-- Your other content goes here -->
                           <?php if ($_SESSION['position'] === $posted_by) { ?>
                             <a href='officer-announcement-delete.php?announcement_id=<?php echo $row['announcement_id']; ?>'
                               class='btn btn-danger btn-sm'><i class="nav-icon fas fa-solid fa-trash"></i> Delete</a>
                           <?php } ?>
                         </div>
-                        <!-- /.card-footer -->
                       </div>
-                      <!-- /.card -->
                     </div>
                   </div>
                 </div>
@@ -256,19 +247,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
           </div>
         </section>
 
-
-        <!-- /.content -->
       </div>
-      <!-- /.content-wrapper -->
       <?php include 'layout/fixed-footer.php'; ?>
 
-      <!-- Control Sidebar -->
       <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
       </aside>
-      <!-- /.control-sidebar -->
     </div>
-    <!-- ./wrapper -->
 
     <!-- jQuery -->
     <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

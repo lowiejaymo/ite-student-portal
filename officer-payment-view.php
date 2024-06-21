@@ -10,7 +10,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>ITE Student Portal | Admin Payment Page</title>
+        <title>Officer Payment View | ITE Student Portal</title>
         <link rel="icon" type="image/png" href="favicon.ico" />
 
         <!-- Google Font: Source Sans Pro -->
@@ -40,14 +40,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
     <body class="hold-transition sidebar-mini layout-fixed">
         <div class="wrapper">
 
-            <!-- Navbar -->
             <?php include 'layout/officer-fixed-topnav.php'; ?>
-
             <?php include 'layout/officer-sidebar.php'; ?>
 
-            <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
                 <div class="content-header">
                     <div class="container-fluid">
                         <div class="row mb-2 align-items-center">
@@ -63,11 +59,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                 </a>
                             </div>
                         </div>
-                    </div><!-- /.container-fluid -->
+                    </div>
                 </div>
-                <!-- /.content-header -->
-
-                <!-- Main content -->
+                
                 <section class="content">
                     <div class="container-fluid">
                         <?php if (isset($_GET['updatePaymentforSuccess'])) { ?>
@@ -85,7 +79,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                             style="width: 150px; height: auto;">
                                     </div>
 
-                                    <!-- Subject information column -->
                                     <div class="col-md">
                                         <div class="table-responsive">
                                             <table class="subject-info">
@@ -198,13 +191,11 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                         $year_level = isset($_GET['year_level']) ? $_GET['year_level'] : '';
                         $program = isset($_GET['program']) ? $_GET['program'] : '';
 
-                        // Initialize the query with table aliases to avoid ambiguity
                         $query = "SELECT user.account_number, user.username, user.first_name, user.last_name, user.middle_name, user.program, user.year_level, payment.remarks, payment.date_paid, payment.received_by 
                         FROM payment 
                         JOIN user ON payment.account_number = user.account_number 
                         WHERE payment.payment_for_id = '$payment_for_id'";
 
-                        // Apply search filters
                         $filters = [];
                         if ($search_input && $column) {
                             $filters[] = "user.$column LIKE '%$search_input%'";
@@ -216,7 +207,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                             $filters[] = "user.program = '$program'";
                         }
 
-                        // Add filters to the query if any
                         if (!empty($filters)) {
                             $query .= " AND " . implode(" AND ", $filters);
                         }
@@ -225,7 +215,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                         $studentresult = $conn->query($query);
                         ?>
 
-                        <!-- New Section for Students List -->
                         <div class="card card-primary card-outline bg-white mt-4">
                             <div class="card-body">
                                 <div class="tab-pane active" id="all">
@@ -305,9 +294,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                             </div>
                         </div>
 
-                    </div><!-- /.container-fluid -->
+                    </div>
                 </section>
-                <!-- /.content -->
             </div>
 
             <!-- Mark as Paid -->
@@ -420,13 +408,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
 
         <?php include 'layout/fixed-footer.php'; ?>
 
-        <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
         </aside>
-        <!-- /.control-sidebar -->
         </div>
-        <!-- ./wrapper -->
 
 
 
@@ -549,7 +533,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
 
     </html>
 
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
     <script>
         $.widget.bridge('uibutton', $.ui.button)
     </script>

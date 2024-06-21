@@ -18,7 +18,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Officer Enroll Page</title>
+    <title>Officer Enrolled Student| ITE Student Portal</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -47,14 +47,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-      <!-- Navbar -->
       <?php include 'layout/officer-fixed-topnav.php'; ?>
-
       <?php include 'layout/officer-sidebar.php'; ?>
 
-      <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <div class="content-header">
           <div class="container-fluid">
             <div class="row mb-2 align-items-center">
@@ -71,11 +67,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                 </a>
               </div>
             </div>
-          </div><!-- /.container-fluid -->
+          </div>
         </div>
-        <!-- /.content-header -->
-
-        <!-- Main content -->
+        
+      
         <section class="content">
           <div class="container-fluid">
             <div class="card card-primary card-outline bg-white" for="update-profilepicture">
@@ -117,7 +112,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                     </div>
                   </div>
 
-                  <!-- Add Student button -->
                   <div class="col-md-auto ml-auto">
                     <a href="officer-enrolled-add.php?school_year=<?php echo $_GET['school_year']; ?>&semester=<?php echo $_GET['semester']; ?>" class="btn btn-success btn-sm">+ Add Student</a>
                   </div>
@@ -181,21 +175,14 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                 ?>
               </tbody>
             </table>
-          </div><!-- /.container-fluid -->
+          </div>
         </section>
 
-        <!-- /.content -->
       </div>
-      <!-- /.content-wrapper -->
       <?php include 'layout/fixed-footer.php'; ?>
-
-      <!-- Control Sidebar -->
       <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
       </aside>
-      <!-- /.control-sidebar -->
     </div>
-    <!-- ./wrapper -->
 
     <!-- jQuery -->
     <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

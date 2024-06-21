@@ -18,7 +18,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>ITE Student Portal | Officer Student Page</title>
+        <title>Officer Delete Student | ITE Student Portal</title>
         <link rel="icon" type="image/png" href="favicon.ico" />
 
         <!-- Google Font: Source Sans Pro -->
@@ -48,34 +48,26 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
     <body class="hold-transition sidebar-mini layout-fixed">
         <div class="wrapper">
 
-            <!-- Navbar -->
             <?php include 'layout/officer-fixed-topnav.php'; ?>
-
             <?php include 'layout/officer-sidebar.php'; ?>
 
-            <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
                 <div class="content-header">
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
                                 <h1 class="m-0">Deleting Student</h1>
-                            </div><!-- /.col -->
-                        </div><!-- /.row -->
-                    </div><!-- /.container-fluid -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- /.content-header -->
-
-                <!-- Main content -->
-                <!-- Main content -->
+                
                 <section class="content">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-md-8">
                                 <div class="card card-danger card-outline bg-white" for="new-subject">
                                     <div class="card-header">
-                                        <!-- add New Subject -->
                                         <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
                                             Are you sure you want to delete this student?</h3><br>
                                         <p class="text-muted">Note: You can no longer retreive this account once deleted. All student's record including their attendance, payments, and enrolled in school year and semester will be deleted.
@@ -118,8 +110,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                     $displayedenrolled_by = $enrolled_by;
                                                     ?>
 
-                                                    <div class="text-center"> <!-- Center the column content -->
-                                                        <!-- displaying the profile picture -->
+                                                    <div class="text-center"> 
                                                         <img class="profile-picture img-fluid rounded-circle" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover;"
                                                             src="profile-pictures/<?php echo $profile_picture; ?>?<?php echo time(); ?>"
                                                             alt="User profile picture">
@@ -202,7 +193,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                     <?php
                                                 }
                                             } else {
-                                                // Handle the case when no announcements are found
                                                 echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No posted announcement</strong></h2></div>";
                                             }
                                             ?>
@@ -218,25 +208,16 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
 
                                         </form>
                                     </div>
-                                    <!-- /.card-body -->
                                 </div>
-                                <!-- /.card -->
                             </div>
                         </div>
                     </div>
                 </section>
-                <!-- /.content -->
             </div>
-            <!-- /.content-wrapper -->
             <?php include 'layout/fixed-footer.php'; ?>
-
-            <!-- Control Sidebar -->
             <aside class="control-sidebar control-sidebar-dark">
-                <!-- Control sidebar content goes here -->
             </aside>
-            <!-- /.control-sidebar -->
         </div>
-        <!-- ./wrapper -->
 
         <!-- jQuery -->
         <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

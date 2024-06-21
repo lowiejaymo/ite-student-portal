@@ -18,7 +18,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Officer Event Page</title>
+    <title>Officer Events | ITE Student Portal</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -47,14 +47,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-      <!-- Navbar -->
       <?php include 'layout/officer-fixed-topnav.php'; ?>
-
       <?php include 'layout/officer-sidebar.php'; ?>
 
-      <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <div class="content-header">
           <div class="container-fluid">
             <div class="row mb-2 align-items-center">
@@ -66,11 +62,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                     class="nav-icon fas fa-solid fa-plus"></i> Add Event</a>
               </div>
             </div>
-          </div><!-- /.container-fluid -->
+          </div>
         </div>
-        <!-- /.content-header -->
-
-        <!-- Main content -->
+        
         <section class="content">
           <div class="container-fluid">
 
@@ -130,7 +124,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
               </div>
             <?php } ?>
 
-            <!-- Events table -->
             <table class="table">
               <thead>
                 <tr>
@@ -204,21 +197,14 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                 ?>
               </tbody>
             </table>
-            <!-- /.row -->
-          </div><!-- /.container-fluid -->
+          </div>
         </section>
-        <!-- /.content -->
       </div>
-      <!-- /.content-wrapper -->
       <?php include 'layout/fixed-footer.php'; ?>
 
-      <!-- Control Sidebar -->
       <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
       </aside>
-      <!-- /.control-sidebar -->
     </div>
-    <!-- ./wrapper -->
 
     <!-- jQuery -->
     <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

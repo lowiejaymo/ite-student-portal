@@ -10,7 +10,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Admin Student Page</title>
+    <title>Officer Student View | ITE Student Portal</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -38,13 +38,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-      <!-- Navbar -->
       <?php include 'layout/officer-fixed-topnav.php'; ?>
       <?php include 'layout/officer-sidebar.php'; ?>
 
-      <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <div class="content-header">
           <div class="container-fluid">
             <div class="row mb-2 align-items-center">
@@ -57,11 +54,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
                 </a>
               </div>
             </div>
-          </div><!-- /.container-fluid -->
+          </div>
         </div>
-        <!-- /.content-header -->
 
-        <!-- Main content -->
         <section class="content">
           <div class="container-fluid">
             <?php if (isset($_GET['resetSuccess'])) { ?>
@@ -98,7 +93,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
                     $result = $conn->query($studentsql);
 
                     if ($result && $result->num_rows > 0) {
-                      $row = $result->fetch_assoc(); // Fetching row as associative array
+                      $row = $result->fetch_assoc();
                       ?>
                       <!-- Image column -->
                       <div class="col-md-auto">
@@ -341,7 +336,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
               <div class="card-body">
                 <div class="tab-content">
 
-                  <!-- Present Students Tab -->
                   <div class="tab-pane active" id="attendance">
                     <table class="table">
                       <thead>
@@ -427,7 +421,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
                             <?php
                           }
                         } else {
-                          echo "<tr><td colspan='6'>No data found.</td></tr>"; // Updated colspan to 6
+                          echo "<tr><td colspan='6'>No data found.</td></tr>";
                         }
                         ?>
                       </tbody>
@@ -526,7 +520,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
                             <?php
                           }
                         } else {
-                          echo "<tr><td colspan='6'>No data found.</td></tr>"; // Updated colspan to 6
+                          echo "<tr><td colspan='6'>No data found.</td></tr>";
                         }
                         ?>
                       </tbody>
@@ -535,18 +529,11 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
                     </table>
                   </div>
         </section>
-        <!-- /.content-wrapper -->
-
-        <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
-          <!-- Control sidebar content goes here -->
         </aside>
-        <!-- /.control-sidebar -->
       </div>
       <?php include 'layout/fixed-footer.php'; ?>
-      <!-- ./wrapper -->
 
-      <!-- Include jQuery -->
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
       <!-- Script for QR Code -->
@@ -564,13 +551,11 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
                 // Parse JSON response
                 var data = JSON.parse(response);
 
-                // Update modal content
                 $('#qrCodeImage').attr('src', 'qrCodeImages/' + data.code + '?' + new Date().getTime());
                 $('#studentName').text(data.last_name.toUpperCase() + ', ' + data.first_name.toUpperCase() + ' ' + data.middle_name.charAt(0).toUpperCase() + '.');
                 $('#studentProgram').text(data.program);
                 $('#studentNumber').text(data.account_number);
 
-                // Show the modal
                 $('#qrCodeModal').modal('show');
               },
               error: function () {

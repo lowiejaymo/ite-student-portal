@@ -10,7 +10,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Officer Enroll Page</title>
+    <title>Officer Enrolled New | ITE Student Portal</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -38,22 +38,16 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-      <!-- Navbar -->
       <?php include 'layout/officer-fixed-topnav.php'; ?>
-
-      <!-- Sidebar -->
       <?php include 'layout/officer-sidebar.php'; ?>
 
-      <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <div class="content-header">
           <div class="container-fluid">
             <div class="row mb-2 align-items-center">
               <div class="col-sm-6">
                 <h1>Enrolling Students</h1>
                 <form method="GET">
-                <!-- Hidden input fields for school year and semester -->
                 <input type="hidden" name="school_year" value="<?php echo isset($_GET['school_year']) ? $_GET['school_year'] : ''; ?>">
                 <input type="hidden" name="semester" value="<?php echo isset($_GET['semester']) ? $_GET['semester'] : ''; ?>">
               </div>
@@ -62,16 +56,14 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                     class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Enrolled Student</a>
               </div>
             </div>
-          </div><!-- /.container-fluid -->
+          </div>
         </div>
-        <!-- /.content-header -->
 
         <!-- Main content -->
         <section class="content">
           <div class="container-fluid">
 
             <!-- Search Form -->
-
                 <div class="form-group row mb-3">
                     <div class="col-sm-3">
                         <select class="form-control" id="program" name="program">
@@ -184,20 +176,14 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                 ?>
               </tbody>
             </table>
-          </div><!-- /.container-fluid -->
+          </div>
         </section>
-        <!-- /.content -->
       </div>
-      <!-- /.content-wrapper -->
       <?php include 'layout/fixed-footer.php'; ?>
 
-      <!-- Control Sidebar -->
       <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
       </aside>
-      <!-- /.control-sidebar -->
     </div>
-    <!-- ./wrapper -->
 
     <!-- jQuery -->
     <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

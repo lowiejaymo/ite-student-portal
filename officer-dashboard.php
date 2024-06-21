@@ -17,7 +17,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Officer Home Page</title>
+    <title>Officer Dashboard | ITE Student Portal</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -50,30 +50,23 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
         <img class="animation__shake" src="images/ite.png" alt="AdminLTELogo" height="60" width="60">
       </div>
 
-      <!-- Navbar -->
       <?php include 'layout/officer-fixed-topnav.php'; ?>
-
       <?php include 'layout/officer-sidebar.php'; ?>
 
-      <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <div class="content-header">
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
                 <h1 class="m-0">Dashboard</h1>
-              </div><!-- /.col -->
+              </div>
 
-            </div><!-- /.row -->
-          </div><!-- /.container-fluid -->
+            </div>
+          </div>
         </div>
-        <!-- /.content-header -->
 
 
-        
-
-        <!-- Main content -->
+      
         <section class="content">
 
           <div class="container-fluid">
@@ -166,11 +159,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
             </form>
 
 
-            <!-- For number of officers -->
             <div class="row">
-
-
-
 
               <!-- for number of students -->
               <?php
@@ -371,11 +360,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
     <!-- AdminLTE App -->
     <script src="AdminLTE-3.2.0/dist/js/adminlte.js"></script>
 
+
+
+
     <!-- for program population -->
     <?php
-    // Assuming $conn is your mysqli connection
-  
-    // Sanitize and validate input parameters
+ 
     $schoolYear = isset($_GET['school_year']) ? mysqli_real_escape_string($conn, $_GET['school_year']) : '';
     $semester = isset($_GET['semester']) ? mysqli_real_escape_string($conn, $_GET['semester']) : '';
 
@@ -451,10 +441,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
     <!-- for program population -->
     <script>
       $(function () {
-        /* ChartJS
-         * -------
-         * Here we will create a few charts using ChartJS
-         */
 
         //-------------
         //- DONUT CHART -
@@ -569,10 +555,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
     <!-- for year level population -->
     <script>
       $(function () {
-        /* ChartJS
-         * -------
-         * Here we will create a few charts using ChartJS
-         */
 
         //-------------
         //- DONUT CHART -

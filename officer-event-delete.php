@@ -18,7 +18,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>ITE Student Portal | Officer Event Page</title>
+        <title>Officer Delete Event | ITE Student Portal</title>
         <link rel="icon" type="image/png" href="favicon.ico" />
 
         <!-- Google Font: Source Sans Pro -->
@@ -48,13 +48,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
     <body class="hold-transition sidebar-mini layout-fixed">
         <div class="wrapper">
 
-            <!-- Navbar -->
             <?php include 'layout/officer-fixed-topnav.php'; ?>
             <?php include 'layout/officer-sidebar.php'; ?>
 
-            <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
                 <div class="content-header">
                     <div class="container-fluid">
                         <div class="row mb-2">
@@ -64,9 +61,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                         </div>
                     </div>
                 </div>
-                <!-- /.content-header -->
 
-                <!-- Main content -->
                 <section class="content">
                     <div class="container">
                         <div class="row justify-content-center">
@@ -76,7 +71,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                         <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
                                             Are you sure you want to delete this event?</h3><br>
                                         <p class="text-muted">Note: All cannot able to retrieve this event after
-                                        deleting it including the attendance of the students. </p>
+                                            deleting it including the attendance of the students. </p>
 
                                         <hr>
 
@@ -87,7 +82,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                         <?php } ?>
 
 
-                                        <form style="width: 100%" action="indexes/officer-event-delete-be.php" method="post">
+                                        <form style="width: 100%" action="indexes/officer-event-delete-be.php"
+                                            method="post">
                                             <?php
                                             $event_id = $_GET['event_id'];
                                             $sql = "SELECT * FROM events WHERE event_id = $event_id";
@@ -106,7 +102,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
 
                                                     <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
 
-                                                    <!-- Heading input -->
                                                     <label for="event Heading" class="col-sm-4 col-form-label">Event
                                                         Name</label>
                                                     <div class="form-group row">
@@ -116,7 +111,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                         </div>
                                                     </div>
 
-                                                    <!-- Posted by input -->
                                                     <label for="event Posted By" class="col-sm-4 col-form-label">Date of
                                                         Event</label>
                                                     <div class="form-group row">
@@ -127,7 +121,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                         </div>
                                                     </div>
 
-                                                    <!-- Posted on input -->
                                                     <label for="event Posted On" class="col-sm-4 col-form-label">School
                                                         Year</label>
                                                     <div class="form-group row">
@@ -138,9 +131,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                         </div>
                                                     </div>
 
-                                                    <!-- Posted on input -->
-                                                    <label for="event Posted On"
-                                                        class="col-sm-4 col-form-label">Semester</label>
+                                                    <label for="event Posted On" class="col-sm-4 col-form-label">Semester</label>
                                                     <div class="form-group row">
                                                         <div class="col-sm-12">
                                                             <input type="text" class="form-control" id="created_on_original"
@@ -149,7 +140,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                         </div>
                                                     </div>
 
-                                                    <!-- Submit button -->
                                                     <div class="offset-sm-2 col-sm-10">
                                                         <button type="submit" value="Submit" name="deleteEvent"
                                                             class="btn btn-danger">Delete</button>
@@ -159,26 +149,20 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                     <?php
                                                 }
                                             } else {
-                                                // Handle the case when no events are found
                                                 echo "<div class='col-12 text-center row justify-content-center align-items-center' style='height: 50vh;'><h2><strong>No posted event</strong></h2></div>";
                                             }
                                             ?>
                                         </form>
 
                                     </div>
-                                    <!-- /.card-body -->
                                 </div>
-                                <!-- /.card -->
                             </div>
                         </div>
                     </div>
                 </section>
-                <!-- /.content -->
             </div>
-            <!-- /.content-wrapper -->
             <?php include 'layout/fixed-footer.php'; ?>
         </div>
-        <!-- ./wrapper -->
 
         <!-- jQuery -->
         <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

@@ -19,7 +19,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ITE Student Portal | Officer Student Page</title>
+    <title>Officer Add Bulk Student | ITE Student Portal</title>
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- Google Font: Source Sans Pro -->
@@ -48,14 +48,10 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
   <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-      <!-- Navbar -->
       <?php include 'layout/officer-fixed-topnav.php'; ?>
-
       <?php include 'layout/officer-sidebar.php'; ?>
 
-      <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <div class="content-header">
           <div class="container-fluid">
             <div class="row mb-2 align-items-center">
@@ -67,23 +63,19 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                     class="nav-icon fas fa-solid fa-plus"></i> Add New Students</a>
               </div>
             </div>
-          </div><!-- /.container-fluid -->
-        </div><!-- /.container-fluid -->
+          </div>
+        </div>
 
-        <!-- /.content-header -->
-
-        <!-- Main content -->
-        <!-- Main content -->
         <section class="content">
           <div class="container">
             <div class="row justify-content-center">
               <div class="col-md-8">
                 <div class="card card-primary card-outline bg-white" for="new-subject">
                   <div class="card-header">
-                    <!-- add New Subject -->
                     <h3 class="card-title text-center" style="font-size: 1.25rem; font-weight: bold;">
                       New Bulk Student</h3><br><br>
-                    <p class="text-muted">Please download this <a download="ite-student-portal-guide" href="excel/ite-student-portal-guide.xlsx">ite-portal-excel</a> for the guide:</strong></p>
+                    <p class="text-muted">Please download this <a download="ite-student-portal-guide"
+                        href="excel/ite-student-portal-guide.xlsx">ite-portal-excel</a> for the guide:</strong></p>
                     <hr>
 
                     <?php if (isset($_GET['newStudentError'])) { ?>
@@ -96,7 +88,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                     <form action="indexes/officer-add-student-bulk.php" method="post" enctype="multipart/form-data">
 
                       <div class="mb-3">
-                        <!-- uploading file -->
                         <input class="form-control" type="file" id="import_file" name='import_file'>
                       </div>
 
@@ -107,25 +98,17 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
 
                     </form>
                   </div>
-                  <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
               </div>
             </div>
           </div>
         </section>
-        <!-- /.content -->
       </div>
-      <!-- /.content-wrapper -->
       <?php include 'layout/fixed-footer.php'; ?>
 
-      <!-- Control Sidebar -->
       <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
       </aside>
-      <!-- /.control-sidebar -->
     </div>
-    <!-- ./wrapper -->
 
     <!-- jQuery -->
     <script src="AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
