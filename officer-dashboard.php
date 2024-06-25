@@ -259,7 +259,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
                   <div class="icon">
                     <i class="nav-icon fas fa-solid fa-money-bill-wave"></i>
                   </div>
-                  <a href="admin-payment.php?search_input=&date=&school_year=<?php echo urlencode($schoolYear); ?>&semester=<?php echo urlencode($semester); ?>&search="
+                  <a href="officer-payment.php?search_input=&date=&school_year=<?php echo urlencode($schoolYear); ?>&semester=<?php echo urlencode($semester); ?>&search="
                     class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
               </div>

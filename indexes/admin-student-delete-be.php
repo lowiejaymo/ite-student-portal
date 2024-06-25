@@ -46,6 +46,12 @@ if (isset($_POST['deleteStudent'])) {
         mysqli_stmt_bind_param($delete_enrolled_stmt, "s", $account_number);
         mysqli_stmt_execute($delete_enrolled_stmt);
 
+        // Prepare and execute deletion from payment table
+        $delete_payment_query = "DELETE FROM payment WHERE account_number = ?";
+        $delete_payment_stmt = mysqli_prepare($conn, $delete_payment_query);
+        mysqli_stmt_bind_param($delete_payment_stmt, "s", $account_number);
+        mysqli_stmt_execute($delete_payment_stmt);
+
         // Prepare and execute deletion from user table
         $delete_user_query = "DELETE FROM user WHERE account_number = ? AND username = ? AND program = ? AND year_level = ? AND last_name = ? AND first_name = ? AND middle_name = ?";
         $delete_user_stmt = mysqli_prepare($conn, $delete_user_query);
