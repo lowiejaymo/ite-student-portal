@@ -26,11 +26,13 @@ if (isset($_POST['confirmMarkUnpaid'])) {
     $remarks = "Unpaid";
     $date_paid = "";
     $received_by = "";
+    $proof_pic = "";
+    $cn_number = "";
 
     // Prepare the SQL statement
-    $sql = "UPDATE payment SET remarks = ?, date_paid = ?, received_by = ? WHERE payment_for_id = ? AND account_number = ?";
+    $sql = "UPDATE payment SET remarks = ?, proof_pic = ?, date_paid = ?, received_by = ?, cn_number = ? WHERE payment_for_id = ? AND account_number = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssi", $remarks, $date_paid, $received_by, $payment_for_id, $account_number);
+    $stmt->bind_param("sssssss", $remarks, $payment_file, $date_paid, $received_by, $cn_number, $payment_for_id, $account_number);
 
     // Execute the statement
     if ($stmt->execute()) {
