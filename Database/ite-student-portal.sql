@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Jun 21, 2024 at 03:28 PM
+-- Generation Time: Jun 28, 2024 at 04:48 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -55,7 +55,27 @@ CREATE TABLE `attendance` (
 --
 
 INSERT INTO `attendance` (`attendance_indx`, `event_id`, `account_number`, `remarks`) VALUES
-(319, 11, '2211600036', 'Present');
+(321, 11, '2211600036', 'Absent');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `department`
+--
+
+CREATE TABLE `department` (
+  `department` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `department`
+--
+
+INSERT INTO `department` (`department`) VALUES
+('CAS'),
+('CCJ'),
+('CE'),
+('ITE');
 
 -- --------------------------------------------------------
 
@@ -75,7 +95,8 @@ CREATE TABLE `enrolled` (
 --
 
 INSERT INTO `enrolled` (`enrolled_indx`, `account_number`, `school_year`, `semester`) VALUES
-(259, '2211600036', '2024-2025', 'First Semester');
+(313, '2211600036', '2024-2025', 'First Semester'),
+(314, '2211600042', '2024-2025', 'First Semester');
 
 -- --------------------------------------------------------
 
@@ -110,17 +131,20 @@ CREATE TABLE `payment` (
   `payment_for_id` int(11) NOT NULL,
   `account_number` varchar(255) NOT NULL,
   `remarks` varchar(255) NOT NULL DEFAULT 'Unpaid',
+  `proof_pic` varchar(255) NOT NULL,
   `date_paid` date NOT NULL,
-  `received_by` varchar(255) NOT NULL
+  `received_by` varchar(255) NOT NULL,
+  `cn_number` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `payment`
 --
 
-INSERT INTO `payment` (`payment_indx`, `payment_for_id`, `account_number`, `remarks`, `date_paid`, `received_by`) VALUES
-(311, 18, '2211600036', 'Paid', '2024-06-21', 'Bognot, Brian Angelo'),
-(312, 19, '2211600036', 'Unpaid', '0000-00-00', '');
+INSERT INTO `payment` (`payment_indx`, `payment_for_id`, `account_number`, `remarks`, `proof_pic`, `date_paid`, `received_by`, `cn_number`) VALUES
+(2, 19, '2211600036', 'Unpaid', '2211600036_19.jpg', '0000-00-00', '', ''),
+(313, 18, '2211600036', 'Paid', '2211600036_18.png', '2024-06-04', 'Orillo, Lowie Jay', 'TT'),
+(314, 18, '2211600042', 'Paid', '2211600042_18.png', '2024-06-30', 'Orillo, Lowie Jay', 'TT');
 
 -- --------------------------------------------------------
 
@@ -207,6 +231,7 @@ CREATE TABLE `user` (
   `first_name` varchar(255) NOT NULL,
   `middle_name` varchar(255) NOT NULL,
   `gender` varchar(255) NOT NULL,
+  `department` varchar(255) NOT NULL,
   `program` varchar(255) NOT NULL,
   `year_level` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -222,10 +247,11 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`account_number`, `code`, `password`, `username`, `role`, `position`, `last_name`, `first_name`, `middle_name`, `gender`, `program`, `year_level`, `email`, `verification_code`, `is_verified`, `new_email`, `phone_number`, `profile_picture`, `enrolled_by`) VALUES
-('1', '71824', '$2y$10$refJtR.Rcgd7.rdzaNY3PO03Q6ljfj4NIzBd5Lv9EnJHry7T2lQI.', 'bbognot', 'Officer', 'President', 'Bognot', 'Brian Angelo', '', 'Male', '', '', '', '', 1, '', '', 'default.jpg', 'admin'),
-('2211600036', 'SUBALDO , CARYL MAE C. - 2211600036 - BSIT.png', '$2y$10$15ZNp.C7TWvFad6iHogeIOEfb.HL45VdNCQxmT5bLsnqz5truMdkO', 'csubaldo', 'Student', '', 'Subaldo', 'Caryl Mae', '', 'Female', 'BSIT', '2', '', '', 1, '', '', 'default.jpg', 'bbognot'),
-('admin', '', '$2y$10$7aIljGndzC67uLlYQsCXXuLjmgvCzw2OatI7lLKy8nCovcox4c2xW', 'admin', 'Admin', 'Admin', 'Orillo', 'Lowie Jay', '', '', '', '', 'itestudentportal@gmail.com', '508516', 1, '', '', 'admin.png', '');
+INSERT INTO `user` (`account_number`, `code`, `password`, `username`, `role`, `position`, `last_name`, `first_name`, `middle_name`, `gender`, `department`, `program`, `year_level`, `email`, `verification_code`, `is_verified`, `new_email`, `phone_number`, `profile_picture`, `enrolled_by`) VALUES
+('1', '71824', '$2y$10$refJtR.Rcgd7.rdzaNY3PO03Q6ljfj4NIzBd5Lv9EnJHry7T2lQI.', 'bbognot', 'Officer', 'President', 'Bognot', 'Brian Angelo', '', 'Male', 'ITE', '', '', '', '', 1, '', '', '1.png', 'admin'),
+('2211600036', 'SUBALDO , CARYL MAE C. - 2211600036 - BSIT.png', '$2y$10$15ZNp.C7TWvFad6iHogeIOEfb.HL45VdNCQxmT5bLsnqz5truMdkO', 'csubaldo', 'Student', '', 'Subaldo', 'Caryl Mae', 'C', 'Female', 'ITE', 'BSIT', '2', '', '', 1, '', '', 'default.jpg', 'bbognot'),
+('2211600042', 'BOGNOT , BRIAN ANGELO D. - 2211600042 - BSIT.png', '$2y$10$2bzL8db9ZcxrXdvD0e3Qre/rQuWrowZaXBeFsn5XaTkXsT3T7Hb12', 'bbognot', 'Student', '', 'Bognot', 'Brian Angelo', 'Delfin', 'Male', 'ITE', 'BSIT', '2', '', '', 0, '', '', 'default.jpg', 'admin'),
+('admin', '', '$2y$10$7aIljGndzC67uLlYQsCXXuLjmgvCzw2OatI7lLKy8nCovcox4c2xW', 'admin', 'Admin', 'Admin', 'Orillo', 'Lowie Jay', '', '', 'ITE', '', '', 'itestudentportal@gmail.com', '508516', 1, '', '', 'admin.png', '');
 
 --
 -- Indexes for dumped tables
@@ -246,6 +272,12 @@ ALTER TABLE `attendance`
   ADD PRIMARY KEY (`attendance_indx`),
   ADD KEY `account_number` (`account_number`),
   ADD KEY `event_id` (`event_id`);
+
+--
+-- Indexes for table `department`
+--
+ALTER TABLE `department`
+  ADD PRIMARY KEY (`department`);
 
 --
 -- Indexes for table `enrolled`
@@ -298,7 +330,8 @@ ALTER TABLE `semester`
 ALTER TABLE `user`
   ADD PRIMARY KEY (`account_number`),
   ADD UNIQUE KEY `account_number` (`account_number`),
-  ADD UNIQUE KEY `code` (`code`);
+  ADD UNIQUE KEY `code` (`code`),
+  ADD KEY `department` (`department`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -314,13 +347,13 @@ ALTER TABLE `announcement`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `attendance_indx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=320;
+  MODIFY `attendance_indx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=323;
 
 --
 -- AUTO_INCREMENT for table `enrolled`
 --
 ALTER TABLE `enrolled`
-  MODIFY `enrolled_indx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=260;
+  MODIFY `enrolled_indx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=315;
 
 --
 -- AUTO_INCREMENT for table `events`
@@ -332,7 +365,7 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `payment_indx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=313;
+  MODIFY `payment_indx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=315;
 
 --
 -- AUTO_INCREMENT for table `payment_for`
@@ -386,6 +419,12 @@ ALTER TABLE `payment`
 ALTER TABLE `payment_for`
   ADD CONSTRAINT `payment_for_ibfk_1` FOREIGN KEY (`school_year`) REFERENCES `school_year` (`school_year`),
   ADD CONSTRAINT `payment_for_ibfk_2` FOREIGN KEY (`semester`) REFERENCES `semester` (`semester`);
+
+--
+-- Constraints for table `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`department`) REFERENCES `department` (`department`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -63,6 +63,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                             <div class="col-sm-6 text-right">
                                 <a id="addNewSubjectBtn" class="btn btn-secondary" href="officer-payment.php"><i
                                         class="nav-icon fas fa-solid fa-chevron-left"></i> Back to Payments</a>
+                                        <!--<button onclick="window.print()">Print this page</button> -->
                                 <a id="exportDataBtn" class="btn btn-primary"
                                     href="indexes/officer-payment-view-export.php?payment_for_id=<?php echo $_GET['payment_for_id']; ?>">
                                     <i class="fas fa-file-export"></i> Export Data to Spreadsheet
