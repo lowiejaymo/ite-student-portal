@@ -58,7 +58,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                 <h1>Enrolled Student</h1>
               </div>
               <div class="col-sm-6 text-right">
-                <a id="addNewSubjectBtn" class="btn btn-secondary" href="officer-enrolled-students.php">
+                <a id="addNewSubjectBtn" class="btn btn-secondary" href="admin-enrolled-students.php">
                   <i class="nav-icon fas fa-solid fa-chevron-left"></i> Back to School Year and Semester
                 </a>
                 <a id="exportDataBtn" class="btn btn-primary"

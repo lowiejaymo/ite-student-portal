@@ -33,6 +33,7 @@ if (isset($_POST['addOfficer'])) {
     $middlenameNotProper = validate($_POST['middlename']);
     $phonenumber = validate($_POST['phonenumber']);
     $gender = validate($_POST['gender']);
+    $department = "ITE";
 
     // Convert the names to proper case
     $lastname = ucwords(strtolower($lastnameNotProper));
@@ -106,10 +107,10 @@ if (isset($_POST['addOfficer'])) {
         } else {
             $is_verified = '1';
             // Insert new officer
-            $sql_newofficer_query = "INSERT INTO user(account_number, code, password, username, role, position, last_name, first_name, middle_name, gender, phone_number, enrolled_by, is_verified)
-        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql_newofficer_query = "INSERT INTO user(account_number, code, password, username, role, position, last_name, first_name, middle_name, gender, phone_number, enrolled_by, is_verified, department)
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt_newofficer_query = mysqli_prepare($conn, $sql_newofficer_query);
-            mysqli_stmt_bind_param($stmt_newofficer_query, "ssssssssssssi", $accountnumber, $code, $defaulthashed_pass, $username, $role, $position, $lastname, $firstname, $middlename, $gender, $phonenumber, $enrolled_by, $is_verified);
+            mysqli_stmt_bind_param($stmt_newofficer_query, "ssssssssssssis", $accountnumber, $code, $defaulthashed_pass, $username, $role, $position, $lastname, $firstname, $middlename, $gender, $phonenumber, $enrolled_by, $is_verified, $department);
             $result_newofficer_query = mysqli_stmt_execute($stmt_newofficer_query);
 
             // Redirect based on the result of the SQL query

@@ -151,6 +151,17 @@ Brief overview of the file's contents. -->
             </p>
           </a>
         </li>
+
+
+
+        <li class="nav-item ">
+          <a href="admin-level-up.php" class="nav-link">
+            <i class="nav-icon fas fa-solid fa-plus"></i>
+            <p>
+              Plus One
+            </p>
+          </a>
+        </li>
       </ul>
     </nav>
 

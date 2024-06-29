@@ -69,6 +69,7 @@ if (isset($_POST['save_excel_data'])) {
                 $gender = validate($row[6]);
                 $phonenumberdefault = validate($row[7]);
                 $phonenumber = "0". $phonenumberdefault;
+                $department = "ITE";
 
                 // Convert the names to proper case
                 $lastname = ucwords(strtolower($lastnameNotProper));
@@ -120,10 +121,10 @@ if (isset($_POST['save_excel_data'])) {
 
                 if (mysqli_num_rows($result_check_account) > 0) {
                     // Account number exists, update the record
-                    $sql_update_student = "UPDATE user SET code = ?, password = ?, username = ?, role = ?, last_name = ?, first_name = ?, middle_name = ?, gender = ?, phone_number = ?, enrolled_by = ?, year_level = ?, program = ?
+                    $sql_update_student = "UPDATE user SET code = ?, password = ?, username = ?, role = ?, last_name = ?, first_name = ?, middle_name = ?, gender = ?, phone_number = ?, enrolled_by = ?, year_level = ?, program = ?, department = ?
                                             WHERE account_number = ?";
                     $stmt_update_student = mysqli_prepare($conn, $sql_update_student);
-                    mysqli_stmt_bind_param($stmt_update_student, "sssssssssssss", $qrcode, $defaulthashed_pass, $username, $role, $lastname, $firstname, $middlename, $gender, $phonenumber, $enrolled_by, $yearlevel, $program, $accountnumber);
+                    mysqli_stmt_bind_param($stmt_update_student, "ssssssssssssss", $qrcode, $defaulthashed_pass, $username, $role, $lastname, $firstname, $middlename, $gender, $phonenumber, $enrolled_by, $yearlevel, $program, $accountnumber, $department);
                     $result_update_student = mysqli_stmt_execute($stmt_update_student);
 
                     if (!$result_update_student) {
@@ -133,12 +134,12 @@ if (isset($_POST['save_excel_data'])) {
 
                 } else {
                     // Account number does not exist, insert new student
-                    $sql_newstudent_query = "INSERT INTO user (account_number, code, password, username, role, last_name, first_name, middle_name, gender, phone_number, enrolled_by, year_level, program)
-                                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    $sql_newstudent_query = "INSERT INTO user (account_number, code, password, username, role, last_name, first_name, middle_name, gender, phone_number, enrolled_by, year_level, program, department)
+                                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                     $stmt_newstudent_query = mysqli_prepare($conn, $sql_newstudent_query);
 
                     if ($stmt_newstudent_query) {
-                        mysqli_stmt_bind_param($stmt_newstudent_query, "sssssssssssss", $accountnumber, $qrcode, $defaulthashed_pass, $username, $role, $lastname, $firstname, $middlename, $gender, $phonenumber, $enrolled_by, $yearlevel, $program);
+                        mysqli_stmt_bind_param($stmt_newstudent_query, "ssssssssssssss", $accountnumber, $qrcode, $defaulthashed_pass, $username, $role, $lastname, $firstname, $middlename, $gender, $phonenumber, $enrolled_by, $yearlevel, $program, $department);
                         $result_newstudent_query = mysqli_stmt_execute($stmt_newstudent_query);
 
                         if (!$result_newstudent_query) {
