@@ -200,7 +200,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
 
                         $query = "SELECT user.account_number, user.username, user.first_name, user.last_name, 
                         user.middle_name, user.program, user.year_level, payment.remarks, payment.date_paid, 
-                        payment.received_by, payment.proof_pic, payment.cn_number, payment.received_by, payment.date_paid
+                        payment.received_by, payment.proof_pic, payment.cn_number, payment.date_paid
           FROM payment 
           JOIN user ON payment.account_number = user.account_number 
           WHERE payment.payment_for_id = '$payment_for_id'";
@@ -280,7 +280,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                             $payment_for_id = $row['payment_for_id'];
                                                             $cn_number = $studentrow['cn_number'];
                                                             $proof_pic = $studentrow['proof_pic'];
-                                                            $received_by = $studentrow['received_by'];
                                                             $date_paid = $studentrow['date_paid'];
                                                             if ($remarks == 'Paid') {
                                                                 echo '<button type="button" class="btn btn-success btn-sm mark-unpaid-btn" data-toggle="modal" data-target="#markUnpaidModal"
@@ -291,7 +290,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                                     data-payment-for-id="' . $payment_for_id . '"
                                                     data-year-level="' . $year_level . '"
                                                     data-cn-number="' . $cn_number . '"
-                                                    data-received-by="' . $received_by . '"
                                                     data-date-paid="' . $date_paid . '"
                                                     data-proof-pic="' . $proof_pic . '">Paid</button>';
                                                             } elseif ($remarks == 'Unpaid') {
@@ -550,14 +548,13 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
             $(document).ready(function () {
                 $('.mark-unpaid-btn').click(function () {
                     var studentName = $(this).data('student-name');
-                    var receivedby = $(this).data('received-by');
+                    var receivedBy = $(this).data('received-by');
                     var paymentforID = $(this).data('payment-for-id');
                     var accountnumber = $(this).data('account-number');
                     var program = $(this).data('program');
                     var yearLevel = $(this).data('year-level');
                     var cnNumber = $(this).data('cn-number');
                     var proofPic = $(this).data('proof-pic');
-                    var receivedBy = $(this).data('received-by');
                     var datePaid = $(this).data('date-paid');
 
                     $('#markUnpaidModal').find('.modal-body').html(`
@@ -610,7 +607,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                     <form id="markPaidForm" method="POST" action="indexes/admin-payment-unpaid-be.php">
                         <input type="hidden" name="payment_for_id" id="modalPaymentForId" value="${paymentforID}">
                         <input type="hidden" name="account_number" id="modalAccountNumber" value="${accountnumber}">
-                        <input type="hidden" name="received_by" id="modalReceivedBy" value="${receivedby}">
+                        <input type="hidden" name="received_by" id="modalReceivedBy" value="${receivedBy}">
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                             <button type="submit" class="btn btn-danger" id="confirmMarkPaid" name="confirmMarkUnpaid">Yes</button>
