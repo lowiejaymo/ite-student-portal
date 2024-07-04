@@ -154,7 +154,7 @@ Brief overview of the file's contents. -->
 
 
 
-        <li class="nav-item ">
+        <!-- <li class="nav-item ">
           <a href="admin-level-up.php" class="nav-link">
             <i class="nav-icon fas fa-solid fa-plus"></i>
             <p>
@@ -163,7 +163,7 @@ Brief overview of the file's contents. -->
           </a>
         </li>
       </ul>
-    </nav>
+    </nav> -->
 
 
     <!-- /.sidebar-menu -->

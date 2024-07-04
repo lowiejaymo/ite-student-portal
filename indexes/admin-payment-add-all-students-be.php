@@ -25,8 +25,10 @@ if (isset($_POST['add_all'])) {
 
     // Sanitize and validate inputs
     $payment_for_id = validate($_POST['payment_for_id']);
-    $program = validate($_POST['program']);
-    $year_level = validate($_POST['year_level']);
+    $column = isset($_POST['column']) ? validate($_POST['column']) : 'u.account_number';
+    $search_input = isset($_POST['search_input']) ? validate($_POST['search_input']) : '';
+    $program = isset($_POST['program']) ? validate($_POST['program']) : '';
+    $year_level = isset($_POST['year_level']) ? validate($_POST['year_level']) : '';
 
     // Validate event ID if empty
     if (empty($payment_for_id)) {
@@ -47,13 +49,21 @@ if (isset($_POST['add_all'])) {
         $semester = $row['semester'];
 
         $conditions = [];
-        if ($program !== 'all') {
+        if (!empty($program)) {
             $conditions[] = "u.program = '$program'";
         }
-        if ($year_level !== 'all') {
+        if (!empty($year_level)) {
             $conditions[] = "u.year_level = '$year_level'";
         }
-        $whereClause = count($conditions) > 0 ? 'AND ' . implode(' AND ', $conditions) : '';
+        if (!empty($column) && !empty($search_input)) {
+            $conditions[] = "$column LIKE '%$search_input%'";
+        }
+
+        // Construct WHERE clause based on conditions
+        $whereClause = '';
+        if (!empty($conditions)) {
+            $whereClause = 'AND ' . implode(' AND ', $conditions);
+        }
 
         $studentsql = "SELECT u.account_number
                        FROM user u

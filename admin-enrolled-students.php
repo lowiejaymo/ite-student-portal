@@ -237,7 +237,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                 ?>
               </tbody>
             </table>
-          </div><
+          </div>
         </section>
       </div>
       <?php include 'layout/fixed-footer.php'; ?>

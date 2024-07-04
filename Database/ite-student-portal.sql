@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Jun 28, 2024 at 04:48 AM
+-- Generation Time: Jul 04, 2024 at 07:25 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -55,7 +55,11 @@ CREATE TABLE `attendance` (
 --
 
 INSERT INTO `attendance` (`attendance_indx`, `event_id`, `account_number`, `remarks`) VALUES
-(321, 11, '2211600036', 'Absent');
+(428, 11, '2211600036', 'Absent'),
+(429, 11, '2211600102', 'Absent'),
+(430, 11, '2210600050', 'Absent'),
+(431, 11, '2411600126', 'Absent'),
+(432, 11, '2211600042', 'Absent');
 
 -- --------------------------------------------------------
 
@@ -96,7 +100,13 @@ CREATE TABLE `enrolled` (
 
 INSERT INTO `enrolled` (`enrolled_indx`, `account_number`, `school_year`, `semester`) VALUES
 (313, '2211600036', '2024-2025', 'First Semester'),
-(314, '2211600042', '2024-2025', 'First Semester');
+(315, '2211600102', '2024-2025', 'First Semester'),
+(316, '2210600050', '2024-2025', 'First Semester'),
+(317, '2411600126', '2024-2025', 'First Semester'),
+(319, '2210600050', '2022-2023', 'First Semester'),
+(322, '2211600102', '2022-2023', 'First Semester'),
+(323, '2211600036', '2022-2023', 'First Semester'),
+(324, '2211600042', '2024-2025', 'First Semester');
 
 -- --------------------------------------------------------
 
@@ -142,9 +152,11 @@ CREATE TABLE `payment` (
 --
 
 INSERT INTO `payment` (`payment_indx`, `payment_for_id`, `account_number`, `remarks`, `proof_pic`, `date_paid`, `received_by`, `cn_number`) VALUES
-(2, 19, '2211600036', 'Unpaid', '2211600036_19.jpg', '0000-00-00', '', ''),
-(313, 18, '2211600036', 'Paid', '2211600036_18.png', '2024-06-04', 'Orillo, Lowie Jay', 'TT'),
-(314, 18, '2211600042', 'Paid', '2211600042_18.png', '2024-06-30', 'Orillo, Lowie Jay', 'TT');
+(328, 19, '2211600036', 'Unpaid', '', '0000-00-00', '', ''),
+(330, 19, '2211600102', 'Unpaid', '', '0000-00-00', '', ''),
+(331, 19, '2210600050', 'Paid', '2210600050_19.jpg', '2024-07-01', 'Orillo, Lowie Jay', 'IDK'),
+(372, 18, '2211600102', 'Unpaid', '', '0000-00-00', '', ''),
+(373, 18, '2210600050', 'Unpaid', '', '0000-00-00', '', '');
 
 -- --------------------------------------------------------
 
@@ -248,9 +260,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`account_number`, `code`, `password`, `username`, `role`, `position`, `last_name`, `first_name`, `middle_name`, `gender`, `department`, `program`, `year_level`, `email`, `verification_code`, `is_verified`, `new_email`, `phone_number`, `profile_picture`, `enrolled_by`) VALUES
-('1', '71824', '$2y$10$refJtR.Rcgd7.rdzaNY3PO03Q6ljfj4NIzBd5Lv9EnJHry7T2lQI.', 'bbognot', 'Officer', 'President', 'Bognot', 'Brian Angelo', '', 'Male', 'ITE', '', '', '', '', 1, '', '', '1.png', 'admin'),
-('2211600036', 'SUBALDO , CARYL MAE C. - 2211600036 - BSIT.png', '$2y$10$15ZNp.C7TWvFad6iHogeIOEfb.HL45VdNCQxmT5bLsnqz5truMdkO', 'csubaldo', 'Student', '', 'Subaldo', 'Caryl Mae', 'C', 'Female', 'ITE', 'BSIT', '2', '', '', 1, '', '', 'default.jpg', 'bbognot'),
-('2211600042', 'BOGNOT , BRIAN ANGELO D. - 2211600042 - BSIT.png', '$2y$10$2bzL8db9ZcxrXdvD0e3Qre/rQuWrowZaXBeFsn5XaTkXsT3T7Hb12', 'bbognot', 'Student', '', 'Bognot', 'Brian Angelo', 'Delfin', 'Male', 'ITE', 'BSIT', '2', '', '', 0, '', '', 'default.jpg', 'admin'),
+('1', '71824', '$2y$10$6CRSyHHEBhUCWU7RQLnHCOtyB.x2O.eJ9AdLr0wOX2XemxeM5hP6.', 'bbognot', 'Officer', 'President', 'Bognot', 'Brian Angelo', '', 'Male', 'ITE', '', '', '', '', 1, '', '', '1.png', 'admin'),
+('2210600050', 'VALDEZ , JAMES ARNOLD . - 2210600050 - BSIT.png', '$2y$10$jQM6vftmaehYzYt.EzuR.e62dbcGspvdfyCbDVakPiNW2lzpbDCI2', 'jvaldez', 'Student', '', 'Valdez', 'James Arnold', '', 'Male', 'ITE', 'BSIT', '3', '', '', 1, '', '', 'default.jpg', 'admin'),
+('2211600036', 'SUBALDO , CARYL MAE C. - 2211600036 - BSIT.png', '$2y$10$15ZNp.C7TWvFad6iHogeIOEfb.HL45VdNCQxmT5bLsnqz5truMdkO', 'csubaldo', 'Student', '', 'Subaldo', 'Caryl Mae', 'C', 'Female', 'ITE', 'BSIT', '3', '', '', 1, '', '', 'default.jpg', 'bbognot'),
+('2211600042', 'BOGNOT , BRIAN ANGELO D. - 2211600042 - BSIT.png', '$2y$10$52lFkIlhQO9YrERk28yWyOxmyZn5pIEefNPeFmFmjME91/QLCYXIq', 'bbognot', 'Student', '', 'Bognot', 'Brian Angelo', 'Delfin', 'Male', 'ITE', 'BSCS', '3', '', '', 0, '', '', 'default.jpg', 'admin'),
+('2211600102', 'ORILLO , LOWIE JAY M. - 2211600102 - BSIT.png', '$2y$10$NmplxC6mveISCcQ0BZJBE.oCElxUstSVyDw8Ysq2H0eFdIz7iXaue', 'lorillo', 'Student', '', 'Orillo', 'Lowie Jay', 'Mier', 'Male', 'ITE', 'BSIT', '3', '', '', 1, '', '', 'default.jpg', 'bbognot'),
+('2411600126', 'BOGNOT , PRINCE RALPH A. - 2411600126 - BSIT.png', '$2y$10$NMtN1N2g9eVqyok2gZ6iQeFrUz7dtiJzM88Vtg0xAF64PO67VIi6u', 'pbognot', 'Student', '', 'Bognot', 'Prince Ralph', 'Acosta', 'Male', 'ITE', 'BSIT', '1', 'bprinceralph@gmail.com', '136600', 1, '', '', 'default.jpg', 'admin'),
 ('admin', '', '$2y$10$7aIljGndzC67uLlYQsCXXuLjmgvCzw2OatI7lLKy8nCovcox4c2xW', 'admin', 'Admin', 'Admin', 'Orillo', 'Lowie Jay', '', '', 'ITE', '', '', 'itestudentportal@gmail.com', '508516', 1, '', '', 'admin.png', '');
 
 --
@@ -347,13 +362,13 @@ ALTER TABLE `announcement`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `attendance_indx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=323;
+  MODIFY `attendance_indx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=433;
 
 --
 -- AUTO_INCREMENT for table `enrolled`
 --
 ALTER TABLE `enrolled`
-  MODIFY `enrolled_indx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=315;
+  MODIFY `enrolled_indx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=347;
 
 --
 -- AUTO_INCREMENT for table `events`
@@ -365,7 +380,7 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `payment_indx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=315;
+  MODIFY `payment_indx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=376;
 
 --
 -- AUTO_INCREMENT for table `payment_for`

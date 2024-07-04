@@ -162,12 +162,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                 <div class="input-group-prepend col-2">
                                     <select name="column" class="form-control">
                                         <option value="account_number">Student Number</option>
-                                        <option value="username">User Name</option>
                                         <option value="last_name">Last Name</option>
                                         <option value="first_name">First Name</option>
                                         <option value="middle_name">Middle Name</option>
-                                        <option value="year_level">Year Level</option>
-                                        <option value="program">Program</option>
                                     </select>
                                 </div>
                                 <div class="input-group-prepend col-2">
@@ -237,29 +234,23 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                                             <thead>
                                                 <tr>
                                                     <th class="col-2">Student Number</th>
-                                                    <th class="col-1">User Name</th>
-                                                    <th class="col-2 text-center">Last Name</th>
-                                                    <th class="col-2 text-center">First Name</th>
-                                                    <th class="col-1 text-center">Program</th>
-                                                    <th class="col-1 text-center">Year Level</th>
-                                                    <th class="col-1 text-center">Remarks</th>
+                                                    <th class="col-2">Last Name</th>
+                                                    <th class="col-2">First Name</th>
+                                                    <th class="col-2">Middle Name</th>
+                                                    <th class="col-1.5">Program</th>
+                                                    <th class="col-1.5">Year Level</th>
+                                                    <th class="col-1 text-center">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php while ($studentrow = $studentresult->fetch_assoc()) { ?>
                                                     <tr>
                                                         <td class="align-middle"><?php echo $studentrow['account_number']; ?></td>
-                                                        <td class="align-middle"><?php echo $studentrow['username']; ?></td>
-                                                        <td class="align-middle text-center"><?php echo $studentrow['last_name']; ?>
-                                                        </td>
-                                                        <td class="align-middle text-center">
-                                                            <?php echo $studentrow['first_name']; ?>
-                                                        </td>
-                                                        <td class="align-middle text-center"><?php echo $studentrow['program']; ?>
-                                                        </td>
-                                                        <td class="align-middle text-center">
-                                                            <?php echo $studentrow['year_level']; ?>
-                                                        </td>
+                                                        <td class="align-middle"><?php echo $studentrow['last_name']; ?></td>
+                                                        <td class="align-middle"><?php echo $studentrow['first_name']; ?></td>
+                                                        <td class="align-middle"><?php echo $studentrow['middle_name']; ?></td>
+                                                        <td class="align-middle"><?php echo $studentrow['program']; ?></td>
+                                                        <td class="align-middle"><?php echo $studentrow['year_level']; ?></td>
                                                         <td class="align-middle text-center">
                                                             <form method="POST" action="indexes/admin-event-checking-be.php">
                                                                 <?php

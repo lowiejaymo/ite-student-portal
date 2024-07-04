@@ -80,12 +80,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
               <div class="input-group-prepend col-2">
                 <select name="column" class="form-control">
                   <option value="u.account_number">Student Number</option>
-                  <option value="u.username">User Name</option>
                   <option value="u.last_name">Last Name</option>
                   <option value="u.first_name">First Name</option>
                   <option value="u.middle_name">Middle Name</option>
-                  <option value="u.year_level">Year Level</option>
-                  <option value="u.program">Program</option>
                 </select>
               </div>
               <div class="input-group-prepend col-2">

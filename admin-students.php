@@ -98,8 +98,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') { // Check if the
                     <option value="last_name">Last Name</option>
                     <option value="first_name">First Name</option>
                     <option value="middle_name">Middle Name</option>
-                    <option value="year_level">Year Level</option>
-                    <option value="program">Program</option>
                   </select>
                 </div>
 
