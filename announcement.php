@@ -10,7 +10,7 @@ Brief overview of the file's contents. -->
 session_start();
 include "indexes/db_conn.php";
 
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student' && $_SESSION['department'] === 'ITE') {
     $account_number = $_SESSION['account_number'];
 
     $sql = "SELECT DISTINCT semester, school_year FROM enrolled WHERE account_number = '$account_number'";

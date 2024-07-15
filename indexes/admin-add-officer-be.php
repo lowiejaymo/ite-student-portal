@@ -26,7 +26,6 @@ if (isset($_POST['addOfficer'])) {
 
     // Sanitize and validate 
     $accountnumber = validate($_POST['accountnumber']);
-    $code = validate($_POST['code']);
     $position = validate($_POST['position']);
     $lastnameNotProper = validate($_POST['lastname']);
     $firstnameNotProper = validate($_POST['firstname']);

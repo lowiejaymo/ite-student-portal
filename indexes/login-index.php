@@ -1,13 +1,4 @@
 <?php
-/*
-login-index.php and User Login Process
-Authors:
-  - Lowie Jay Orillo (lowie.jaymier@gmail.com)
-  - Caryl Mae Subaldo (subaldomae29@gmail.com)
-  - Brian Angelo Bognot (c09651052069@gmail.com)
-Last Modified: June 8, 2024
-Overview: This file contains the PHP script for processing user login credentials and redirecting based on user role.
-*/
 session_start();
 
 include "db_conn.php"; // include the database script to establish a connection with the database
@@ -69,7 +60,6 @@ if (isset($_POST['login'])) {
             }
           }
         }
-        
 
         // Select account based on account number and role
         $sql = "SELECT * FROM user WHERE account_number=? AND role=?";
@@ -109,14 +99,20 @@ if (isset($_POST['login'])) {
                 $_SESSION['profile_picture'] = $row['profile_picture'];
                 $_SESSION['gender'] = $row['gender'];
                 $_SESSION['code'] = $row['code'];
+                $_SESSION['department'] = $row['department'];
 
                 // Redirect based on user role
                 if ($role == "Admin") {
                     header("Location: ../admin-dashboard.php?school_year=$defaultYear&semester=$defaultSemester");
                     exit;
                 } elseif ($role == "Officer") {
-                    header("Location: ../officer-dashboard.php?school_year=$defaultYear&semester=$defaultSemester");
-                    exit;
+                    if ($row['position'] == "Staff") {
+                        header("Location: ../officer-announcement.php?school_year=$defaultYear&semester=$defaultSemester");
+                        exit;
+                    } else {
+                        header("Location: ../officer-dashboard.php?school_year=$defaultYear&semester=$defaultSemester");
+                        exit;
+                    }
                 } elseif ($role == "Student") {
                     header("Location: ../dashboard.php?school_year=$defaultYear&semester=$defaultSemester");
                     exit;

@@ -8,8 +8,11 @@ Brief overview of the file's contents. -->
 
 <?php
 session_start();
-include "indexes/db_conn.php";
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer' && $_SESSION['department'] === 'ITE') {
+  if ($_SESSION['position'] === 'Staff') {
+    header("Location: officer-announcement.php?school_year=$defaultYear&semester=$defaultSemester");
+    exit();
+  }
   ?>
 
   <!DOCTYPE html>

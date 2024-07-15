@@ -48,7 +48,7 @@ Brief overview of the file's contents. -->
         return mysqli_real_escape_string($conn, $data);
     }
 
-    if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
+    if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin' && $_SESSION['department'] === 'ITE') {
         if (isset($_GET['payment_for_id'])) {
             $payment_for_id = intval($_GET['payment_for_id']);
 

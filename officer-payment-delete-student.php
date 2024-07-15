@@ -38,6 +38,8 @@ Brief overview of the file's contents. -->
     <!-- summernote -->
     <link rel="stylesheet" href="AdminLTE-3.2.0/plugins/summernote/summernote-bs4.min.css">
 </head>
+
+
 <?php
 session_start();
 include "indexes/db_conn.php";
@@ -51,7 +53,11 @@ function validate($data)
     return mysqli_real_escape_string($conn, $data);
 }
 
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer' && $_SESSION['department'] === 'ITE') {
+    if ($_SESSION['position'] === 'Staff') {
+        header("Location: officer-announcement.php?school_year=$defaultYear&semester=$defaultSemester");
+        exit();
+      }
     if (isset($_GET['payment_for_id'])) {
         $payment_for_id = intval($_GET['payment_for_id']);
 

@@ -51,7 +51,7 @@ function validate($data)
     return mysqli_real_escape_string($conn, $data);
 }
 
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer' && $_SESSION['department'] === 'ITE') {
     if (isset($_GET['event_id'])) {
         $event_id = intval($_GET['event_id']);
 

@@ -1,4 +1,4 @@
- <!-- officer-sidebar.php and sidebar of officer form.
+<!-- officer-sidebar.php and sidebar of officer form.
 Author:
   Lowie Jay Orillo lowie.jaymier@gmail.com, 
   Caryl Mae Subaldo subaldomae29@gmail.com, 
@@ -21,6 +21,11 @@ Brief overview of the file's contents. -->
 
   <?php
   include "indexes/db_conn.php";
+
+
+  $position = $_SESSION['position'];
+
+
   $query = "SELECT * FROM semester";
   $result = mysqli_query($conn, $query);
   $semesters = [];
@@ -50,7 +55,7 @@ Brief overview of the file's contents. -->
   }
   ?>
 
-  
+
   <!-- Sidebar -->
   <div class="sidebar">
     <!-- Sidebar user (optional) -->
@@ -77,17 +82,25 @@ Brief overview of the file's contents. -->
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
-        <li class="nav-item">
-          <a href="officer-dashboard.php?school_year=<?php echo $defaultYear; ?>&semester=<?php echo $defaultSemester; ?>" class="nav-link">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Dashboard
-            </p>
-          </a>
-        </li>
+        <?php
+        if ($position != 'Staff') {
+          ?>
+          <li class="nav-item">
+            <a href="officer-dashboard.php?school_year=<?php echo $defaultYear; ?>&semester=<?php echo $defaultSemester; ?>"
+              class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+          <?php
+        }
+        ?>
 
         <li class="nav-item ">
-          <a href="officer-announcement.php?school_year=<?php echo $defaultYear; ?>&semester=<?php echo $defaultSemester; ?>" class="nav-link">
+          <a href="officer-announcement.php?school_year=<?php echo $defaultYear; ?>&semester=<?php echo $defaultSemester; ?>"
+            class="nav-link">
             <i class="nav-icon fas fa-solid fa-bullhorn"></i>
             <p>
               Announcements
@@ -95,41 +108,54 @@ Brief overview of the file's contents. -->
           </a>
         </li>
 
-        <li class="nav-item ">
-          <a href="officer-students.php" class="nav-link">
-            <i class="nav-icon fas fa-solid fa-users"></i>
-            <p>
-              Students
-            </p>
-          </a>
-        </li>
+        <?php
+        if ($position != 'Staff') {
+          ?>
+          <li class="nav-item ">
+            <a href="officer-students.php" class="nav-link">
+              <i class="nav-icon fas fa-solid fa-users"></i>
+              <p>
+                Students
+              </p>
+            </a>
+          </li>
 
-        <li class="nav-item ">
-          <a href="officer-enrolled-students.php" class="nav-link">
-            <i class="nav-icon fas fa-user-plus"></i>
-            <p>
-              Enrolled Student
-            </p>
-          </a>
-        </li>
+          <li class="nav-item ">
+            <a href="officer-enrolled-students.php" class="nav-link">
+              <i class="nav-icon fas fa-user-plus"></i>
+              <p>
+                Enrolled Student
+              </p>
+            </a>
+          </li>
+          <?php
+        }
+        ?>
 
-        <li class="nav-item ">
-          <a href="officer-events.php" class="nav-link">
+
+
+        <li class="nav-item">
+          <a href="officer-events.php?search_input=&date=&school_year=<?php echo $defaultYear; ?>&semester=<?php echo str_replace(' ', '+', 'Third Semester'); ?>&search="
+            class="nav-link">
             <i class="nav-icon fas fa-solid fa-calendar-week"></i>
-            <p>
-              Events
-            </p>
+            <p>Events</p>
           </a>
         </li>
 
-        <li class="nav-item ">
-          <a href="officer-payment.php" class="nav-link">
-            <i class="nav-icon fas fa-money-bill-wave"></i>
-            <p>
-              Payments
-            </p>
-          </a>
-        </li>
+        <?php
+        if ($position != 'Staff') {
+          ?>
+          <li class="nav-item">
+            <a href="officer-payment.php?search_input=&date=&school_year=<?php echo $defaultYear; ?>&semester=<?php echo str_replace(' ', '+', 'Third Semester'); ?>&search=" class="nav-link">
+              <i class="nav-icon fas fa-money-bill-wave"></i>
+              <p>
+                Payments
+              </p>
+            </a>
+          </li>
+          <?php
+        }
+        ?>
 
       </ul>
     </nav>

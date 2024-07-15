@@ -56,24 +56,25 @@ if (isset($_POST['confirmMarkPaid'])) {
             $sql = "UPDATE payment SET remarks = ?, proof_pic = ?, date_paid = ?, received_by = ?, cn_number = ? WHERE payment_for_id = ? AND account_number = ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sssssss", $remarks, $payment_file, $date_paid, $received_by, $cn_number, $payment_for_id, $account_number);
-
-            // Execute the statement
-            if ($stmt->execute()) {
-                header("Location: {$_SERVER['HTTP_REFERER']}?success=Payment marked as paid successfully");
-                exit();
-            } else {
-                error_log("Database error: " . $stmt->error);
-                header("Location: {$_SERVER['HTTP_REFERER']}?failed=Payment failed to mark as paid");
-                exit();
-            }
         } else {
             error_log("File upload error: " . $_FILES['proof_pic']['error']);
             header("Location: {$_SERVER['HTTP_REFERER']}?error=Upload failed, please try again.");
             exit();
         }
     } else {
-        error_log("File upload error: " . $_FILES['proof_pic']['error']);
-        header("Location: {$_SERVER['HTTP_REFERER']}?error=No file uploaded or upload error.");
+        // Prepare the SQL statement without the proof_pic field
+        $sql = "UPDATE payment SET remarks = ?, date_paid = ?, received_by = ?, cn_number = ? WHERE payment_for_id = ? AND account_number = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssssss", $remarks, $date_paid, $received_by, $cn_number, $payment_for_id, $account_number);
+    }
+
+    // Execute the statement
+    if ($stmt->execute()) {
+        header("Location: {$_SERVER['HTTP_REFERER']}?success=Payment marked as paid successfully");
+        exit();
+    } else {
+        error_log("Database error: " . $stmt->error);
+        header("Location: {$_SERVER['HTTP_REFERER']}?failed=Payment failed to mark as paid");
         exit();
     }
 } else {

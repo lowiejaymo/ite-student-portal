@@ -9,6 +9,11 @@ Brief overview of the file's contents. -->
 <?php
 session_start();
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
+  // Check if the user's position is not 'Staff'
+  if ($_SESSION['position'] === 'Staff') {
+    header("Location: officer-announcement.php?school_year=$defaultYear&semester=$defaultSemester");
+    exit();
+  }
   ?>
 
   <!DOCTYPE html>
@@ -593,6 +598,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') {
   </body>
 
   </html>
+  
   <?php
 } else {
   header("Location: login.php");

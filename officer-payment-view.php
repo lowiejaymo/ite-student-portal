@@ -9,7 +9,7 @@ Brief overview of the file's contents. -->
 <?php
 session_start();
 include "indexes/db_conn.php";
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if the role is set and it's 'Officer'
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer' && $_SESSION['department'] === 'ITE') { // Check if the role is set and it's 'Officer'
     ?>
 
     <!DOCTYPE html>
@@ -259,13 +259,17 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                                         </td>
                                                         <td class="align-middle text-center">
                                                             <?php echo $studentrow['received_by']; ?></td>
-                                                        <td class="align-middle text-center">
+                                                            <td class="align-middle text-center">
                                                             <?php
-                                                            if (!empty($studentrow['proof_pic'])) {
-                                                                $proof_pic_path = 'proof-of-payment/' . $studentrow['proof_pic'];
-                                                                echo '<a href="' . $proof_pic_path . '" data-lightbox="proof-pic-' . $studentrow['account_number'] . '"><img src="' . $proof_pic_path . '" alt="Proof of Payment" class="img-thumbnail" style="max-width: 100px; max-height: 100px;"></a>';
-                                                            } else {
-                                                                echo 'No proof uploaded';
+                                                            $remarks = $studentrow['remarks'];
+                                                            if ($remarks == 'Paid') {
+                                                                if (!empty($studentrow['proof_pic'])) {
+                                                                    $proof_pic_path = 'proof-of-payment/' . $studentrow['proof_pic'];
+                                                                    echo '<a href="' . $proof_pic_path . '" data-lightbox="proof-pic-' . $studentrow['account_number'] . '"><img src="' . $proof_pic_path . '" alt="Proof of Payment" class="img-thumbnail" style="max-width: 100px; max-height: 100px;"></a>';
+                                                                } else {
+                                                                    echo 'No proof uploaded';
+                                                                }
+                                                            } elseif ($remarks == 'Unpaid') {
                                                             }
                                                             ?>
                                                         </td>
@@ -366,7 +370,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                     </tr>
                                     <tr>
                                         <td class="col-md-5"><strong>Proof of Payment:</strong></td>
-                                        <td class="col-md-7"><input type="file" name="file" required>
+                                        <td class="col-md-7"><input type="file" name="file" >
                                         </td>
                                     </tr>
 
@@ -433,7 +437,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                                             if (!empty($row['proof_pic'])) {
                                                 echo '<img src="proof-of-payment/' . $row['proof_pic'] . '" class="img-thumbnail" style="max-width: 100px; max-height: 100px;" alt="Proof of Payment">';
                                             } else {
-                                                echo 'No proof uploaded';
+                                                echo '';
                                             }
                                             ?>
                                         </td>
@@ -526,7 +530,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
                         </tr>
                         <tr>
                                 <td class="col-md-5"><strong>Proof of Payment:</strong></td>
-                                <td class="col-md-7"><input type="file" name="file" required>
+                                <td class="col-md-7"><input type="file" name="file" >
                                 </td>
                             </tr>
                     </table>
@@ -597,7 +601,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'Officer') { // Check if t
     </tr>
     <tr>
         <td colspan="2" style="text-align: center;">
-            ${proofPic ? '<img src="proof-of-payment/' + proofPic + '" class="img-fluid" style="max-width: 100%; height: auto;" alt="Proof of Payment">' : 'No proof uploaded'}
+            ${proofPic ? '<img src="proof-of-payment/' + proofPic + '" class="img-fluid" style="max-width: 100%; height: auto;" alt="Proof of Payment">' : ''}
         </td>
     </tr>
 

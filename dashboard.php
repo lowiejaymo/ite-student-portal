@@ -7,7 +7,7 @@ Last Modified: June 20, 2024
 Brief overview of the file's contents. -->
 <?php
 session_start();
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student') {
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Student' && $_SESSION['department'] === 'ITE') {
   ?>
 
   <!DOCTYPE html>

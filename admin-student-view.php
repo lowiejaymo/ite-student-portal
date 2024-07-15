@@ -9,7 +9,7 @@ Brief overview of the file's contents. -->
 <?php
 session_start();
 include "indexes/db_conn.php";
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin') {
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin' && $_SESSION['department'] === 'ITE') {
   ?>
 
   <!DOCTYPE html>
